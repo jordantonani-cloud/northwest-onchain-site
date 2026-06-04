@@ -715,6 +715,10 @@
     text-transform: uppercase;
   }
 
+  .pricing-grid {
+    gap: 28px;
+    align-items: stretch;
+  }
   .pricing-note {
     color: var(--fog);
     font-size: 0.86rem;

@@ -70,7 +70,7 @@ const jsonLd = [
     <div class="wrap">
       <h2 class="sr-only">Pricing and packages</h2>
       <AuditBanner tier={AUDIT} />
-      <div class="grid grid-3">
+      <div class="grid grid-3 pricing-grid">
         {TIERS.map((tier) => <PriceCard tier={tier} />)}
       </div>
       <p class="pricing-note">Start small. Each fee credits toward the next step if you continue.</p>
@@ -99,6 +99,19 @@ const jsonLd = [
           <p>
             Stablecoin rails and atomic settlement that cut multi-day cycles to minutes — modeled
             against your actual cost of capital.
+          </p>
+        </Card>
+        <Card title="Onchain credit & vaults">
+          <p>
+            Yield products, structured credit, and collateralized lending built on onchain vaults —
+            with transparent, real-time, auditable reserves. New revenue lines for issuers, new
+            visibility for users.
+          </p>
+        </Card>
+        <Card title="Derivatives & 24/7 markets">
+          <p>
+            Perpetuals and derivatives venues for round-the-clock hedging, leverage, and price
+            exposure — markets that settle continuously, without a central clearinghouse.
           </p>
         </Card>
         <Card title="Diligence & thesis validation">
