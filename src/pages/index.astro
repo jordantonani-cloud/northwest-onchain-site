@@ -6,7 +6,11 @@
  * process preview) + topo/glow motif components land in Milestones 2–3.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE } from '../consts';
+import TopoLines from '../components/TopoLines.astro';
+import NodeGlow from '../components/NodeGlow.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+import CtaBand from '../components/CtaBand.astro';
 ---
 
 <BaseLayout
@@ -14,10 +18,12 @@ import { SITE } from '../consts';
   description="Northwest Onchain bridges traditional finance and blockchain. We diagnose where onchain creates real value, assemble the right team, and deliver a working proof of concept to defined metrics, cost, and ROI."
   path="/"
 >
-  <!-- HERO (topo + node-glow motifs added in Milestone 2) -->
+  <!-- HERO -->
   <section class="hero grain">
+    <TopoLines variant="full" animate />
+    <NodeGlow />
     <div class="wrap hero-inner">
-      <span class="eyebrow">// TradFi rigor · Onchain fluency</span>
+      <Eyebrow>TradFi rigor · Onchain fluency</Eyebrow>
       <h1>The bridge from <span class="accent">boardroom</span> to blockchain.</h1>
       <p class="lead">
         Most crypto consultants can't read a P&amp;L. Most strategists have never shipped a
@@ -26,8 +32,8 @@ import { SITE } from '../consts';
         working proof of concept to defined metrics, cost, and ROI.
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary btn-arrow" href="/contact">Book a Diagnostic Sprint</a>
-        <a class="btn btn-ghost" href="/services">See how we work</a>
+        <Button href="/contact" variant="primary" arrow>Book a Diagnostic Sprint</Button>
+        <Button href="/services" variant="ghost">See how we work</Button>
       </div>
     </div>
   </section>
@@ -44,15 +50,8 @@ import { SITE } from '../consts';
   </div>
 
   <!-- CTA BAND -->
-  <section class="section cta-band grain">
-    <div class="wrap">
-      <span class="eyebrow center">// {SITE.tagline}</span>
-      <h2>Turn the board's question into a measured proof of concept.</h2>
-      <p>
-        Start with a Diagnostic Sprint. Fixed fee, two to three weeks, and a clear answer —
-        including an honest "don't" when that's the right call.
-      </p>
-      <a class="btn btn-primary btn-arrow" href="/contact">Book the Meet</a>
-    </div>
-  </section>
+  <CtaBand
+    heading="Turn the board's question into a measured proof of concept."
+    text="Start with a Diagnostic Sprint. Fixed fee, two to three weeks, and a clear answer — including an honest &quot;don't&quot; when that's the right call."
+  />
 </BaseLayout>

@@ -72,7 +72,14 @@
   }
 }
 
-@layer components {
+/* ============================================================
+   Design-system component classes.
+   Deliberately NOT wrapped in a Tailwind `@layer` — classes inside
+   @layer components are tree-shaken unless their literal string appears
+   in scanned source, which silently drops dynamically-built names like
+   `btn-${variant}`. Plain top-level CSS is always preserved.
+   ============================================================ */
+
   /* ---------- accessibility helpers ---------- */
   .skip-link {
     position: absolute;
@@ -749,7 +756,6 @@
     z-index: 2;
     margin-top: 20px;
   }
-}
 
 /* ---------- responsive ---------- */
 @media (max-width: 880px) {

@@ -1,0 +1,16 @@
+---
+/**
+ * Eyebrow — the mono kicker label (e.g. "// 01 SURVEY"). The `//` marker is
+ * rendered by default to match the brand pattern; pass marker={false} to omit.
+ */
+interface Props {
+  center?: boolean;
+  marker?: boolean;
+  class?: string;
+}
+const { center = false, marker = true, class: className = '' } = Astro.props;
+---
+
+<span class:list={['eyebrow', { center }, className]}>
+  {marker && <span aria-hidden="true">// </span>}<slot />
+</span>

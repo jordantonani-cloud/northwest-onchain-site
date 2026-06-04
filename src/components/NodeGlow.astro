@@ -1,0 +1,28 @@
+---
+/**
+ * NodeGlow — the hero accent: a small peak rendered as a connected node-graph
+ * with a soft teal glow. Decorative (aria-hidden). Node fills use brand tokens
+ * via CSS vars (no raw hex in markup).
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<svg
+  class:list={['hero-glow', className]}
+  viewBox="0 0 400 400"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g fill="none" stroke="var(--onchain)" stroke-width="1" opacity=".55">
+    <path d="M70 320 L150 150 L210 250 L260 170 L340 320"></path>
+    <path d="M150 150 L260 170 M210 250 L260 170 M150 150 L210 250"></path>
+  </g>
+  <circle cx="150" cy="150" r="5" fill="var(--onchain)"></circle>
+  <circle cx="260" cy="170" r="4" fill="var(--onchain)"></circle>
+  <circle cx="210" cy="250" r="3.5" fill="var(--onchain)"></circle>
+  <circle cx="70" cy="320" r="3.5" fill="var(--copper)"></circle>
+  <circle cx="340" cy="320" r="3.5" fill="var(--copper)"></circle>
+</svg>

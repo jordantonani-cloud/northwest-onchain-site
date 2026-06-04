@@ -1,0 +1,33 @@
+---
+/**
+ * Card — granite card with thin border + teal hover. Optional mono `tag` and
+ * heading; body via default slot. Renders as <article> by default; pass
+ * `as="div"` when nesting inside another article.
+ */
+interface Props {
+  tag?: string;
+  title?: string;
+  /** Heading level for the title (default h3). */
+  headingLevel?: 2 | 3 | 4;
+  as?: 'article' | 'div';
+  featured?: boolean;
+  class?: string;
+  id?: string;
+}
+const {
+  tag,
+  title,
+  headingLevel = 3,
+  as: Tag = 'article',
+  featured = false,
+  class: className = '',
+  id,
+}: Props = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3' | 'h4';
+---
+
+<Tag class:list={['card', { featured }, className]} id={id}>
+  {tag && <span class="tag">{tag}</span>}
+  {title && <Heading>{title}</Heading>}
+  <slot />
+</Tag>

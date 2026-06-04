@@ -1,0 +1,66 @@
+---
+/**
+ * TopoLines — the "Topographic Mesh" contour backdrop.
+ * PNW topographic lines that double as a blockchain node-network. Decorative
+ * (aria-hidden). One glow line carries the teal accent.
+ *
+ * `variant`: "full" (5 contours — home hero) | "compact" (3 contours — interior heroes).
+ * `animate`: opt-in slow horizontal drift on the glow line. Disabled automatically
+ *   under prefers-reduced-motion (global.css neutralizes all animation).
+ */
+interface Props {
+  variant?: 'full' | 'compact';
+  animate?: boolean;
+  class?: string;
+}
+const { variant = 'compact', animate = false, class: className = '' } = Astro.props;
+---
+
+<svg
+  class:list={['topo', { 'topo--animate': animate }, className]}
+  viewBox="0 0 1200 600"
+  preserveAspectRatio="xMidYMid slice"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    variant === 'full' && (
+      <>
+        <path d="M-50 460 C200 400 380 520 600 440 S1000 360 1260 430" />
+        <path d="M-50 510 C220 450 400 560 620 490 S1010 410 1260 480" />
+        <path class="glow" d="M-50 410 C180 350 360 470 600 390 S1020 300 1260 380" />
+        <path d="M-50 360 C200 300 380 420 600 340 S1000 250 1260 330" />
+        <path d="M-50 300 C220 250 400 360 620 290 S1010 210 1260 280" />
+      </>
+    )
+  }
+  {
+    variant === 'compact' && (
+      <>
+        <path d="M-50 460 C200 400 380 520 600 440 S1000 360 1260 430" />
+        <path class="glow" d="M-50 410 C180 350 360 470 600 390 S1020 300 1260 380" />
+        <path d="M-50 360 C200 300 380 420 600 340 S1000 250 1260 330" />
+      </>
+    )
+  }
+</svg>
+
+<style>
+  /* Subtle living-map drift; only the glow contour moves, and only when opted in. */
+  .topo--animate .glow {
+    animation: topo-drift 18s ease-in-out infinite alternate;
+  }
+  @keyframes topo-drift {
+    from {
+      transform: translateX(-12px);
+    }
+    to {
+      transform: translateX(12px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .topo--animate .glow {
+      animation: none;
+    }
+  }
+</style>
