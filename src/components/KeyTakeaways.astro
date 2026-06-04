@@ -1,0 +1,30 @@
+---
+/**
+ * KeyTakeaways — the answer-first TL;DR block (AEO). Leads a page or article
+ * with a 2–3 sentence direct answer plus scannable points, so answer engines
+ * can lift a self-contained summary. Rendered as a labeled <aside>.
+ */
+interface Props {
+  /** The direct 2–3 sentence answer. */
+  lead: string;
+  /** Optional scannable supporting points. */
+  points?: string[];
+  label?: string;
+  class?: string;
+}
+const { lead, points = [], label = 'In short', class: className = '' }: Props = Astro.props;
+---
+
+<aside class:list={['takeaways', className]} aria-label={label}>
+  <span class="takeaways-label">// {label}</span>
+  <p class="takeaways-lead">{lead}</p>
+  {
+    points.length > 0 && (
+      <ul>
+        {points.map((p) => (
+          <li>{p}</li>
+        ))}
+      </ul>
+    )
+  }
+</aside>

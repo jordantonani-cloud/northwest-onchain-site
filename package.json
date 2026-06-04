@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "gen:assets": "node scripts/gen-assets.mjs",
+    "prebuild": "node scripts/gen-assets.mjs",
     "build": "astro check && astro build",
     "preview": "astro preview",
     "check": "astro check",

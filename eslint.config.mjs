@@ -23,5 +23,18 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/triple-slash-reference': 'off',
     },
+  },
+  {
+    // Node scripts/config files: provide Node globals so no-undef passes.
+    files: ['scripts/**/*.mjs', '*.config.mjs', '*.config.ts'],
+    languageOptions: {
+      globals: {
+        Buffer: 'readonly',
+        console: 'readonly',
+        process: 'readonly',
+        URL: 'readonly',
+        __dirname: 'readonly',
+      },
+    },
   }
 );

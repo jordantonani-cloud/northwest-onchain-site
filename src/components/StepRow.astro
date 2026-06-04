@@ -1,0 +1,19 @@
+---
+/**
+ * StepRow — one stage of the expedition (mono stage label + heading + copy).
+ * `label` is the full mono kicker, e.g. "// 01 SURVEY".
+ */
+interface Props {
+  label: string;
+  title: string;
+}
+const { label, title }: Props = Astro.props;
+---
+
+<div class="step">
+  <span class="num">{label}</span>
+  <div>
+    <h3>{title}</h3>
+    <p><slot /></p>
+  </div>
+</div>
