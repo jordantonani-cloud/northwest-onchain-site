@@ -1,8 +1,9 @@
 ---
 /**
- * Home — full page. Ports the approved prototype copy and adds an answer-first
- * TL;DR block (AEO) + OfferCatalog JSON-LD. North-star action: book the Meet
- * or buy the $1,500 Opportunity Audit.
+ * Home. Order per WEBSITE-AUDIT §8: hero → problem → what we do (4) → proof →
+ * why (4, 2×2) → process → founder teaser → what-happens-next → final CTA.
+ * Dark base throughout with subtle elevation steps (no light-band flash).
+ * Hero subhead + FAQ are final copy (homepage-and-founder-copy.md), verbatim.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TopoLines from '../components/TopoLines.astro';
@@ -10,19 +11,31 @@ import NodeGlow from '../components/NodeGlow.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import Button from '../components/Button.astro';
 import Card from '../components/Card.astro';
-import WhyItem from '../components/WhyItem.astro';
 import StepRow from '../components/StepRow.astro';
-import KeyTakeaways from '../components/KeyTakeaways.astro';
+import ProofBand from '../components/ProofBand.astro';
+import FounderCard from '../components/FounderCard.astro';
+import HomeFAQ from '../components/HomeFAQ.astro';
+import WhatHappensNext from '../components/WhatHappensNext.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { offerCatalogNode } from '../lib/jsonld';
+import { offerCatalogNode, faqNode } from '../lib/jsonld';
 import { offerInputs } from '../lib/services';
+import { HOME_FAQ } from '../lib/home-faq';
+import { CTA } from '../consts';
 
-const jsonLd = [offerCatalogNode(offerInputs())];
+// Four services, surfaced with price up front (audit §8).
+const SERVICES = [
+  { id: 'audit', name: 'Opportunity Audit', price: '$1,500 · 3–5 days', blurb: 'A fast, flat-fee read on whether there is a real onchain opportunity — and what to do, or not do, about it.' },
+  { id: 'sprint', name: 'Diagnostic Sprint', price: '$4k–$7.5k · 1–2 weeks', blurb: 'The opportunity, defined success metrics, a costed roadmap, and the right team — fixed fee.' },
+  { id: 'delivery', name: 'PoC / Project Delivery', price: 'Build + 15–20%', blurb: 'We assemble and manage the team, then deliver a working proof of concept to the agreed metrics.' },
+  { id: 'advisor', name: 'Fractional Advisor', price: '$3k–$8k/mo', blurb: 'A standing strategic seat — vendor vetting, roadmap guidance, and board-ready financial framing.' },
+];
+
+const jsonLd = [offerCatalogNode(offerInputs()), faqNode(HOME_FAQ)];
 ---
 
 <BaseLayout
-  title="Northwest Onchain | Blockchain Strategy & Proof-of-Concept Consulting"
-  description="Northwest Onchain bridges traditional finance and blockchain. We diagnose where onchain creates real value, assemble the right team, and deliver a working proof of concept to defined metrics, cost, and ROI."
+  title="Blockchain Strategy & PoC Consulting | Northwest Onchain"
+  description="Independent blockchain consulting for banks, investors, and operators. Northwest Onchain finds where onchain creates value and delivers a working proof of concept. Start with a $1,500 Opportunity Audit."
   path="/"
   image="/og/home.png"
   jsonLd={jsonLd}
@@ -32,64 +45,37 @@ const jsonLd = [offerCatalogNode(offerInputs())];
     <TopoLines variant="full" animate />
     <NodeGlow />
     <div class="wrap hero-inner">
-      <Eyebrow>TradFi rigor · Onchain fluency</Eyebrow>
+      <Eyebrow>Blockchain strategy &amp; delivery</Eyebrow>
       <h1>The bridge from <span class="accent">boardroom</span> to blockchain.</h1>
       <p class="lead">
-        Most crypto consultants can't read a P&amp;L. Most strategists have never shipped a
-        contract. Northwest Onchain is the rare both-sides partner — we diagnose where onchain
-        actually creates value, assemble the right builders from a vetted network, and deliver a
-        working proof of concept to defined metrics, cost, and ROI.
+        Northwest Onchain is a blockchain strategy and delivery consultancy. We help banks,
+        investors, and operators find where onchain creates real value — then deliver a working
+        proof of concept against defined metrics, cost, and ROI.
       </p>
       <div class="hero-actions">
-        <Button href="/contact" variant="primary" arrow>Book a Diagnostic Sprint</Button>
-        <Button href="/services" variant="ghost">See how we work</Button>
+        <Button href={CTA.auditHref} variant="primary" arrow>{CTA.auditLabel}</Button>
+        <Button href="/services" variant="ghost">{CTA.secondaryLabel}</Button>
       </div>
+      <p class="hero-cta-subtext">{CTA.auditSubtext}</p>
     </div>
   </section>
 
-  <!-- TRUST STRIP -->
-  <div class="strip">
-    <div class="wrap">
-      <span>Onchain, <b>on purpose</b></span>
-      <span>Metrics-first, <b>always</b></span>
-      <span>Vendor-<b>neutral</b></span>
-      <span>Network, <b>not headcount</b></span>
-      <span>Pacific <b>Northwest</b></span>
-    </div>
-  </div>
-
-  <!-- ANSWER-FIRST TL;DR (AEO) -->
-  <section class="section" style="padding-bottom:0">
-    <div class="wrap">
-      <KeyTakeaways
-        lead="Northwest Onchain is a boutique blockchain strategy and execution consultancy that bridges traditional finance and onchain technology. We diagnose where blockchain creates real value, assemble the right builders from a vetted network, and deliver a working proof of concept against defined metrics, cost, and ROI."
-        points={[
-          'Four ways to engage: a $1,500 Opportunity Audit, a $4k–$7.5k Diagnostic Sprint, managed PoC delivery (build + 15–20%), and a $3k–$8k/mo fractional advisor.',
-          'Vendor-neutral and chain-agnostic — including telling you when the answer is "don\'t."',
-          'Built for enterprises and TradFi, investors, and founders new to crypto.',
-          'Pacific Northwest–grounded: answers in days, not quarters, at a fraction of big-firm cost.',
-        ]}
-      />
-    </div>
-  </section>
-
-  <!-- PROBLEM / POSITIONING -->
+  <!-- PROBLEM -->
   <section class="section">
     <div class="wrap">
       <div class="section-head">
         <Eyebrow>The problem</Eyebrow>
         <h2>A board mandate to "do something with crypto" — and a market full of hype.</h2>
         <p class="lead">
-          You can't tell a real blockchain opportunity from a pitch deck, and you don't want to
-          hire a full Web3 team to find out. Every vendor swears their chain is the answer. You need
-          judgment you can trust and a network you don't have.
+          You can't tell a real opportunity from a pitch deck, and you don't want to hire a full
+          Web3 team to find out. You need independent judgment — and a network you don't have.
         </p>
       </div>
       <div class="grid grid-3">
         <Card tag="Enterprise & TradFi" title="From mandate to proof">
           <p>
-            Banks, asset managers, and operators turning a board question into a measured PoC —
-            tokenization, settlement, payments, RWA — without betting on one agency.
+            Banks, asset managers, and operators turning a board question into a measured proof of
+            concept — tokenization, settlement, payments, RWA — without betting on one agency.
           </p>
         </Card>
         <Card tag="Investors" title="Diligence, both sides">
@@ -108,98 +94,101 @@ const jsonLd = [offerCatalogNode(offerInputs())];
     </div>
   </section>
 
-  <!-- WHY US -->
-  <section class="section alt">
-    <div class="wrap">
-      <div class="section-head">
-        <Eyebrow>Why Northwest Onchain</Eyebrow>
-        <h2>
-          The market has degens who can't model, and strategists who've never shipped. We're the
-          third thing.
-        </h2>
-      </div>
-      <div class="why">
-        <WhyItem num="01" title="Both sides of the ledger">
-          Years operating in crypto, paired with real financial-modeling discipline. We can sit in a
-          CFO's office and a core-dev channel the same afternoon.
-        </WhyItem>
-        <WhyItem num="02" title="Network, not headcount">
-          A vetted bench of builders on demand — instead of a full hire or a bet on one vendor. You
-          get the right team for <em>this</em> problem.
-        </WhyItem>
-        <WhyItem num="03" title="Metrics-first">
-          Every engagement defines success criteria, cost, and ROI before a line of code is written.
-          No open-ended "exploration."
-        </WhyItem>
-        <WhyItem num="04" title="Vendor-neutral">
-          We don't sell you a chain, a token, or our own product. We find what's right — including
-          telling you when the answer is "don't."
-        </WhyItem>
-        <WhyItem num="05" title="PNW-grounded">
-          Long-term, relationship-driven, low-hype. The opposite of the move-fast-and-rug culture the
-          space is known for.
-        </WhyItem>
-        <WhyItem num="06" title="Lean by design">
-          A lean, modern practice means answers in days, not quarters — big-firm rigor at a fraction
-          of big-firm cost.
-        </WhyItem>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES PREVIEW -->
-  <section class="section">
+  <!-- WHAT WE DO (4 services) -->
+  <section class="section section--elevated">
     <div class="wrap">
       <div class="section-head">
         <Eyebrow>What we do</Eyebrow>
-        <h2>Three ways to work together.</h2>
+        <h2>Four ways to work together.</h2>
         <p class="lead">
-          A paid front door that de-risks the decision, leading into delivery and an ongoing seat at
-          the table.
+          Start with a low-cost diagnosis, move to delivery only when the numbers justify it, and
+          keep an advisor on call if you want one. Each fee credits toward the next step if you
+          continue.
         </p>
       </div>
-      <div class="grid grid-3">
-        <Card tag="00–01 · Front door" title="Audit & Diagnostic Sprint">
-          <p>
-            Start with a $1,500 Opportunity Audit in days — or a fixed-fee 1–2 week Diagnostic
-            Sprint. We find the real opportunity, kill the bad ideas, and hand you metrics, a costed
-            roadmap, and the right team.
-          </p>
-        </Card>
-        <Card tag="02 · Delivery" title="PoC / Project Delivery">
-          <p>
-            We assemble and manage the right builders from the network, run delivery to metrics,
-            cost, and timeline — and hand you a working proof of concept.
-          </p>
-        </Card>
-        <Card tag="03 · Ongoing" title="Fractional Onchain Advisor">
-          <p>
-            A standing strategic seat: stay ahead of the space, vet vendors and deals, guide the
-            roadmap, and bring board-ready financial framing.
-          </p>
-        </Card>
+      <div class="grid grid-4 service-grid">
+        {
+          SERVICES.map((s) => (
+            <article class="card service-card">
+              <span class="tag">{s.price}</span>
+              <h3>
+                <a href={`/services#${s.id}`}>{s.name}</a>
+              </h3>
+              <p>{s.blurb}</p>
+            </article>
+          ))
+        }
       </div>
-      <p style="margin-top:34px">
+      <p class="section-foot">
         <Button href="/services" variant="ghost" arrow>Services &amp; pricing</Button>
       </p>
     </div>
   </section>
 
-  <!-- PROCESS PREVIEW -->
-  <section class="section alt">
+  <!-- PROOF BAND -->
+  <ProofBand eyebrow="Track record" />
+
+  <!-- WHY (4, 2×2) -->
+  <section class="section section--elevated">
+    <div class="wrap">
+      <div class="section-head">
+        <Eyebrow>Why Northwest Onchain</Eyebrow>
+        <h2>
+          Crypto specialists rarely understand the business case. Strategy firms rarely understand
+          the technology. We do both.
+        </h2>
+      </div>
+      <div class="grid grid-2 why-grid">
+        <article class="card why-card">
+          <span class="why-card__num" aria-hidden="true">01</span>
+          <h3>Both sides of the ledger</h3>
+          <p>
+            Years operating in crypto, paired with real financial-modeling discipline. We can sit in
+            a CFO's office and a core-dev channel the same afternoon.
+          </p>
+        </article>
+        <article class="card why-card">
+          <span class="why-card__num" aria-hidden="true">02</span>
+          <h3>Network, not headcount</h3>
+          <p>
+            A vetted bench of builders on demand — the right team for your specific problem, instead
+            of a full hire or a bet on one vendor.
+          </p>
+        </article>
+        <article class="card why-card">
+          <span class="why-card__num" aria-hidden="true">03</span>
+          <h3>Metrics-first</h3>
+          <p>
+            Success criteria, cost, and ROI are defined before a line of code is written. No
+            open-ended exploration, and big-firm rigor delivered in days instead of quarters.
+          </p>
+        </article>
+        <article class="card why-card">
+          <span class="why-card__num" aria-hidden="true">04</span>
+          <h3>Vendor-neutral</h3>
+          <p>
+            We don't sell a chain, a token, or our own product — so the advice is independent,
+            relationship-driven, and willing to say "don't" when that's the honest answer.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section">
     <div class="wrap">
       <div class="section-head">
         <Eyebrow>The expedition</Eyebrow>
-        <h2>A simple, honest process. Survey, chart, assemble, summit.</h2>
+        <h2>A simple, honest process: survey, chart, assemble, summit.</h2>
       </div>
       <div class="steps">
         <StepRow label="// 01 SURVEY" title="Meet & diagnose">
-          We learn the business, the ambition, and the constraints — and map the terrain honestly,
-          including where blockchain is the wrong tool.
+          We learn the business and map the terrain honestly — including where blockchain is the
+          wrong tool.
         </StepRow>
         <StepRow label="// 02 CHART" title="Find the path">
-          We define the opportunity, the success metrics, the costed roadmap, and the right team. You
-          get a route, not a sales pitch.
+          We define the opportunity, the success metrics, the costed roadmap, and the right team.
         </StepRow>
         <StepRow label="// 03 ASSEMBLE" title="Build the crew">
           We stand up the right builders from the network and align everyone on metrics, cost, and
@@ -209,15 +198,40 @@ const jsonLd = [offerCatalogNode(offerInputs())];
           We run delivery to the defined metrics, prove the value, and set up what comes next.
         </StepRow>
       </div>
-      <p style="margin-top:34px">
+      <p class="section-foot">
         <Button href="/process" variant="ghost" arrow>How we work</Button>
       </p>
     </div>
   </section>
 
-  <!-- CTA BAND -->
+  <!-- FOUNDER TEASER -->
+  <section class="section section--elevated">
+    <div class="wrap">
+      <div class="section-head">
+        <Eyebrow>Who's behind it</Eyebrow>
+        <h2>Built by an operator who has worked both sides.</h2>
+      </div>
+      <FounderCard variant="teaser" />
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <HomeFAQ />
+
+  <!-- WHAT HAPPENS NEXT + FINAL CTA -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head center">
+        <Eyebrow>What happens next</Eyebrow>
+        <h2>From first call to a costed path.</h2>
+      </div>
+      <WhatHappensNext />
+    </div>
+  </section>
+
   <CtaBand
-    heading="Turn the board's question into a measured proof of concept."
-    text="Start with a Diagnostic Sprint. Fixed fee, two to three weeks, and a clear answer — including an honest &quot;don't&quot; when that's the right call."
+    eyebrow="Start here"
+    heading="Find out if there's a real onchain opportunity."
+    text="Start with a $1,500 Opportunity Audit — a fast, honest read on whether onchain is worth it for you, and what to do next."
   />
 </BaseLayout>

@@ -40,7 +40,7 @@ Note: enterprise PoC build budgets typically run $15k–$75k+; each fee credits 
 - [Process](${base}/process): the four-stage expedition — Survey, Chart, Assemble, Summit.
 - [About](${base}/about): the both-sides bridge and what the firm believes.
 - [Insights](${base}/insights): articles on strategy, tokenization, and crypto diligence.
-- [Contact](${base}/contact): book the Meet or send a note.
+- [Contact](${base}/contact): get the $1,500 Opportunity Audit, book a free call, or send a note.
 
 ## Insights
 ${articles}

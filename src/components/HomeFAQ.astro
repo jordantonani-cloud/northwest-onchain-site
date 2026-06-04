@@ -1,0 +1,19 @@
+---
+/**
+ * HomeFAQ — visible homepage FAQ section. The items come from lib/home-faq.ts,
+ * which also feeds the FAQPage JSON-LD on the homepage (visible text == schema).
+ */
+import Eyebrow from './Eyebrow.astro';
+import Faq from './Faq.astro';
+import { HOME_FAQ } from '../lib/home-faq';
+---
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <Eyebrow>Frequently asked questions</Eyebrow>
+      <h2>Straight answers to the questions buyers ask.</h2>
+    </div>
+    <Faq items={HOME_FAQ} />
+  </div>
+</section>

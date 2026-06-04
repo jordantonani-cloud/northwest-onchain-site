@@ -62,10 +62,12 @@ No code changes are needed beyond `consts.ts` for any of these.
 │  ├─ content.config.ts    Insights collection schema (zod)
 │  ├─ content/insights/    *.mdx articles
 │  ├─ layouts/BaseLayout.astro
-│  ├─ components/          Seo, Header, Footer, Button, Card, PriceCard,
-│  │                       AuditBanner, Faq, TopoLines, PeakMark, NodeGlow,
+│  ├─ components/          Seo, Header, Footer, Logo, Button, Card, PriceCard,
+│  │                       AuditBanner, Faq, HomeFAQ, FounderCard, ProofBand,
+│  │                       WhatHappensNext, TopoLines, PeakMark, NodeGlow,
 │  │                       KeyTakeaways, Prose, BookingEmbed, ContactForm, …
-│  ├─ lib/                 jsonld.ts (schema builders), services.ts, insights.ts
+│  ├─ lib/                 jsonld.ts (schema builders), services.ts, insights.ts,
+│  │                       home-faq.ts
 │  ├─ pages/               index, services, process, about, contact, privacy,
 │  │                       404, insights/[...slug], rss.xml, llms(.full).txt
 │  └─ styles/global.css    design system (brand tokens + ported component CSS)

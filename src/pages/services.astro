@@ -6,12 +6,12 @@
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import KeyTakeaways from '../components/KeyTakeaways.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import Card from '../components/Card.astro';
 import AuditBanner from '../components/AuditBanner.astro';
 import PriceCard from '../components/PriceCard.astro';
 import Faq, { type FaqItem } from '../components/Faq.astro';
+import ProofBand from '../components/ProofBand.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { AUDIT, TIERS, offerInputs } from '../lib/services';
 import { offerCatalogNode, faqNode } from '../lib/jsonld';
@@ -60,42 +60,20 @@ const jsonLd = [
 >
   <PageHero
     eyebrow="Services & pricing"
-    lead="A funnel, not a menu. Each engagement de-risks the next — and every one is priced against defined outcomes, never open-ended hours."
+    lead="Each engagement is priced against defined outcomes, never open-ended hours — and each fee credits toward the next step if you continue."
   >
-    Paid front door. Managed delivery. A standing seat.
+    Four ways to work with us — each one de-risks the next.
   </PageHero>
-
-  <!-- ANSWER-FIRST TL;DR (AEO) -->
-  <section class="section" style="padding-bottom:0">
-    <div class="wrap">
-      <KeyTakeaways
-        label="What it costs"
-        lead="Northwest Onchain prices against outcomes across four tiers. Start with a flat $1,500 Opportunity Audit (3–5 days), step up to a $4,000–$7,500 fixed-fee Diagnostic Sprint (1–2 weeks), then managed PoC delivery at a 15–20% fee on the build (or a fixed $8k–$25k), and an ongoing Fractional Advisor at $3,000–$8,000/month."
-        points={[
-          'Enterprise PoC build budgets typically run $15k–$75k+; Northwest Onchain earns the delivery-management fee, not the build.',
-          'Each fee credits toward the next step if you proceed — the Audit credits the Sprint; the Sprint credits delivery.',
-          'A fraction of big-firm cost, delivered in days and weeks rather than quarters, because we run lean.',
-        ]}
-      />
-    </div>
-  </section>
 
   <!-- PRICING -->
   <section class="section">
     <div class="wrap">
-      <div class="section-head">
-        <Eyebrow>Pricing</Eyebrow>
-        <h2>Four ways to engage.</h2>
-      </div>
+      <h2 class="sr-only">Pricing and packages</h2>
       <AuditBanner tier={AUDIT} />
       <div class="grid grid-3">
         {TIERS.map((tier) => <PriceCard tier={tier} />)}
       </div>
-      <p class="pricing-note">
-        A fraction of big-firm cost, delivered in days and weeks rather than quarters — because we
-        run lean. Ranges reflect scope; enterprise PoC builds typically run $15k–$75k+, and each fee
-        credits toward the next step if you proceed.
-      </p>
+      <p class="pricing-note">Start small. Each fee credits toward the next step if you continue.</p>
     </div>
   </section>
 
@@ -106,8 +84,8 @@ const jsonLd = [
         <Eyebrow>Where we create value</Eyebrow>
         <h2>The opportunities we help you size — and the ones we'll talk you out of.</h2>
         <p class="lead">
-          We are vendor-neutral and chain-agnostic. The goal is business outcomes: lower cost,
-          faster settlement, new revenue, new markets — not technology for its own sake.
+          We stay independent and chain-neutral. The goal is business outcomes: lower cost, faster
+          settlement, new revenue, new markets — not technology for its own sake.
         </p>
       </div>
       <div class="grid grid-3">
@@ -162,9 +140,11 @@ const jsonLd = [
     </div>
   </section>
 
+  <ProofBand eyebrow="Track record" />
+
   <CtaBand
-    heading="Start with the Meet."
-    text="One call to understand the ambition. Then a fixed-fee sprint and a clear, costed path forward."
-    ctaLabel="Book a Diagnostic Sprint"
+    eyebrow="Start here"
+    heading="Start with the Opportunity Audit."
+    text="One flat fee, a few days, and a clear read on whether onchain is worth it for you — credited toward whatever comes next."
   />
 </BaseLayout>

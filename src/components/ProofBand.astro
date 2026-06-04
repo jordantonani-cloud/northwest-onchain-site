@@ -1,0 +1,60 @@
+---
+/**
+ * ProofBand — the founder's career track record (WEBSITE-AUDIT §9, copy §2.5).
+ * HONEST FRAMING: these are Jordan's results, partners, and integrations — not
+ * Northwest Onchain client engagements. Heading and qualifier say so explicitly;
+ * never "our clients" or "trusted by." Renders whichever of stats/logos/press
+ * are provided. Place before the final CTA on Home, Services, Contact.
+ */
+import Eyebrow from './Eyebrow.astro';
+import { PROOF } from '../consts';
+
+interface Props {
+  eyebrow?: string;
+  class?: string;
+}
+const { eyebrow = 'Track record', class: className = '' }: Props = Astro.props;
+---
+
+<section class:list={['section', 'proof', className]} aria-labelledby="proof-heading">
+  <div class="wrap">
+    <Eyebrow>{eyebrow}</Eyebrow>
+    <h2 id="proof-heading" class="proof-heading">{PROOF.heading}</h2>
+    <p class="proof-note">{PROOF.note}</p>
+
+    {
+      PROOF.stats.length > 0 && (
+        <dl class="proof-stats">
+          {PROOF.stats.map((s) => (
+            <div class="proof-stat">
+              <dt class="proof-stat__value">{s.value}</dt>
+              <dd class="proof-stat__label">{s.label}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+
+    {
+      PROOF.logos.length > 0 && (
+        <div class="proof-logos">
+          <p class="proof-logos__label">{PROOF.logosLabel}</p>
+          <ul class="proof-logos__row">
+            {PROOF.logos.map((name) => (
+              <li>{name}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+
+    {
+      PROOF.press.length > 0 && (
+        <p class="proof-press">
+          <span class="proof-press__label">{PROOF.pressLabel}:</span>
+          {PROOF.press.join(' · ')}
+        </p>
+      )
+    }
+  </div>
+</section>

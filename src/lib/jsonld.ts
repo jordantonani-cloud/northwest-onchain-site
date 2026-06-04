@@ -157,6 +157,8 @@ export interface PersonInput {
   sameAs?: string[];
   alumniOf?: string[];
   image?: string;
+  /** City/region, e.g. "Seattle, WA". */
+  location?: string;
 }
 
 /** Person node for the founder — the E-E-A-T anchor, founder of the Organization. */
@@ -169,6 +171,7 @@ export function personNode(p: PersonInput): SchemaNode {
     description: p.description,
     knowsAbout: p.knowsAbout,
     worksFor: { '@id': SCHEMA_IDS.org },
+    ...(p.location ? { homeLocation: { '@type': 'Place', name: p.location } } : {}),
     ...(p.sameAs && p.sameAs.length ? { sameAs: p.sameAs } : {}),
     ...(p.alumniOf && p.alumniOf.length
       ? { alumniOf: p.alumniOf.map((name) => ({ '@type': 'Organization', name })) }

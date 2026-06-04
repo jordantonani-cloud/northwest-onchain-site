@@ -52,7 +52,7 @@ const activeClusters = CLUSTER_LIST.filter((c) =>
 
       {
         articles.length === 0 ? (
-          <p class="lead">New articles are on the way. In the meantime, <a href="/contact" style="color:var(--onchain)">book the Meet</a>.</p>
+          <p class="lead">New articles are on the way. In the meantime, <a href="/contact" style="color:var(--signal-bright)">get in touch</a>.</p>
         ) : (
           <div class="grid grid-3" id="article-grid">
             {articles.map((entry) => (
@@ -65,9 +65,9 @@ const activeClusters = CLUSTER_LIST.filter((c) =>
   </section>
 
   <CtaBand
+    eyebrow="Start here"
     heading="Have a question this didn't answer?"
-    text="Start with a $1,500 Opportunity Audit, or book the Meet for a 30-minute read on your situation."
-    ctaLabel="Book the Meet"
+    text="Start with a $1,500 Opportunity Audit — a fast, honest read on your situation."
   />
 </BaseLayout>
 

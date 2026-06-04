@@ -53,7 +53,7 @@ Northwest Onchain is a boutique blockchain strategy and execution consultancy th
 
 - Serves: enterprises and TradFi, investors (VC / family office), and founders new to crypto.
 - Region: ${SITE.region}. Contact: ${SITE.email}.
-- Vendor-neutral and chain-agnostic. Primary actions: book the Meet, or buy the $1,500 Opportunity Audit.
+- Vendor-neutral and chain-agnostic. Primary action: buy the $1,500 Opportunity Audit (or book a free 30-minute call).
 
 ## The six differentiators
 ${DIFFERENTIATORS.map((d) => `- ${d}`).join('\n')}
