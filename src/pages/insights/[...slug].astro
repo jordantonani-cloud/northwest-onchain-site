@@ -1,0 +1,156 @@
+---
+/**
+ * Article template. Renders one Insight: BlogPosting + BreadcrumbList (+ FAQPage
+ * when present) JSON-LD, answer-first TL;DR, prose body, FAQ, author byline
+ * (→ the About Person), prev/next, and a conversion CTA band. Drafts get no page.
+ */
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Eyebrow from '../../components/Eyebrow.astro';
+import KeyTakeaways from '../../components/KeyTakeaways.astro';
+import Prose from '../../components/Prose.astro';
+import Faq from '../../components/Faq.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { articleNode, breadcrumbNode, faqNode, type SchemaNode } from '../../lib/jsonld';
+import {
+  publishedOnly,
+  clusterLabel,
+  formatDate,
+  isoDate,
+  readingTime,
+} from '../../lib/insights';
+import { SITE } from '../../consts';
+
+export const getStaticPaths = (async () => {
+  const published = publishedOnly(await getCollection('insights'));
+  return published.map((entry, i) => ({
+    params: { slug: entry.id },
+    props: {
+      entry,
+      prev: published[i + 1], // older
+      next: published[i - 1], // newer
+    },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry, prev, next } = Astro.props;
+const { Content } = await render(entry);
+const { title, description, pubDate, updatedDate, cluster, tags, faqs, keyTakeaway, keyPoints, hero, heroAlt } =
+  entry.data;
+
+const path = `/insights/${entry.id}`;
+const mins = readingTime(entry.body);
+const image = hero ?? '/og/default.png';
+
+const jsonLd: SchemaNode[] = [
+  articleNode({
+    headline: title,
+    description,
+    url: path,
+    datePublished: pubDate.toISOString(),
+    dateModified: (updatedDate ?? pubDate).toISOString(),
+    image,
+    keywords: tags,
+  }),
+];
+if (faqs.length > 0) {
+  jsonLd.push(faqNode(faqs));
+}
+// Explicit breadcrumb override (Seo prepends Home): Home > Insights > Article.
+const breadcrumbs = [
+  { name: 'Insights', path: '/insights' },
+  { name: title, path },
+];
+jsonLd.push(
+  breadcrumbNode([{ name: 'Home', path: '/' }, ...breadcrumbs])
+);
+---
+
+<BaseLayout
+  title={`${title} | Northwest Onchain`}
+  description={description}
+  path={path}
+  ogType="article"
+  image={image}
+  breadcrumbs={breadcrumbs}
+  jsonLd={jsonLd}
+  publishedTime={pubDate.toISOString()}
+  modifiedTime={(updatedDate ?? pubDate).toISOString()}
+>
+  <article>
+    <header class="page-hero grain article-head">
+      <div class="wrap">
+        <Eyebrow>{clusterLabel(cluster)}</Eyebrow>
+        <h1>{title}</h1>
+        <p class="article-meta">
+          <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+          <span aria-hidden="true">·</span>
+          <span>{mins} min read</span>
+          {
+            updatedDate && (
+              <>
+                <span aria-hidden="true">·</span>
+                <span>Updated {formatDate(updatedDate)}</span>
+              </>
+            )
+          }
+        </p>
+      </div>
+    </header>
+
+    <div class="section">
+      <div class="wrap article-body">
+        {
+          keyTakeaway && (
+            <KeyTakeaways lead={keyTakeaway} points={keyPoints} class="article-takeaways" />
+          )
+        }
+
+        {hero && heroAlt && <img src={hero} alt={heroAlt} class="article-hero" loading="eager" />}
+
+        <Prose>
+          <Content />
+        </Prose>
+
+        {
+          faqs.length > 0 && (
+            <section class="article-faq">
+              <Eyebrow>FAQ</Eyebrow>
+              <Faq items={faqs} />
+            </section>
+          )
+        }
+
+        <footer class="article-foot">
+          <p class="byline">
+            By <a href="/about#founder">{entry.data.author}</a> · {SITE.name}, {SITE.region}
+          </p>
+          {
+            (prev || next) && (
+              <nav class="prevnext" aria-label="More insights">
+                {next && (
+                  <a href={`/insights/${next.id}`} class="prevnext__item">
+                    <span class="prevnext__dir">← Newer</span>
+                    <span class="prevnext__title">{next.data.title}</span>
+                  </a>
+                )}
+                {prev && (
+                  <a href={`/insights/${prev.id}`} class="prevnext__item prevnext__item--next">
+                    <span class="prevnext__dir">Older →</span>
+                    <span class="prevnext__title">{prev.data.title}</span>
+                  </a>
+                )}
+              </nav>
+            )
+          }
+        </footer>
+      </div>
+    </div>
+  </article>
+
+  <CtaBand
+    heading="Turn the question into a measured proof of concept."
+    text="Start with a $1,500 Opportunity Audit, or book the Meet for a straight read on your situation."
+  />
+</BaseLayout>

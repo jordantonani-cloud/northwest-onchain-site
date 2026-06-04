@@ -1,0 +1,25 @@
+---
+/**
+ * ArticleCard — an Insights index card. Carries a data-cluster attribute so the
+ * (progressive-enhancement) cluster filter on the index can show/hide it.
+ */
+import { clusterLabel, formatDate, type Insight } from '../lib/insights';
+
+interface Props {
+  entry: Insight;
+}
+const { entry }: Props = Astro.props;
+const { title, description, pubDate, cluster } = entry.data;
+const href = `/insights/${entry.id}`;
+---
+
+<article class="card article-card" data-cluster={cluster}>
+  <span class="tag">{clusterLabel(cluster)}</span>
+  <h3 class="article-card__title">
+    <a href={href}>{title}</a>
+  </h3>
+  <p>{description}</p>
+  <p class="article-card__meta">
+    <time datetime={pubDate.toISOString()}>{formatDate(pubDate)}</time>
+  </p>
+</article>

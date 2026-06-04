@@ -1,0 +1,90 @@
+---
+/**
+ * Insights index — cluster-filterable list of articles. Filtering is
+ * progressive enhancement: without JS every article shows; the bundled script
+ * toggles visibility by data-cluster. Server-rendered, so crawlers see it all.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { publishedOnly, CLUSTER_LIST } from '../../lib/insights';
+
+const articles = publishedOnly(await getCollection('insights'));
+// Only show filter chips for clusters that actually have published articles.
+const activeClusters = CLUSTER_LIST.filter((c) =>
+  articles.some((a) => a.data.cluster === c.id)
+);
+---
+
+<BaseLayout
+  title="Insights | Blockchain Strategy, Tokenization & Crypto Diligence"
+  description="Plain-English guides on enterprise blockchain strategy, RWA tokenization, and crypto diligence for TradFi — from Northwest Onchain. Answer-first, vendor-neutral, metrics-led."
+  path="/insights"
+  breadcrumbs={[{ name: 'Insights', path: '/insights' }]}
+>
+  <PageHero
+    eyebrow="Insights"
+    lead="Straight, vendor-neutral writing on where blockchain actually creates value — enterprise strategy, tokenization and RWA, and crypto diligence for traditional finance."
+  >
+    Field notes from the bridge.
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap">
+      {
+        activeClusters.length > 1 && (
+          <div class="cluster-filter" role="group" aria-label="Filter articles by topic">
+            <button class="cluster-chip" type="button" data-filter="all" aria-pressed="true">
+              All
+            </button>
+            {activeClusters.map((c) => (
+              <button class="cluster-chip" type="button" data-filter={c.id} aria-pressed="false">
+                {c.label}
+              </button>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        articles.length === 0 ? (
+          <p class="lead">New articles are on the way. In the meantime, <a href="/contact" style="color:var(--onchain)">book the Meet</a>.</p>
+        ) : (
+          <div class="grid grid-3" id="article-grid">
+            {articles.map((entry) => (
+              <ArticleCard entry={entry} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Have a question this didn't answer?"
+    text="Start with a $1,500 Opportunity Audit, or book the Meet for a 30-minute read on your situation."
+    ctaLabel="Book the Meet"
+  />
+</BaseLayout>
+
+<script>
+  // Progressive-enhancement cluster filter. No JS → all articles visible.
+  const chips = document.querySelectorAll<HTMLButtonElement>('.cluster-chip');
+  const cards = document.querySelectorAll<HTMLElement>('.article-card');
+
+  function applyFilter(filter: string) {
+    cards.forEach((card) => {
+      const show = filter === 'all' || card.dataset.cluster === filter;
+      card.style.display = show ? '' : 'none';
+    });
+    chips.forEach((chip) => {
+      chip.setAttribute('aria-pressed', String(chip.dataset.filter === filter));
+    });
+  }
+
+  chips.forEach((chip) => {
+    chip.addEventListener('click', () => applyFilter(chip.dataset.filter || 'all'));
+  });
+</script>
