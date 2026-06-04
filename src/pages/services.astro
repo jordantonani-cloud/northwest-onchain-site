@@ -1,0 +1,165 @@
+---
+/**
+ * Services & pricing. Four-tier model: Audit wedge banner + three columns.
+ * Carries OfferCatalog + FAQPage JSON-LD (the FAQ array drives both the
+ * on-page accordion and the schema). Question-shaped H2s for AEO.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import KeyTakeaways from '../components/KeyTakeaways.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Card from '../components/Card.astro';
+import AuditBanner from '../components/AuditBanner.astro';
+import PriceCard from '../components/PriceCard.astro';
+import Faq, { type FaqItem } from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { AUDIT, TIERS, offerInputs } from '../lib/services';
+import { offerCatalogNode, faqNode } from '../lib/jsonld';
+
+const faqs: FaqItem[] = [
+  {
+    question: 'Why pay for a Diagnostic Sprint instead of a free pitch?',
+    answer:
+      "Because a free pitch is a sales motion, and you'll get an answer shaped to sell you something. A paid sprint buys you independent judgment — including a recommendation not to build, which no vendor selling a build will ever give you. The fee is credited toward delivery if you proceed, so it costs nothing if we move forward.",
+  },
+  {
+    question: 'Do you build it yourselves?',
+    answer:
+      'We assemble and manage the right team from a vetted network rather than carrying a fixed engineering staff. You get builders matched to <em>your</em> problem, and we own the coordination, metrics, and delivery so you don\'t have to manage a vendor.',
+  },
+  {
+    question: 'Are you tied to a particular chain or product?',
+    answer:
+      "No. We're vendor-neutral and chain-agnostic. We don't resell a platform or hold a token bag that biases the recommendation. The answer is whatever serves the business case.",
+  },
+  {
+    question: 'How fast can we get to a proof of concept?',
+    answer:
+      'A Diagnostic Sprint runs two to three weeks. From there, most PoCs are scoped to deliver within weeks, not quarters — with metrics and cost agreed before any build begins.',
+  },
+  {
+    question: 'What makes you different from a big consulting firm?',
+    answer:
+      'Big firms write the deck and bill the hours, but have rarely shipped onchain. Crypto-native shops can ship but can\'t model the business case. We do both — and we price against outcomes, not billable time.',
+  },
+];
+
+const jsonLd = [
+  offerCatalogNode(offerInputs()),
+  faqNode(faqs.map((f) => ({ question: f.question, answer: f.answer.replace(/<[^>]+>/g, '') }))),
+];
+---
+
+<BaseLayout
+  title="Services & Pricing | Northwest Onchain Blockchain Consulting"
+  description="Four ways to work with Northwest Onchain: a $1,500 Opportunity Audit, a fixed-fee Diagnostic Sprint, managed proof-of-concept delivery, and fractional onchain advisory. Metrics-first, vendor-neutral blockchain consulting."
+  path="/services"
+  breadcrumbs={[{ name: 'Services', path: '/services' }]}
+  jsonLd={jsonLd}
+>
+  <PageHero
+    eyebrow="Services & pricing"
+    lead="A funnel, not a menu. Each engagement de-risks the next — and every one is priced against defined outcomes, never open-ended hours."
+  >
+    Paid front door. Managed delivery. A standing seat.
+  </PageHero>
+
+  <!-- ANSWER-FIRST TL;DR (AEO) -->
+  <section class="section" style="padding-bottom:0">
+    <div class="wrap">
+      <KeyTakeaways
+        label="What it costs"
+        lead="Northwest Onchain prices against outcomes across four tiers. Start with a flat $1,500 Opportunity Audit (3–5 days), step up to a $4,000–$7,500 fixed-fee Diagnostic Sprint (1–2 weeks), then managed PoC delivery at a 15–20% fee on the build (or a fixed $8k–$25k), and an ongoing Fractional Advisor at $3,000–$8,000/month."
+        points={[
+          'Enterprise PoC build budgets typically run $15k–$75k+; NWO earns the delivery-management fee, not the build.',
+          'Each fee credits toward the next step if you proceed — the Audit credits the Sprint; the Sprint credits delivery.',
+          'A fraction of big-firm cost, delivered in days and weeks rather than quarters, because we run lean.',
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section">
+    <div class="wrap">
+      <AuditBanner tier={AUDIT} />
+      <div class="grid grid-3">
+        {TIERS.map((tier) => <PriceCard tier={tier} />)}
+      </div>
+      <p class="pricing-note">
+        A fraction of big-firm cost, delivered in days and weeks rather than quarters — because we
+        run lean. Ranges reflect scope; enterprise PoC builds typically run $15k–$75k+, and each fee
+        credits toward the next step if you proceed.
+      </p>
+    </div>
+  </section>
+
+  <!-- WHERE WE CREATE VALUE -->
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <Eyebrow>Where we create value</Eyebrow>
+        <h2>The opportunities we help you size — and the ones we'll talk you out of.</h2>
+        <p class="lead">
+          We are vendor-neutral and chain-agnostic. The goal is business outcomes: lower cost,
+          faster settlement, new revenue, new markets — not technology for its own sake.
+        </p>
+      </div>
+      <div class="grid grid-3">
+        <Card title="Tokenization & RWA">
+          <p>
+            Real-world assets, funds, and instruments brought onchain — the fastest-growing
+            institutional wedge, scoped for compliance and liquidity from day one.
+          </p>
+        </Card>
+        <Card title="Payments & settlement">
+          <p>
+            Stablecoin rails and atomic settlement that cut multi-day cycles to minutes — modeled
+            against your actual cost of capital.
+          </p>
+        </Card>
+        <Card title="Diligence & thesis validation">
+          <p>
+            For investors: technical and financial diligence on crypto, tokenization, and RWA deals
+            from someone who reads both the contract and the cap table.
+          </p>
+        </Card>
+        <Card title="Loyalty & digital assets">
+          <p>
+            Programs and digital assets that actually drive retention and revenue — without the
+            speculative baggage.
+          </p>
+        </Card>
+        <Card title="Infrastructure & chain selection">
+          <p>
+            Neutral guidance on chains, custody, and architecture, chosen for your constraints rather
+            than a vendor's roadmap.
+          </p>
+        </Card>
+        <Card title="Strategy & financial modeling">
+          <p>
+            Business cases, unit economics, and ROI models that survive a CFO's scrutiny and a
+            board's questions.
+          </p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <Eyebrow>Straight answers</Eyebrow>
+        <h2>Questions buyers actually ask.</h2>
+      </div>
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Start with the Meet."
+    text="One call to understand the ambition. Then a fixed-fee sprint and a clear, costed path forward."
+    ctaLabel="Book a Diagnostic Sprint"
+  />
+</BaseLayout>

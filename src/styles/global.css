@@ -356,6 +356,7 @@
     grid-template-columns: repeat(4, 1fr);
   }
   .card {
+    position: relative; /* anchors .featured .badge to the card, not the section */
     background: linear-gradient(180deg, rgba(28, 94, 74, 0.18), rgba(15, 61, 49, 0.1));
     border: 1px solid rgba(174, 194, 186, 0.16);
     border-radius: var(--radius);
@@ -565,6 +566,40 @@
     border-color: var(--onchain);
     box-shadow: 0 0 50px -20px rgba(54, 226, 180, 0.5);
   }
+
+  /* ---------- audit wedge banner ---------- */
+  .audit-banner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px 40px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 26px;
+    position: relative;
+  }
+  .audit-banner__body {
+    flex: 1 1 340px;
+  }
+  .audit-banner__body p {
+    margin-top: 8px;
+    max-width: 52ch;
+    color: var(--fog);
+  }
+  .audit-banner__price {
+    flex: 0 0 auto;
+    text-align: right;
+  }
+  .audit-banner__amt {
+    font-size: 2.1rem;
+  }
+  .audit-banner__cta {
+    margin-top: 14px;
+  }
+  @media (max-width: 560px) {
+    .audit-banner__price {
+      text-align: left;
+    }
+  }
   .featured .badge {
     position: absolute;
     top: -12px;
@@ -577,6 +612,14 @@
     padding: 4px 12px;
     border-radius: 999px;
     text-transform: uppercase;
+  }
+
+  .pricing-note {
+    color: var(--fog);
+    font-size: 0.86rem;
+    margin-top: 22px;
+    font-family: var(--font-mono);
+    line-height: 1.7;
   }
 
   /* ---------- value / why list ---------- */
@@ -649,6 +692,43 @@
     background: radial-gradient(120% 120% at 30% 20%, #103c30, #08211b);
     position: relative;
     overflow: hidden;
+  }
+  .portrait-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .about-story-h {
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+    margin-bottom: 18px;
+  }
+  .about-story-lead {
+    margin-bottom: 16px;
+  }
+  .about-body {
+    color: var(--fog);
+    margin-bottom: 16px;
+  }
+  .about-body:last-child {
+    margin-bottom: 0;
+  }
+  .founder {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(174, 194, 186, 0.16);
+  }
+  .founder-name {
+    font-size: 1.3rem;
+    margin-bottom: 4px;
+  }
+  .founder-title {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--onchain);
+    margin: 0 0 14px;
   }
   .stat-row {
     display: flex;

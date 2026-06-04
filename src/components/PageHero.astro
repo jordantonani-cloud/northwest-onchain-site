@@ -1,0 +1,23 @@
+---
+/**
+ * PageHero — interior page hero (eyebrow + h1 + lead) over a compact topo
+ * backdrop. The single <h1> for the page.
+ */
+import TopoLines from './TopoLines.astro';
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  eyebrow: string;
+  lead?: string;
+}
+const { eyebrow, lead }: Props = Astro.props;
+---
+
+<section class="page-hero grain">
+  <TopoLines variant="compact" />
+  <div class="wrap">
+    <Eyebrow>{eyebrow}</Eyebrow>
+    <h1><slot /></h1>
+    {lead && <p class="lead">{lead}</p>}
+  </div>
+</section>

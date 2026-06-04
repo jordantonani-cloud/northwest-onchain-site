@@ -1,0 +1,170 @@
+---
+/**
+ * About — the E-E-A-T anchor. Story, beliefs, and the founder Person schema
+ * (founder of the Organization). Founder identity is config-driven (consts.FOUNDER)
+ * with honest placeholders until the owner fills real details.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import KeyTakeaways from '../components/KeyTakeaways.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Card from '../components/Card.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { FOUNDER } from '../consts';
+import { personNode } from '../lib/jsonld';
+
+const jsonLd = [
+  personNode({
+    name: FOUNDER.name,
+    jobTitle: FOUNDER.jobTitle,
+    description: FOUNDER.bio,
+    knowsAbout: [...FOUNDER.knowsAbout],
+    sameAs: [...FOUNDER.sameAs],
+    alumniOf: [...FOUNDER.credentials],
+    image: FOUNDER.image || undefined,
+  }),
+];
+---
+
+<BaseLayout
+  title="About | Northwest Onchain — TradFi Rigor, Onchain Fluency"
+  description="Northwest Onchain is built on years operating in crypto and a vetted builder network, paired with real financial-modeling discipline. The rare both-sides partner for organizations going onchain — grounded in the Pacific Northwest."
+  path="/about"
+  breadcrumbs={[{ name: 'About', path: '/about' }]}
+  jsonLd={jsonLd}
+>
+  <PageHero
+    eyebrow="About"
+    lead="Northwest Onchain exists because the people deciding whether to go onchain deserve an advisor who speaks both languages fluently — and isn't selling them a chain."
+  >
+    Built on both sides of the ledger.
+  </PageHero>
+
+  <!-- ANSWER-FIRST TL;DR (AEO) -->
+  <section class="section" style="padding-bottom:0">
+    <div class="wrap">
+      <KeyTakeaways
+        label="Who we are"
+        lead="Northwest Onchain is a Pacific Northwest–based blockchain strategy and execution consultancy that bridges traditional finance and onchain technology. It is built on years operating in crypto and a vetted builder network, paired with genuine financial-modeling discipline — the rare both-sides advisor who can size an opportunity the way a CFO would and assemble the team to deliver it the way a native would."
+        points={[
+          'Vendor-neutral: no chain, token, or product to sell — including the freedom to say "don\'t build."',
+          'Network, not headcount — the right builders for each problem, not a fixed bench.',
+          'Relationship-driven and low-hype, grounded in the Pacific Northwest.',
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- STORY -->
+  <section class="section">
+    <div class="wrap about-grid">
+      <div>
+        <Eyebrow>The story</Eyebrow>
+        <h2 class="about-story-h">
+          Years in crypto. A real network. Financial discipline that holds up in a boardroom.
+        </h2>
+        <p class="lead about-story-lead">
+          The crypto industry is full of brilliant builders who can't model a business case, and
+          polished strategists who've never deployed anything. That gap is expensive — it's why so
+          many "blockchain initiatives" burn budget and quietly die.
+        </p>
+        <p class="about-body">
+          Northwest Onchain was built to close it. The foundation is years spent operating in crypto
+          and a vetted network of builders, paired with genuine fluency in financial models and
+          traditional finance. That combination means we can size an opportunity the way a CFO would,
+          then assemble the team to deliver it the way a native would.
+        </p>
+        <p class="about-body">
+          We're grounded in the Pacific Northwest, and the values show: long-term relationships over
+          quick flips, restraint over hype, and the willingness to tell a client the truth —
+          including "this isn't worth building." It's the opposite of how this industry usually
+          operates, and it's exactly why the right clients stay.
+        </p>
+        <div class="stat-row">
+          <div class="stat"><div class="n">Both</div><div class="l">sides fluent</div></div>
+          <div class="stat"><div class="n">Vetted</div><div class="l">builder network</div></div>
+          <div class="stat"><div class="n">Neutral</div><div class="l">no chain to sell</div></div>
+        </div>
+
+        {
+          FOUNDER.published && (
+            <div class="founder">
+              <Eyebrow>Founder</Eyebrow>
+              <h3 class="founder-name">{FOUNDER.name}</h3>
+              <p class="founder-title">{FOUNDER.jobTitle}</p>
+              <p class="about-body">{FOUNDER.bio}</p>
+            </div>
+          )
+        }
+      </div>
+
+      <div
+        class="portrait"
+        role="img"
+        aria-label="Stylized Pacific Northwest peak rendered as a blockchain node network"
+      >
+        <svg
+          viewBox="0 0 320 400"
+          preserveAspectRatio="xMidYMid slice"
+          aria-hidden="true"
+          class="portrait-svg"
+        >
+          <g fill="none" stroke="var(--moss)" stroke-width="1" opacity=".5">
+            <path d="M-20 300 C60 260 120 330 180 290 S300 240 360 280"></path>
+            <path d="M-20 340 C60 300 120 370 180 330 S300 280 360 320"></path>
+          </g>
+          <g fill="none" stroke="var(--onchain)" stroke-width="1.3" opacity=".85">
+            <path d="M40 320 L120 130 L175 230 L215 160 L290 320"></path>
+            <path d="M120 130 L215 160 M175 230 L215 160 M120 130 L175 230"></path>
+          </g>
+          <circle cx="120" cy="130" r="6" fill="var(--onchain)"></circle>
+          <circle cx="215" cy="160" r="5" fill="var(--onchain)"></circle>
+          <circle cx="175" cy="230" r="4.5" fill="var(--onchain)"></circle>
+          <circle cx="40" cy="320" r="4" fill="var(--copper)"></circle>
+          <circle cx="290" cy="320" r="4" fill="var(--copper)"></circle>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- BELIEFS -->
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <Eyebrow>What we believe</Eyebrow>
+        <h2>A few convictions we won't compromise.</h2>
+      </div>
+      <div class="grid grid-2">
+        <Card title="Outcomes beat technology">
+          <p>
+            Nobody's board wants "a blockchain." They want lower cost, faster settlement, or new
+            revenue. We start from the outcome and work back — the tech is a means, never the point.
+          </p>
+        </Card>
+        <Card title="Independence is the product">
+          <p>
+            The moment an advisor has a chain or token to sell, their advice is compromised. Staying
+            vendor-neutral is how we stay worth paying for.
+          </p>
+        </Card>
+        <Card title="Networks beat headcount">
+          <p>
+            The best team for your problem rarely sits on one payroll. A vetted network lets us match
+            the right builders to the right job, every time.
+          </p>
+        </Card>
+        <Card title="Trust compounds">
+          <p>
+            This is a relationship business in an industry that forgot that. We optimize for the
+            second engagement, the referral, and the long arc — not the quick close.
+          </p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Let's see if there's a fit."
+    text="If you want an advisor who'll give you the straight read — including when the answer is no — start with a conversation."
+  />
+</BaseLayout>

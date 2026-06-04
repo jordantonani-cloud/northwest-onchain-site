@@ -1,0 +1,121 @@
+---
+/**
+ * Process — the four-stage expedition (Survey → Chart → Assemble → Summit)
+ * plus operating principles. Answer-first TL;DR for AEO.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import KeyTakeaways from '../components/KeyTakeaways.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Card from '../components/Card.astro';
+import StepRow from '../components/StepRow.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+
+<BaseLayout
+  title="Our Process | Survey, Chart, Assemble, Summit — Northwest Onchain"
+  description="The Northwest Onchain process: a four-stage expedition from diagnosis to delivery. We survey the terrain, chart the path, assemble the crew, and summit — defining metrics, cost, and ROI before any code is written."
+  path="/process"
+  breadcrumbs={[{ name: 'Process', path: '/process' }]}
+>
+  <PageHero
+    eyebrow="The expedition"
+    lead="A simple, honest path. We treat every engagement like an expedition: read the terrain before you climb, agree the route and the cost, bring the right crew, and only count it a success when you reach the top — measured."
+  >
+    Survey. Chart. Assemble. Summit.
+  </PageHero>
+
+  <!-- ANSWER-FIRST TL;DR (AEO) -->
+  <section class="section" style="padding-bottom:0">
+    <div class="wrap">
+      <KeyTakeaways
+        label="The process in four stages"
+        lead="Northwest Onchain runs every engagement as a four-stage expedition. We Survey (meet and diagnose), Chart (define the opportunity, metrics, costed roadmap, and team), Assemble (stand up the right builders from a vetted network), and Summit (deliver to the agreed metrics and prove the value). Success criteria, cost, and ROI are defined before a line of code is written."
+        points={[
+          'Survey & Chart are delivered in the Diagnostic Sprint (1–2 weeks).',
+          'You manage one relationship — us; we coordinate the network behind it.',
+          'Vendor-neutral, so we can recommend "don\'t build" when that is the honest answer.',
+        ]}
+      />
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="section">
+    <div class="wrap">
+      <div class="steps">
+        <StepRow label="// 01 SURVEY" title="Meet & diagnose">
+          We sit down and learn the business — the ambition, the constraints, the pressure behind the
+          mandate. We map the terrain honestly, which sometimes means telling you the summit you're
+          pointed at isn't worth the climb. No deck, no pitch. Just an accurate read of where onchain
+          creates value and where it doesn't.
+        </StepRow>
+        <StepRow label="// 02 CHART" title="Find the path">
+          We go away and do the work: define the real opportunity, the success metrics, the costed
+          roadmap, and the right team to execute. You get a route with milestones, a budget, and a
+          defensible business case — the kind that survives a CFO's questions and a board's scrutiny.
+          This is the deliverable of the Diagnostic Sprint.
+        </StepRow>
+        <StepRow label="// 03 ASSEMBLE" title="Build the crew">
+          We stand up the right builders from a vetted network — matched to your specific problem,
+          not a fixed bench we need to keep busy. Everyone aligns on metrics, cost, and timeline
+          before work begins. You manage one relationship: us. We manage the rest.
+        </StepRow>
+        <StepRow label="// 04 SUMMIT" title="Deliver & measure">
+          We run delivery against the metrics we agreed, prove the value with real numbers, and set
+          up what comes next — production, scale, or a clear stop. Success is defined before we
+          start, so everyone knows what reaching the top looks like.
+        </StepRow>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section class="section alt">
+    <div class="wrap">
+      <div class="section-head">
+        <Eyebrow>Principles</Eyebrow>
+        <h2>How we keep it real.</h2>
+      </div>
+      <div class="grid grid-3">
+        <Card title="Metrics before code">
+          <p>
+            Success criteria, cost, and ROI are defined up front. If we can't agree what winning
+            looks like, we don't start.
+          </p>
+        </Card>
+        <Card title="Honest &quot;no&quot;">
+          <p>
+            The most valuable thing we can sometimes say is "don't." Vendor-neutrality means we're
+            free to say it.
+          </p>
+        </Card>
+        <Card title="One throat to choke">
+          <p>
+            You manage one relationship. We coordinate the network, the timeline, and the
+            deliverables behind it.
+          </p>
+        </Card>
+        <Card title="Both sides fluent">
+          <p>
+            Every recommendation is grounded in both the technology and the financial model — no
+            hand-waving either direction.
+          </p>
+        </Card>
+        <Card title="Cost transparency">
+          <p>You see the build budget and our fee. No mystery markups, no padded hours.</p>
+        </Card>
+        <Card title="Built to hand off">
+          <p>
+            We deliver in a way you can own and scale — not a black box that keeps you dependent.
+          </p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Ready to survey the terrain?"
+    text="The expedition starts with one conversation. Let's map what's actually worth building."
+  />
+</BaseLayout>

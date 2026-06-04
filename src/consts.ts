@@ -95,6 +95,34 @@ export const FOOTER_NAV: { heading: string; links: { label: string; href: string
   },
 ];
 
+/**
+ * Founder identity — the E-E-A-T anchor (About page `Person` schema + bio).
+ * The brand brief names no founder yet, so this ships with honest, role-based
+ * placeholders. TODO(owner): fill real name, title, bio, and credentials, then
+ * set `published: true` to surface the named bio block on the About page.
+ */
+export const FOUNDER = {
+  published: false,
+  // Role-based placeholder (not a fabricated personal name).
+  name: 'Northwest Onchain Founder',
+  jobTitle: 'Founder & Principal Advisor',
+  bio: 'Years operating in crypto and a vetted builder network, paired with genuine fluency in financial models and traditional finance — the rare both-sides advisor who can size an opportunity the way a CFO would and assemble the team to deliver it the way a native would.',
+  knowsAbout: [
+    'Blockchain strategy',
+    'Enterprise blockchain proof of concept',
+    'Tokenization',
+    'Real-world asset tokenization',
+    'Crypto diligence',
+    'Financial modeling',
+    'Fractional advisory',
+  ],
+  // TODO(owner): real alumniOf / certifications / prior roles.
+  credentials: [] as string[],
+  sameAs: [SOCIAL.linkedin, SOCIAL.x],
+  // TODO(owner): add a real headshot to /public and set the path (e.g. '/founder.jpg').
+  image: '',
+} as const;
+
 /** Stable schema.org node @ids — referenced across pages to build one entity graph. */
 export const SCHEMA_IDS = {
   org: `${SITE.url}/#org`,

@@ -1,0 +1,27 @@
+---
+/**
+ * Faq — accessible native <details> accordion. Answers may contain inline
+ * markup (e.g. <em>), so they render via set:html. The same `items` array
+ * feeds the FAQPage JSON-LD on the page, keeping markup and schema in sync.
+ */
+export interface FaqItem {
+  question: string;
+  /** Answer as HTML string (inline markup allowed). */
+  answer: string;
+}
+interface Props {
+  items: FaqItem[];
+}
+const { items }: Props = Astro.props;
+---
+
+<div class="faq">
+  {
+    items.map((item) => (
+      <details>
+        <summary>{item.question}</summary>
+        <p set:html={item.answer} />
+      </details>
+    ))
+  }
+</div>

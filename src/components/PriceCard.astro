@@ -1,0 +1,29 @@
+---
+/**
+ * PriceCard — one pricing column rendered from a Tier. Carries an anchor id
+ * (e.g. #sprint) so CTAs and the OfferCatalog URLs can deep-link to it.
+ */
+import type { Tier } from '../lib/services';
+
+interface Props {
+  tier: Tier;
+}
+const { tier }: Props = Astro.props;
+---
+
+<article class:list={['card', 'price', { featured: tier.featured }]} id={tier.id}>
+  {tier.badge && <span class="badge">{tier.badge}</span>}
+  <span class="tag">{tier.tag}</span>
+  <h3>{tier.name}</h3>
+  <div class="amt">{tier.priceDisplay}</div>
+  <span class="unit">{tier.unit}</span>
+  {
+    tier.features.length > 0 && (
+      <ul>
+        {tier.features.map((f) => (
+          <li>{f}</li>
+        ))}
+      </ul>
+    )
+  }
+</article>

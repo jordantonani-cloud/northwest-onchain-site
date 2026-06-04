@@ -1,0 +1,31 @@
+---
+/**
+ * AuditBanner — the $1,500 Opportunity Audit wedge, rendered as a full-width
+ * featured banner above the three pricing columns. The primary conversion entry.
+ */
+import Button from './Button.astro';
+import type { Tier } from '../lib/services';
+
+interface Props {
+  tier: Tier;
+  /** Where the CTA points (Audit purchase / the Meet). */
+  ctaHref?: string;
+}
+const { tier, ctaHref = '/contact' }: Props = Astro.props;
+---
+
+<article class="card featured audit-banner" id={tier.id}>
+  {tier.badge && <span class="badge">{tier.badge}</span>}
+  <div class="audit-banner__body">
+    <span class="tag">{tier.tag}</span>
+    <h3>{tier.name}</h3>
+    <p>{tier.blurb}</p>
+  </div>
+  <div class="audit-banner__price">
+    <div class="amt audit-banner__amt">{tier.priceDisplay}</div>
+    <span class="unit">{tier.unit}</span>
+    <div class="audit-banner__cta">
+      <Button href={ctaHref} variant="primary" arrow>Get the Audit</Button>
+    </div>
+  </div>
+</article>
