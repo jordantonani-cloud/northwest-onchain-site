@@ -11,30 +11,39 @@
 
 @layer base {
   :root {
-    /* Brand Book v1.0 (June 2026) — canonical tokens. */
-    --ink: #10221c; /* darkest bg; text on light */
+    /* Design north-star palette (layered-depth visual system, June 2026).
+       Refines the Brand Book base for depth: darker ink + ink2 elevation,
+       signal-soft for gradients, edge borders for glass. */
+    --ink: #0b1f1a; /* darkest base bg (glows layer on top) */
+    --ink2: #0e2620; /* elevated surface tint */
     --evergreen: #12463a; /* primary brand color */
-    --moss: #1c5e4a; /* mid-green; hovers */
+    --moss: #1c5e4a; /* mid-green */
     --signal: #2fbf98; /* accent on light/neutral (UI/large only) */
-    --signal-bright: #34e0b5; /* accent on dark; CTAs, glows, links */
-    --mist: #eef1ed; /* light bg */
-    --fog: #aec2ba; /* muted text on dark */
+    --signal-bright: #34e0b5; /* primary accent on dark; CTAs, glows, links */
+    --signal-soft: #7ff0d6; /* gradient top-stop for CTAs + headline accent */
+    --mist: #eef1ed; /* light bg / primary text on dark */
+    --fog: #9db3ab; /* muted text on dark */
     --graphite: #33454b; /* secondary text on light */
-    --copper: #c58a5b; /* warm accent, sparing (<=5%) */
+    --copper: #d08a57; /* warm accent, sparing (<=5%) */
     --white: #fbfdfc;
     /* AA-safe mint for small accent text on light (Signal fails at small size, §3.3). */
     --signal-dim: #0e7458;
 
-    /* Legacy aliases — the ported component CSS references these names; they now
-       resolve to the Brand Book palette. Dark-first, so --onchain = signal-bright. */
+    /* Glass / depth edges. */
+    --edge: rgba(255, 255, 255, 0.08);
+    --edge-strong: rgba(255, 255, 255, 0.14);
+
+    /* Legacy aliases — ported component CSS references these names. */
     --pine: var(--evergreen);
     --slate: var(--graphite);
     --onchain: var(--signal-bright);
     --onchain-dim: var(--signal-dim);
 
-    --maxw: 1160px;
-    --gutter: clamp(20px, 5vw, 48px);
+    --maxw: 1140px;
+    --gutter: clamp(22px, 5vw, 40px);
     --radius: 14px;
+    --radius-card: 20px;
+    --radius-panel: 22px;
 
     --font-display: 'Space Grotesk Variable', 'Space Grotesk', system-ui, sans-serif;
     --font-body: 'Inter Variable', 'Inter', system-ui, sans-serif;
@@ -53,6 +62,34 @@
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
+  /* Layered depth: fixed glow field + fine grain behind all content. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(60% 50% at 82% -5%, rgba(52, 224, 181, 0.16), transparent 60%),
+      radial-gradient(50% 40% at 8% 8%, rgba(28, 94, 74, 0.3), transparent 60%),
+      radial-gradient(70% 60% at 50% 110%, rgba(18, 70, 58, 0.35), transparent 60%);
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* All real content sits above the fixed depth field. */
+  body > header,
+  body > main,
+  body > footer {
+    position: relative;
+    z-index: 1;
+  }
   a {
     color: inherit;
     text-decoration: none;
@@ -67,9 +104,9 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    line-height: 1.1;
+    line-height: 1.04;
     font-weight: 600;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     margin: 0;
   }
 
@@ -125,15 +162,15 @@
     padding: 0 var(--gutter);
   }
   .section {
-    padding: clamp(64px, 9vw, 120px) 0;
+    padding: clamp(90px, 13vh, 160px) 0;
     position: relative;
   }
   .eyebrow {
     font-family: var(--font-mono);
     font-size: 0.72rem;
-    letter-spacing: 0.22em;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: var(--onchain);
+    color: var(--signal-bright);
     margin: 0 0 18px;
     display: block;
   }
@@ -301,22 +338,27 @@
       background 0.2s;
   }
   .btn-primary {
-    background: var(--onchain);
-    color: var(--ink);
+    color: #06231c;
     font-weight: 600;
-    box-shadow: 0 0 0 0 rgba(52, 224, 181, 0.5);
+    background: linear-gradient(180deg, var(--signal-soft), var(--signal-bright));
+    box-shadow:
+      0 8px 30px -8px rgba(52, 224, 181, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 34px -8px rgba(52, 224, 181, 0.55);
+    box-shadow:
+      0 16px 40px -10px rgba(52, 224, 181, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
   }
   .btn-ghost {
-    border-color: rgba(174, 194, 186, 0.4);
+    border-color: var(--edge-strong);
     color: var(--mist);
+    background: rgba(255, 255, 255, 0.02);
   }
   .btn-ghost:hover {
-    border-color: var(--onchain);
-    color: var(--onchain);
+    border-color: var(--signal-bright);
+    color: var(--signal-bright);
   }
   .btn-arrow::after {
     content: '→';
@@ -401,18 +443,41 @@
     grid-template-columns: repeat(4, 1fr);
   }
   .card {
-    position: relative; /* anchors .featured .badge to the card, not the section */
-    background: linear-gradient(180deg, rgba(28, 94, 74, 0.18), rgba(18, 70, 58, 0.1));
-    border: 1px solid rgba(174, 194, 186, 0.16);
-    border-radius: var(--radius);
-    padding: 30px;
+    position: relative; /* anchors .featured .badge + ::after glow to the card */
+    overflow: hidden;
+    background: linear-gradient(165deg, rgba(28, 94, 74, 0.2), rgba(14, 38, 32, 0.5));
+    border: 1px solid var(--edge);
+    border-radius: var(--radius-card);
+    padding: 32px;
+    box-shadow:
+      0 30px 70px -50px rgba(0, 0, 0, 0.9),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
     transition:
-      border-color 0.2s,
-      transform 0.2s;
+      transform 0.25s,
+      box-shadow 0.3s,
+      border-color 0.3s;
+  }
+  /* hover glow wash from the top edge */
+  .card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-card);
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(70% 50% at 50% 0%, rgba(52, 224, 181, 0.12), transparent 70%);
+    transition: opacity 0.3s;
   }
   .card:hover {
-    border-color: rgba(52, 224, 181, 0.55);
-    transform: translateY(-3px);
+    transform: translateY(-4px);
+    border-color: rgba(52, 224, 181, 0.45);
+    box-shadow:
+      0 40px 90px -50px rgba(0, 0, 0, 1),
+      0 0 0 1px rgba(52, 224, 181, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .card:hover::after {
+    opacity: 1;
   }
   .card h3 {
     font-size: 1.28rem;
@@ -549,10 +614,11 @@
 
   .section-head {
     max-width: 62ch;
-    margin-bottom: 48px;
+    margin-bottom: 54px;
   }
   .section-head h2 {
-    font-size: clamp(1.9rem, 3.6vw, 2.8rem);
+    font-size: clamp(2rem, 3.6vw, 3.1rem);
+    margin-top: 16px;
   }
   .section-head p {
     margin-top: 16px;
@@ -797,12 +863,174 @@
   }
 
   /* ---------- homepage refinements (Beacon palette) ---------- */
-  /* Subtle elevation step instead of a light band — kills the dark→light flash. */
+  /* Depth now comes from the fixed glow field + glass cards, so "elevated"
+     sections are transparent (whisper of a top/bottom edge only) — the layered
+     background shows through, no opaque bands. */
   .section--elevated {
-    background: #13302a;
-    border-top: 1px solid rgba(174, 194, 186, 0.08);
-    border-bottom: 1px solid rgba(174, 194, 186, 0.08);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.018), transparent 60%);
+    border-top: 1px solid var(--edge);
+    border-bottom: 1px solid var(--edge);
   }
+
+  /* ============================================================
+     North-star visual system — gradient accents, glass depth.
+     ============================================================ */
+
+  /* gradient text accent (headline word + stat numbers) */
+  .grad {
+    background: linear-gradient(105deg, var(--signal-bright), var(--signal-soft) 60%, #bfeede);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ---------- north-star hero (2-col: copy + glass panel) ---------- */
+  .hero-ns {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(80px, 12vh, 150px) 0 clamp(70px, 10vh, 130px);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(40px, 6vw, 84px);
+    align-items: center;
+  }
+  .hero-ns h1 {
+    font-size: clamp(2.7rem, 5.6vw, 4.7rem);
+    font-weight: 600;
+  }
+  .hero-ns .lead {
+    font-size: clamp(1.05rem, 1.5vw, 1.24rem);
+    color: var(--fog);
+    margin: 26px 0 0;
+    max-width: 36ch;
+  }
+  .hero-ns .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 38px;
+  }
+  .micro {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--fog);
+    margin-top: 16px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---------- glass panel (engagement ladder) ---------- */
+  .panel {
+    position: relative;
+    border-radius: var(--radius-panel);
+    padding: 26px;
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+    border: 1px solid var(--edge);
+    backdrop-filter: blur(18px);
+    box-shadow:
+      0 40px 90px -40px rgba(0, 0, 0, 0.8),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  .panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-panel);
+    pointer-events: none;
+    background: radial-gradient(80% 50% at 70% 0%, rgba(52, 224, 181, 0.14), transparent 70%);
+  }
+  .panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .panel-head .t {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fog);
+  }
+  .pill {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--signal-bright);
+    background: rgba(52, 224, 181, 0.12);
+    border: 1px solid rgba(52, 224, 181, 0.3);
+    padding: 5px 10px;
+    border-radius: 100px;
+  }
+  .ladder {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+  }
+  .rung {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--edge);
+  }
+  .rung.active {
+    background: linear-gradient(120deg, rgba(52, 224, 181, 0.16), rgba(52, 224, 181, 0.04));
+    border-color: rgba(52, 224, 181, 0.4);
+    box-shadow:
+      0 0 0 1px rgba(52, 224, 181, 0.15),
+      0 18px 40px -24px rgba(52, 224, 181, 0.5);
+  }
+  .rung-row {
+    display: flex;
+    align-items: center;
+  }
+  .rung .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--fog);
+    margin-right: 13px;
+    flex: 0 0 7px;
+  }
+  .rung.active .dot {
+    background: var(--signal-bright);
+    box-shadow: 0 0 12px 2px rgba(52, 224, 181, 0.7);
+  }
+  .rung .l {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .rung .l b {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.96rem;
+    color: var(--mist);
+  }
+  .rung .l span {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--fog);
+    letter-spacing: 0.04em;
+  }
+  .rung .p {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.02rem;
+    color: var(--mist);
+  }
+  .rung.active .p {
+    color: var(--signal-bright);
+  }
+
   .hero-cta-subtext {
     font-family: var(--font-mono);
     font-size: 0.78rem;
@@ -871,23 +1099,37 @@
   .proof-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-    margin: 40px 0 0;
+    gap: 0;
+    margin: 44px 0 0;
+    border-top: 1px solid var(--edge);
+    border-bottom: 1px solid var(--edge);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent);
+    padding: 40px 0;
   }
   .proof-stat {
     margin: 0;
-    border-left: 2px solid rgba(52, 224, 181, 0.5);
-    padding-left: 16px;
+    padding: 0 28px;
+    border-left: 1px solid var(--edge);
+  }
+  .proof-stat:first-child {
+    border-left: 0;
+    padding-left: 0;
   }
   .proof-stat__value {
     font-family: var(--font-display);
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
     font-weight: 600;
-    color: var(--signal-bright);
+    letter-spacing: -0.02em;
+    background: linear-gradient(180deg, var(--white), var(--fog));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .proof-stat__label {
-    margin: 4px 0 0;
-    font-size: 0.86rem;
+    margin: 8px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
     color: var(--fog);
     line-height: 1.45;
   }
@@ -1087,7 +1329,7 @@
 
   /* ---------- use-case grid ("where blockchain wins — today") ---------- */
   .usecase-card {
-    padding: 30px;
+    padding: 34px;
   }
   .usecase-card__top {
     display: flex;
@@ -1097,47 +1339,53 @@
   }
   .usecase-card__num {
     font-family: var(--font-mono);
-    font-size: 0.78rem;
-    letter-spacing: 0.2em;
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
     color: var(--signal-bright);
   }
   .usecase-card__tag {
     font-family: var(--font-mono);
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     color: var(--signal-bright);
     background: rgba(52, 224, 181, 0.1);
-    border-radius: 999px;
-    padding: 4px 12px;
+    border: 1px solid rgba(52, 224, 181, 0.28);
+    border-radius: 100px;
+    padding: 5px 11px;
   }
   .usecase-card__title {
-    margin: 20px 0 0;
-    font-size: 1.3rem;
+    margin: 26px 0 0;
+    font-size: 1.45rem;
     color: var(--white);
   }
   .usecase-card__outcome {
-    margin: 4px 0 0;
+    margin: 6px 0 0;
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-weight: 500;
+    font-size: 1.06rem;
     color: var(--signal-bright);
   }
   .usecase-card__body {
     margin: 16px 0 0;
     color: var(--fog);
-    font-size: 0.95rem;
+    font-size: 0.96rem;
     line-height: 1.6;
   }
   .usecase-card__mech {
-    margin: 18px 0 0;
+    margin: 20px 0 0;
+    padding-top: 18px;
+    border-top: 1px solid var(--edge);
     font-family: var(--font-mono);
-    font-size: 0.78rem;
-    color: rgba(174, 194, 186, 0.7);
+    font-size: 0.74rem;
+    color: var(--fog);
+    opacity: 0.8;
   }
   .usecase-foot {
-    margin: 40px 0 0;
-    max-width: 65ch;
+    margin: 34px 0 0;
+    max-width: 56ch;
     color: var(--fog);
+    font-size: 1.05rem;
   }
 
   /* ---------- why-now (regulatory window) ---------- */
@@ -1712,15 +1960,21 @@
     grid-template-columns: repeat(2, 1fr);
   }
   .about-grid,
-  .founder {
+  .founder,
+  .hero-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 46px;
   }
   .founder-photo {
     max-width: 280px;
   }
   .proof-stats {
     grid-template-columns: repeat(2, 1fr);
+    gap: 30px 0;
+  }
+  .proof-stat:nth-child(3) {
+    border-left: 0;
+    padding-left: 0;
   }
   .what-next {
     grid-template-columns: 1fr;

@@ -6,7 +6,6 @@
  * (no light-band flash). Hero/use-case/why-now/FAQ copy is verbatim source.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import TopoLines from '../components/TopoLines.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import Button from '../components/Button.astro';
 import Card from '../components/Card.astro';
@@ -41,43 +40,62 @@ const jsonLd = [offerCatalogNode(offerInputs()), faqNode(HOME_FAQ)];
   image="/og/home.png"
   jsonLd={jsonLd}
 >
-  <!-- HERO — left-anchored, full-bleed (homepage-hero-and-usecases.md §1) -->
-  <section class="hero-bleed grain">
-    <svg
-      class="hero-bleed__topo"
-      aria-hidden="true"
-      preserveAspectRatio="xMidYMid slice"
-      viewBox="0 0 1440 800"
-    >
-      <g fill="none" stroke="var(--moss)" stroke-width="1" opacity="0.35">
-        <path d="M-40 560 C320 480 560 660 880 560 S1320 420 1500 520"></path>
-        <path d="M-40 620 C340 540 580 700 900 610 S1330 470 1500 575"></path>
-        <path d="M-40 500 C300 430 540 600 880 500 S1330 360 1500 460"></path>
-        <path d="M-40 440 C320 370 560 530 880 440 S1320 300 1500 405"></path>
-      </g>
-      <path
-        d="M-40 530 C300 455 545 625 880 525 S1325 388 1500 488"
-        fill="none"
-        stroke="var(--signal-bright)"
-        stroke-width="1.2"
-        opacity="0.5"></path>
-    </svg>
-    <div class="hero-bleed__scrim"></div>
-    <div class="wrap hero-bleed__inner">
-      <Eyebrow>Blockchain strategy &amp; delivery</Eyebrow>
-      <h1>The bridge from <span class="accent">boardroom</span> to blockchain.</h1>
-      <p class="lead">
-        Stablecoin settlement, tokenized assets, onchain credit, and 24/7 markets aren't theory —
-        they're in production today. We help banks, investors, and operators find where onchain
-        creates real value, then deliver the proof.
-      </p>
-      <div class="hero-actions">
-        <Button href={CTA.auditHref} variant="primary" arrow>{CTA.auditLabel}</Button>
-        <Button href="#use-cases" variant="ghost" arrow>See where blockchain wins today</Button>
+  <!-- HERO — 2-col: copy + glass engagement-ladder panel (design north-star) -->
+  <header class="hero-ns">
+    <div class="wrap hero-grid">
+      <div>
+        <Eyebrow>Blockchain strategy &amp; delivery</Eyebrow>
+        <h1>The bridge from boardroom to <span class="grad">blockchain</span>.</h1>
+        <p class="lead">
+          Stablecoin settlement, tokenized assets, onchain credit, and 24/7 markets aren't theory —
+          they're in production today.
+        </p>
+        <div class="hero-actions">
+          <Button href={CTA.auditHref} variant="primary" arrow>{CTA.auditLabel}</Button>
+          <Button href="#use-cases" variant="ghost">See where blockchain wins today</Button>
+        </div>
+        <p class="micro">Flat fee · 3–5 days · credited toward whatever comes next.</p>
       </div>
-      <p class="hero-cta-subtext">{CTA.auditSubtext}</p>
+
+      <!-- floating glass engagement snapshot (the depth object) -->
+      <aside class="panel" aria-label="Engagement ladder and pricing">
+        <div class="panel-head">
+          <span class="t">Engagement ladder</span>
+          <span class="pill">Start here</span>
+        </div>
+        <div class="ladder">
+          <div class="rung active">
+            <div class="rung-row">
+              <span class="dot"></span>
+              <div class="l"><b>Opportunity Audit</b><span>3–5 days · flat fee</span></div>
+            </div>
+            <span class="p">$1,500</span>
+          </div>
+          <div class="rung">
+            <div class="rung-row">
+              <span class="dot"></span>
+              <div class="l"><b>Diagnostic Sprint</b><span>1–2 weeks · costed roadmap</span></div>
+            </div>
+            <span class="p">$4–7.5k</span>
+          </div>
+          <div class="rung">
+            <div class="rung-row">
+              <span class="dot"></span>
+              <div class="l"><b>PoC Delivery</b><span>managed build, your network</span></div>
+            </div>
+            <span class="p">+15–20%</span>
+          </div>
+          <div class="rung">
+            <div class="rung-row">
+              <span class="dot"></span>
+              <div class="l"><b>Fractional Advisor</b><span>standing strategic seat</span></div>
+            </div>
+            <span class="p">$3–8k/mo</span>
+          </div>
+        </div>
+      </aside>
     </div>
-  </section>
+  </header>
 
   <!-- PROBLEM -->
   <section class="section">
