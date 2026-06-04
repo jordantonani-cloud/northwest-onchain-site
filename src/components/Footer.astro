@@ -4,7 +4,7 @@
  * and the two nav groups from consts.
  */
 import { SITE, FOOTER_NAV, SOCIAL } from '../consts';
-import PeakMark from './PeakMark.astro';
+import Logo from './Logo.astro';
 
 const year = 2026; // TODO(owner): wire to build year if you prefer a rolling date.
 ---
@@ -14,8 +14,7 @@ const year = 2026; // TODO(owner): wire to build year if you prefer a rolling da
     <div class="footer-top">
       <div style="max-width:320px">
         <a class="brand" href="/" style="margin-bottom:14px" aria-label={`${SITE.name} home`}>
-          <PeakMark class="brand-mark" />
-          <span>Northwest <span class="on">Onchain</span></span>
+          <Logo variant="dark" size={34} tagline />
         </a>
         <p style="color:var(--fog);font-size:.92rem">
           The bridge between traditional finance and blockchain. Strategy, delivery, and judgment

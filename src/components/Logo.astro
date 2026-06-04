@@ -1,0 +1,32 @@
+---
+/**
+ * Logo — the horizontal lockup (Brand Book §2.3): Beacon mark + "Northwest
+ * Onchain" wordmark + optional mono tagline.
+ *
+ * The supplied lockup SVGs (public/brand/nwo-logo-horizontal*.svg) embed their
+ * wordmark via a Google Fonts @import, which (a) won't load when referenced as
+ * <img> and (b) violates the self-host requirement. So we compose the lockup
+ * here from the same geometry/colors using the page's self-hosted Space Grotesk
+ * — crisp, themeable, CSP-safe. Wordmark casing is title case (§4 exception).
+ */
+import PeakMark from './PeakMark.astro';
+
+interface Props {
+  /** dark: white wordmark + bright mark (dark bg) · light: ink wordmark + evergreen mark. */
+  variant?: 'dark' | 'light';
+  /** Show the mono tagline line under the wordmark. */
+  tagline?: boolean;
+  /** Mark height in px (wordmark scales with it). */
+  size?: number;
+  class?: string;
+}
+const { variant = 'dark', tagline = false, size = 30, class: className = '' }: Props = Astro.props;
+---
+
+<span class:list={['logo', `logo--${variant}`, className]}>
+  <PeakMark variant={variant} size={size} class="logo-mark" />
+  <span class="logo-text">
+    <span class="logo-wm">Northwest <span class="logo-on">Onchain</span></span>
+    {tagline && <span class="logo-tag">Onchain, on purpose</span>}
+  </span>
+</span>

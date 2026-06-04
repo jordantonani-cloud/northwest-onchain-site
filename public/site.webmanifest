@@ -1,14 +1,14 @@
 {
   "name": "Northwest Onchain",
-  "short_name": "NW Onchain",
+  "short_name": "Onchain",
   "description": "The bridge between traditional finance and blockchain. Onchain, on purpose.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#08211B",
-  "theme_color": "#08211B",
+  "background_color": "#10221C",
+  "theme_color": "#10221C",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/brand/nwo-favicon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"

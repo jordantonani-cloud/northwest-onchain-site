@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Northwest Onchain">
+  <title>Northwest Onchain — Beacon mark (full color, light backgrounds)</title>
+  <circle cx="32" cy="18" r="12.5" fill="none" stroke="#2FBF98" stroke-width="1" opacity="0.28"/>
+  <circle cx="32" cy="18" r="8" fill="none" stroke="#2FBF98" stroke-width="1.3" opacity="0.55"/>
+  <path d="M16 46 L32 18 L48 46" fill="none" stroke="#12463A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="16" cy="46" r="3.2" fill="#12463A"/>
+  <circle cx="48" cy="46" r="3.2" fill="#12463A"/>
+  <circle cx="32" cy="18" r="4.5" fill="#2FBF98"/>
+</svg>

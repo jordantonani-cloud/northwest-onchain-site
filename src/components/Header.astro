@@ -6,7 +6,7 @@
  * CSP can stay `script-src 'self'`.
  */
 import { NAV, BOOKING } from '../consts';
-import PeakMark from './PeakMark.astro';
+import Logo from './Logo.astro';
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
@@ -14,9 +14,8 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(href
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="/" aria-label={`${'Northwest Onchain'} home`}>
-      <PeakMark class="brand-mark" />
-      <span>Northwest <span class="on">Onchain</span></span>
+    <a class="brand" href="/" aria-label="Northwest Onchain home">
+      <Logo variant="dark" size={30} />
     </a>
 
     <nav class="nav-links" id="navlinks" aria-label="Primary">

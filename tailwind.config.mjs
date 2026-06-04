@@ -1,11 +1,12 @@
 /**
- * Northwest Onchain — brand tokens as first-class Tailwind utilities.
- * Canonical hex values live here and in the CSS custom properties in
- * src/styles/global.css (kept in sync). Components reference tokens, never raw hex.
+ * Northwest Onchain — brand tokens (Brand Book v1.0, June 2026) as first-class
+ * Tailwind utilities. Canonical hex values live here and in the CSS custom
+ * properties in src/styles/global.css (kept in sync). Components reference
+ * tokens, never raw hex.
  *
- * Contrast note: `onchain-dim` is intentionally darker than the prototype's
- * #1F8D72 (which failed WCAG AA on the light `mist` background at 3.6:1).
- * #0E7458 clears AA for small text at ~5.1:1. See README §Accessibility.
+ * Contrast note: per Brand Book §3.3, Signal mint is for UI/large/dark — never
+ * small body text on light (3.5:1, fails AA). Small accent text on light uses
+ * `signal.dim` (#0E7458, ~5.0:1 on mist). See README §Accessibility.
  *
  * @type {import('tailwindcss').Config}
  */
@@ -14,18 +15,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#08211B', // deep evergreen near-black — primary dark bg
-        pine: '#0F3D31', // section backgrounds, depth
-        moss: '#1C5E4A', // mid-greens, hovers
-        slate: '#33454B', // granite gray — text on light, borders
-        fog: '#AEC2BA', // muted sage — secondary text on dark
-        mist: '#EEF2EF', // off-white — light section bg
-        onchain: {
-          DEFAULT: '#36E2B4', // luminous teal-mint — accent, CTAs, glow
-          dim: '#0E7458', // AA-safe teal for accent text on light bg (~5.1:1 on mist)
+        ink: '#10221C', // darkest bg; primary text on light
+        evergreen: '#12463A', // primary brand color; dark UI sections, slopes
+        moss: '#1C5E4A', // mid-green; hovers, secondary surfaces
+        signal: {
+          DEFAULT: '#2FBF98', // accent on light/neutral; apex node, small CTAs
+          bright: '#34E0B5', // accent on dark; CTAs, glows, links on dark
+          dim: '#0E7458', // AA-safe mint for small accent text on light (~5.0:1 on mist)
         },
-        copper: '#C9743D', // warm PNW secondary — sparingly
-        white: '#FBFDFC',
+        mist: '#EEF1ED', // primary light background
+        fog: '#AEC2BA', // muted sage; secondary text on dark
+        graphite: '#33454B', // secondary text on light; borders
+        copper: '#C58A5B', // warm heritage accent — sparingly (<=5% of a layout)
+        white: '#FBFDFC', // pure text/elements on dark
       },
       fontFamily: {
         display: ['"Space Grotesk Variable"', '"Space Grotesk"', 'system-ui', 'sans-serif'],

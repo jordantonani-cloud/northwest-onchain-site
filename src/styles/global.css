@@ -11,17 +11,26 @@
 
 @layer base {
   :root {
-    --ink: #08211b;
-    --pine: #0f3d31;
-    --moss: #1c5e4a;
-    --slate: #33454b;
-    --fog: #aec2ba;
-    --mist: #eef2ef;
-    --onchain: #36e2b4;
-    /* Darkened from prototype #1F8D72 (3.6:1, failed AA) to clear AA on light bg (~5.1:1). */
-    --onchain-dim: #0e7458;
-    --copper: #c9743d;
+    /* Brand Book v1.0 (June 2026) — canonical tokens. */
+    --ink: #10221c; /* darkest bg; text on light */
+    --evergreen: #12463a; /* primary brand color */
+    --moss: #1c5e4a; /* mid-green; hovers */
+    --signal: #2fbf98; /* accent on light/neutral (UI/large only) */
+    --signal-bright: #34e0b5; /* accent on dark; CTAs, glows, links */
+    --mist: #eef1ed; /* light bg */
+    --fog: #aec2ba; /* muted text on dark */
+    --graphite: #33454b; /* secondary text on light */
+    --copper: #c58a5b; /* warm accent, sparing (<=5%) */
     --white: #fbfdfc;
+    /* AA-safe mint for small accent text on light (Signal fails at small size, §3.3). */
+    --signal-dim: #0e7458;
+
+    /* Legacy aliases — the ported component CSS references these names; they now
+       resolve to the Brand Book palette. Dark-first, so --onchain = signal-bright. */
+    --pine: var(--evergreen);
+    --slate: var(--graphite);
+    --onchain: var(--signal-bright);
+    --onchain-dim: var(--signal-dim);
 
     --maxw: 1160px;
     --gutter: clamp(20px, 5vw, 48px);
@@ -173,7 +182,7 @@
     top: 0;
     z-index: 50;
     backdrop-filter: blur(10px);
-    background: rgba(8, 33, 27, 0.78);
+    background: rgba(16, 34, 28, 0.78);
     border-bottom: 1px solid rgba(174, 194, 186, 0.12);
   }
   .nav-inner {
@@ -183,21 +192,57 @@
     height: 68px;
   }
   .brand {
-    display: flex;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* ---------- logo lockup ---------- */
+  .logo {
+    display: inline-flex;
     align-items: center;
     gap: 11px;
+    line-height: 1;
+  }
+  .logo-mark {
+    flex: 0 0 auto;
+  }
+  .logo-text {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .logo-wm {
     font-family: var(--font-display);
     font-weight: 600;
-    font-size: 1.06rem;
+    font-size: 1.12rem;
     letter-spacing: -0.01em;
   }
-  .brand .on {
-    color: var(--onchain);
+  .logo-tag {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
   }
-  .brand-mark {
-    width: 30px;
-    height: 30px;
-    flex: 0 0 30px;
+  /* dark backgrounds */
+  .logo--dark .logo-wm {
+    color: var(--white);
+  }
+  .logo--dark .logo-on {
+    color: var(--signal-bright);
+  }
+  .logo--dark .logo-tag {
+    color: #5bd9bb;
+  }
+  /* light backgrounds */
+  .logo--light .logo-wm {
+    color: var(--ink);
+  }
+  .logo--light .logo-on {
+    color: var(--evergreen);
+  }
+  .logo--light .logo-tag {
+    color: var(--signal-dim);
   }
   .nav-links {
     display: flex;
@@ -259,11 +304,11 @@
     background: var(--onchain);
     color: var(--ink);
     font-weight: 600;
-    box-shadow: 0 0 0 0 rgba(54, 226, 180, 0.5);
+    box-shadow: 0 0 0 0 rgba(52, 224, 181, 0.5);
   }
   .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 34px -8px rgba(54, 226, 180, 0.55);
+    box-shadow: 0 10px 34px -8px rgba(52, 224, 181, 0.55);
   }
   .btn-ghost {
     border-color: rgba(174, 194, 186, 0.4);
@@ -282,7 +327,7 @@
   .hero {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(120% 120% at 80% -10%, #0c3127 0%, var(--ink) 55%);
+    background: radial-gradient(120% 120% at 80% -10%, #133b30 0%, var(--ink) 55%);
   }
   .hero-inner {
     position: relative;
@@ -357,7 +402,7 @@
   }
   .card {
     position: relative; /* anchors .featured .badge to the card, not the section */
-    background: linear-gradient(180deg, rgba(28, 94, 74, 0.18), rgba(15, 61, 49, 0.1));
+    background: linear-gradient(180deg, rgba(28, 94, 74, 0.18), rgba(18, 70, 58, 0.1));
     border: 1px solid rgba(174, 194, 186, 0.16);
     border-radius: var(--radius);
     padding: 30px;
@@ -366,7 +411,7 @@
       transform 0.2s;
   }
   .card:hover {
-    border-color: rgba(54, 226, 180, 0.55);
+    border-color: rgba(52, 224, 181, 0.55);
     transform: translateY(-3px);
   }
   .card h3 {
@@ -390,10 +435,10 @@
 
   /* ---------- answer-first TL;DR (AEO) ---------- */
   .takeaways {
-    border: 1px solid rgba(54, 226, 180, 0.32);
+    border: 1px solid rgba(52, 224, 181, 0.32);
     border-left: 3px solid var(--onchain);
     border-radius: var(--radius);
-    background: linear-gradient(180deg, rgba(28, 94, 74, 0.16), rgba(15, 61, 49, 0.08));
+    background: linear-gradient(180deg, rgba(28, 94, 74, 0.16), rgba(18, 70, 58, 0.08));
     padding: 26px 30px;
     max-width: 74ch;
   }
@@ -620,7 +665,7 @@
   }
   .featured {
     border-color: var(--onchain);
-    box-shadow: 0 0 50px -20px rgba(54, 226, 180, 0.5);
+    box-shadow: 0 0 50px -20px rgba(52, 224, 181, 0.5);
   }
 
   /* ---------- audit wedge banner ---------- */
@@ -693,7 +738,7 @@
     font-family: var(--font-mono);
     font-size: 0.82rem;
     color: var(--onchain);
-    border: 1px solid rgba(54, 226, 180, 0.4);
+    border: 1px solid rgba(52, 224, 181, 0.4);
     border-radius: 8px;
     height: 44px;
     display: grid;
@@ -721,7 +766,7 @@
   .cta-band {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(100% 160% at 50% 0%, #0d3528 0%, var(--ink) 70%);
+    background: radial-gradient(100% 160% at 50% 0%, #143f33 0%, var(--ink) 70%);
     text-align: center;
   }
   .cta-band h2 {
@@ -744,8 +789,8 @@
   .portrait {
     aspect-ratio: 4/5;
     border-radius: var(--radius);
-    border: 1px solid rgba(54, 226, 180, 0.3);
-    background: radial-gradient(120% 120% at 30% 20%, #103c30, #08211b);
+    border: 1px solid rgba(52, 224, 181, 0.3);
+    background: radial-gradient(120% 120% at 30% 20%, #143d31, #10221c);
     position: relative;
     overflow: hidden;
   }
@@ -825,7 +870,7 @@
   .field input,
   .field select,
   .field textarea {
-    background: rgba(8, 33, 27, 0.6);
+    background: rgba(16, 34, 28, 0.6);
     border: 1px solid rgba(174, 194, 186, 0.25);
     border-radius: 10px;
     padding: 13px 15px;
@@ -838,7 +883,7 @@
   .field textarea:focus {
     outline: none;
     border-color: var(--onchain);
-    box-shadow: 0 0 0 3px rgba(54, 226, 180, 0.18);
+    box-shadow: 0 0 0 3px rgba(52, 224, 181, 0.18);
   }
   .field textarea {
     min-height: 130px;
@@ -860,7 +905,7 @@
   .booking {
     border: 1px solid rgba(174, 194, 186, 0.16);
     border-radius: var(--radius);
-    background: linear-gradient(180deg, rgba(28, 94, 74, 0.18), rgba(15, 61, 49, 0.1));
+    background: linear-gradient(180deg, rgba(28, 94, 74, 0.18), rgba(18, 70, 58, 0.1));
     padding: 30px;
     min-height: 420px;
   }
@@ -1017,7 +1062,7 @@
     transition: border-color 0.2s;
   }
   .prevnext__item:hover {
-    border-color: rgba(54, 226, 180, 0.55);
+    border-color: rgba(52, 224, 181, 0.55);
   }
   .prevnext__item--next {
     text-align: right;
@@ -1105,13 +1150,13 @@
   .prose code {
     font-family: var(--font-mono);
     font-size: 0.88em;
-    background: rgba(8, 33, 27, 0.7);
+    background: rgba(16, 34, 28, 0.7);
     border: 1px solid rgba(174, 194, 186, 0.18);
     border-radius: 6px;
     padding: 2px 6px;
   }
   .prose pre {
-    background: rgba(8, 33, 27, 0.7);
+    background: rgba(16, 34, 28, 0.7);
     border: 1px solid rgba(174, 194, 186, 0.18);
     border-radius: var(--radius);
     padding: 18px 20px;
@@ -1146,7 +1191,7 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--onchain);
-    border-bottom-color: rgba(54, 226, 180, 0.4);
+    border-bottom-color: rgba(52, 224, 181, 0.4);
   }
   .prose td {
     color: var(--fog);
@@ -1161,7 +1206,7 @@
 
   /* ---------- footer ---------- */
   .footer {
-    background: #061a15;
+    background: #0c1a15;
     border-top: 1px solid rgba(174, 194, 186, 0.12);
     padding: 60px 0 36px;
   }
@@ -1223,7 +1268,7 @@
     position: relative;
     overflow: hidden;
     padding: clamp(60px, 9vw, 110px) 0 clamp(40px, 6vw, 64px);
-    background: radial-gradient(120% 120% at 85% -20%, #0c3127, var(--ink) 60%);
+    background: radial-gradient(120% 120% at 85% -20%, #133b30, var(--ink) 60%);
   }
   .page-hero h1 {
     font-size: clamp(2.2rem, 5vw, 3.6rem);

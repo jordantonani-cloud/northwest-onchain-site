@@ -20,11 +20,16 @@ const pub = join(root, 'public');
 const ogDir = join(pub, 'og');
 const insightsDir = join(root, 'src', 'content', 'insights');
 
-const INK = '#08211B';
-const ONCHAIN = '#36E2B4';
+// Brand Book v1.0 palette.
+const INK = '#10221C';
+const SIGNAL = '#2FBF98';
+const SIGNAL_BRIGHT = '#34E0B5';
+const SLOPE_DARK = '#5BD9BB';
+const BASE_DARK = '#2E8A70';
 const FOG = '#AEC2BA';
-const COPPER = '#C9743D';
+const COPPER = '#C58A5B';
 const MOSS = '#1C5E4A';
+const MIST = '#EEF1ED';
 
 const CLUSTER_LABELS = {
   'enterprise-strategy': 'Enterprise blockchain strategy',
@@ -57,19 +62,21 @@ function wrap(text, max = 24, maxLines = 3) {
   return lines;
 }
 
-/** The peak-as-network mark. */
-function peakMark(stroke = FOG) {
+/** The Beacon mark (Brand Book §2.1), dark-background colors. 64×64 artboard. */
+function beaconMark() {
   return `
-    <path d="M3 25 L12 8 L18 17 L22 12 L29 25" fill="none" stroke="${stroke}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
-    <path d="M3 25 L29 25" stroke="${ONCHAIN}" stroke-width="1.4" opacity=".6"/>
-    <circle cx="12" cy="8" r="2.1" fill="${ONCHAIN}"/>
-    <circle cx="18" cy="17" r="1.7" fill="${ONCHAIN}"/>
-    <circle cx="22" cy="12" r="1.7" fill="${ONCHAIN}"/>`;
+    <circle cx="32" cy="18" r="12.5" fill="none" stroke="${SIGNAL_BRIGHT}" stroke-width="1" opacity="0.3"/>
+    <circle cx="32" cy="18" r="8" fill="none" stroke="${SIGNAL_BRIGHT}" stroke-width="1.3" opacity="0.6"/>
+    <path d="M16 46 L32 18 L48 46" fill="none" stroke="${SLOPE_DARK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="16" cy="46" r="3.2" fill="${BASE_DARK}"/>
+    <circle cx="48" cy="46" r="3.2" fill="${BASE_DARK}"/>
+    <circle cx="32" cy="18" r="4.5" fill="${SIGNAL_BRIGHT}"/>`;
 }
 
+/** Favicon-style fallback (used only if /public/brand/nwo-favicon.svg is missing). */
 function iconSvg(size) {
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 32 32">
-    <rect width="32" height="32" rx="7" fill="${INK}"/>${peakMark()}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 64 64">
+    <rect width="64" height="64" rx="15" fill="${INK}"/>${beaconMark()}</svg>`;
 }
 
 /** 1200×630 social card for a given page. */
@@ -86,7 +93,7 @@ function ogSvg({ eyebrow, title, subtitle }) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
     <defs>
       <radialGradient id="bg" cx="80%" cy="-10%" r="120%">
-        <stop offset="0%" stop-color="#0c3127"/>
+        <stop offset="0%" stop-color="#133b30"/>
         <stop offset="55%" stop-color="${INK}"/>
       </radialGradient>
     </defs>
@@ -94,14 +101,14 @@ function ogSvg({ eyebrow, title, subtitle }) {
     <g fill="none" stroke="${MOSS}" stroke-width="1.5" opacity="0.28">
       <path d="M-50 470 C250 410 430 540 660 460 S1080 370 1320 450"/>
       <path d="M-50 530 C270 470 450 590 680 510 S1090 420 1320 500"/>
-      <path d="M-50 410 C230 350 410 480 660 400 S1100 300 1320 390" stroke="${ONCHAIN}" opacity="0.4"/>
+      <path d="M-50 410 C230 350 410 480 660 400 S1100 300 1320 390" stroke="${SIGNAL}" opacity="0.4"/>
     </g>
-    <g transform="translate(90,96) scale(2.1)">${peakMark()}</g>
-    <text x="158" y="148" font-family="${sans}" font-size="40" font-weight="700" fill="#EEF2EF" letter-spacing="-1">Northwest <tspan fill="${ONCHAIN}">Onchain</tspan></text>
-    <text x="92" y="${titleY}" font-family="${sans}" font-size="${titleSize}" font-weight="600" fill="#EEF2EF" letter-spacing="-1">${titleSpan}</text>
+    <g transform="translate(84,72) scale(1.05)">${beaconMark()}</g>
+    <text x="172" y="128" font-family="${sans}" font-size="40" font-weight="700" fill="${MIST}" letter-spacing="-1">Northwest <tspan fill="${SIGNAL_BRIGHT}">Onchain</tspan></text>
+    <text x="92" y="${titleY}" font-family="${sans}" font-size="${titleSize}" font-weight="600" fill="${MIST}" letter-spacing="-1">${titleSpan}</text>
     <text x="92" y="500" font-family="${sans}" font-size="26" fill="${FOG}">${escapeXml(subtitle)}</text>
-    <rect x="92" y="540" width="46" height="3" fill="${ONCHAIN}"/>
-    <text x="92" y="576" font-family="${mono}" font-size="20" fill="${ONCHAIN}" letter-spacing="2">// ${escapeXml(eyebrow.toUpperCase())}</text>
+    <rect x="92" y="540" width="46" height="3" fill="${SIGNAL_BRIGHT}"/>
+    <text x="92" y="576" font-family="${mono}" font-size="20" fill="${SIGNAL_BRIGHT}" letter-spacing="2">// ${escapeXml(eyebrow.toUpperCase())}</text>
     <circle cx="1108" cy="572" r="4" fill="${COPPER}"/>
     <text x="1010" y="578" font-family="${mono}" font-size="18" fill="${FOG}" text-anchor="end">northwestonchain.com</text>
   </svg>`;
@@ -141,7 +148,7 @@ async function main() {
 
   let baseIcon;
   try {
-    baseIcon = await readFile(join(pub, 'favicon.svg'));
+    baseIcon = await readFile(join(pub, 'brand', 'nwo-favicon.svg'));
   } catch {
     baseIcon = Buffer.from(iconSvg(512));
   }
