@@ -1018,6 +1018,187 @@
     margin: 0;
   }
 
+  /* ---------- full-bleed hero (BCG-style, left-anchored) ---------- */
+  .hero-bleed {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    min-height: 84vh;
+    background: var(--ink);
+    color: var(--mist);
+  }
+  .hero-bleed__topo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+  }
+  .hero-bleed__scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to right,
+      var(--ink) 0%,
+      rgba(16, 34, 28, 0.9) 42%,
+      rgba(16, 34, 28, 0.3) 100%
+    );
+  }
+  .hero-bleed__inner {
+    position: relative;
+    padding: clamp(64px, 9vw, 104px) 0;
+    max-width: 720px;
+    margin-right: auto;
+    margin-left: 0;
+  }
+  .hero-bleed .wrap {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .hero-bleed h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 600;
+  }
+  .hero-bleed h1 .accent {
+    color: var(--signal-bright);
+  }
+  .hero-bleed .lead {
+    margin: 24px 0 0;
+    max-width: 40ch;
+  }
+  .hero-bleed .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 34px;
+  }
+
+  /* copper eyebrow (regulatory / heritage sections) */
+  .eyebrow--copper {
+    color: var(--copper);
+  }
+
+  /* ---------- use-case grid ("where blockchain wins — today") ---------- */
+  .usecase-card {
+    padding: 30px;
+  }
+  .usecase-card__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .usecase-card__num {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--signal-bright);
+  }
+  .usecase-card__tag {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--signal-bright);
+    background: rgba(52, 224, 181, 0.1);
+    border-radius: 999px;
+    padding: 4px 12px;
+  }
+  .usecase-card__title {
+    margin: 20px 0 0;
+    font-size: 1.3rem;
+    color: var(--white);
+  }
+  .usecase-card__outcome {
+    margin: 4px 0 0;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--signal-bright);
+  }
+  .usecase-card__body {
+    margin: 16px 0 0;
+    color: var(--fog);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .usecase-card__mech {
+    margin: 18px 0 0;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: rgba(174, 194, 186, 0.7);
+  }
+  .usecase-foot {
+    margin: 40px 0 0;
+    max-width: 65ch;
+    color: var(--fog);
+  }
+
+  /* ---------- why-now (regulatory window) ---------- */
+  .whynow-card {
+    border-color: rgba(197, 138, 91, 0.3);
+    background: linear-gradient(180deg, rgba(197, 138, 91, 0.07), rgba(197, 138, 91, 0.03));
+  }
+  .whynow-card:hover {
+    border-color: rgba(197, 138, 91, 0.5);
+    transform: none;
+  }
+  .whynow-card__head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .whynow-card__name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--white);
+  }
+  .whynow-card__badge {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: 999px;
+    padding: 4px 11px;
+  }
+  .whynow-card__badge--law {
+    color: var(--signal-bright);
+    background: rgba(52, 224, 181, 0.1);
+  }
+  .whynow-card__badge--pending {
+    color: var(--fog);
+    background: rgba(174, 194, 186, 0.1);
+  }
+  .whynow-card__body {
+    margin: 16px 0 0;
+    color: var(--fog);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .whynow-foot {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .whynow-disclaimer {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: rgba(174, 194, 186, 0.7);
+    margin: 0;
+  }
+  @media (min-width: 720px) {
+    .whynow-foot {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
   /* ---------- about ---------- */
   .about-grid {
     display: grid;

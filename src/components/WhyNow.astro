@@ -1,0 +1,58 @@
+---
+/**
+ * WhyNow — the regulatory window (homepage-hero-and-usecases.md §3).
+ * Sits after the use cases (value → why the window is open). Copper accents
+ * carry the regulatory/heritage warmth. HEDGED, fact-checked as of June 2026:
+ * GENIUS Act = signed into law (2025); CLARITY Act = advancing, not yet law.
+ * Copy and the "not legal advice" disclaimer are verbatim from the source doc.
+ */
+import Eyebrow from './Eyebrow.astro';
+import Button from './Button.astro';
+---
+
+<section class="section why-now">
+  <div class="wrap">
+    <div class="section-head">
+      <Eyebrow variant="copper">Why now</Eyebrow>
+      <h2>For years the blocker wasn't the technology. It was the rules.</h2>
+      <p class="lead">
+        That's changing fast. A federal stablecoin law is now on the books, and digital-asset
+        market-structure rules are advancing through Congress. The institutions that build now will
+        be the ones ready when the rules fully land — not scrambling to catch up after.
+      </p>
+    </div>
+
+    <div class="grid grid-2 whynow-grid">
+      <article class="card whynow-card">
+        <div class="whynow-card__head">
+          <span class="whynow-card__name">GENIUS Act</span>
+          <span class="whynow-card__badge whynow-card__badge--law">Signed into law · 2025</span>
+        </div>
+        <p class="whynow-card__body">
+          The first federal framework for payment stablecoins — requiring one-to-one reserves and
+          permitted issuers. It turns stablecoin settlement from a gray area into a sanctioned rail
+          enterprises can build on. (Implementation and rulemaking are still rolling out.)
+        </p>
+      </article>
+
+      <article class="card whynow-card">
+        <div class="whynow-card__head">
+          <span class="whynow-card__name">CLARITY Act</span>
+          <span class="whynow-card__badge whynow-card__badge--pending">Advancing · not yet law</span>
+        </div>
+        <p class="whynow-card__body">
+          Digital-asset market-structure legislation that would divide regulatory oversight and
+          reduce the "is it a security?" risk that has stalled tokenization. It cleared the Senate
+          Banking Committee in May 2026 and still needs a full Senate vote.
+        </p>
+      </article>
+    </div>
+
+    <div class="whynow-foot">
+      <Button href="/contact" variant="primary" arrow>
+        Get ahead of the curve — start with the Audit
+      </Button>
+      <p class="whynow-disclaimer">Regulatory status as of June 2026. Directional, not legal advice.</p>
+    </div>
+  </div>
+</section>

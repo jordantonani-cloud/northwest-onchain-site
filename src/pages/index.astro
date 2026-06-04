@@ -1,17 +1,18 @@
 ---
 /**
- * Home. Order per WEBSITE-AUDIT §8: hero → problem → what we do (4) → proof →
- * why (4, 2×2) → process → founder teaser → what-happens-next → final CTA.
- * Dark base throughout with subtle elevation steps (no light-band flash).
- * Hero subhead + FAQ are final copy (homepage-and-founder-copy.md), verbatim.
+ * Home. Order per IMPLEMENTATION-PLAN §2: hero → problem → use cases → why now →
+ * services (4) → proof → why (4, 2×2) → process → founder teaser →
+ * what-happens-next → final CTA. Dark base throughout with subtle elevation
+ * (no light-band flash). Hero/use-case/why-now/FAQ copy is verbatim source.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TopoLines from '../components/TopoLines.astro';
-import NodeGlow from '../components/NodeGlow.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import Button from '../components/Button.astro';
 import Card from '../components/Card.astro';
 import StepRow from '../components/StepRow.astro';
+import UseCases from '../components/UseCases.astro';
+import WhyNow from '../components/WhyNow.astro';
 import ProofBand from '../components/ProofBand.astro';
 import FounderCard from '../components/FounderCard.astro';
 import HomeFAQ from '../components/HomeFAQ.astro';
@@ -40,21 +41,39 @@ const jsonLd = [offerCatalogNode(offerInputs()), faqNode(HOME_FAQ)];
   image="/og/home.png"
   jsonLd={jsonLd}
 >
-  <!-- HERO -->
-  <section class="hero grain">
-    <TopoLines variant="full" animate />
-    <NodeGlow />
-    <div class="wrap hero-inner">
+  <!-- HERO — left-anchored, full-bleed (homepage-hero-and-usecases.md §1) -->
+  <section class="hero-bleed grain">
+    <svg
+      class="hero-bleed__topo"
+      aria-hidden="true"
+      preserveAspectRatio="xMidYMid slice"
+      viewBox="0 0 1440 800"
+    >
+      <g fill="none" stroke="var(--moss)" stroke-width="1" opacity="0.35">
+        <path d="M-40 560 C320 480 560 660 880 560 S1320 420 1500 520"></path>
+        <path d="M-40 620 C340 540 580 700 900 610 S1330 470 1500 575"></path>
+        <path d="M-40 500 C300 430 540 600 880 500 S1330 360 1500 460"></path>
+        <path d="M-40 440 C320 370 560 530 880 440 S1320 300 1500 405"></path>
+      </g>
+      <path
+        d="M-40 530 C300 455 545 625 880 525 S1325 388 1500 488"
+        fill="none"
+        stroke="var(--signal-bright)"
+        stroke-width="1.2"
+        opacity="0.5"></path>
+    </svg>
+    <div class="hero-bleed__scrim"></div>
+    <div class="wrap hero-bleed__inner">
       <Eyebrow>Blockchain strategy &amp; delivery</Eyebrow>
       <h1>The bridge from <span class="accent">boardroom</span> to blockchain.</h1>
       <p class="lead">
-        Northwest Onchain is a blockchain strategy and delivery consultancy. We help banks,
-        investors, and operators find where onchain creates real value — then deliver a working
-        proof of concept against defined metrics, cost, and ROI.
+        Stablecoin settlement, tokenized assets, onchain credit, and 24/7 markets aren't theory —
+        they're in production today. We help banks, investors, and operators find where onchain
+        creates real value, then deliver the proof.
       </p>
       <div class="hero-actions">
         <Button href={CTA.auditHref} variant="primary" arrow>{CTA.auditLabel}</Button>
-        <Button href="/services" variant="ghost">{CTA.secondaryLabel}</Button>
+        <Button href="#use-cases" variant="ghost" arrow>See where blockchain wins today</Button>
       </div>
       <p class="hero-cta-subtext">{CTA.auditSubtext}</p>
     </div>
@@ -93,6 +112,12 @@ const jsonLd = [offerCatalogNode(offerInputs()), faqNode(HOME_FAQ)];
       </div>
     </div>
   </section>
+
+  <!-- WHERE BLOCKCHAIN WINS — TODAY (use cases) -->
+  <UseCases />
+
+  <!-- WHY NOW (regulation) -->
+  <WhyNow />
 
   <!-- WHAT WE DO (4 services) -->
   <section class="section section--elevated">

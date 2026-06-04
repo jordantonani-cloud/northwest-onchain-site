@@ -1,0 +1,80 @@
+---
+/**
+ * UseCases — "Where blockchain wins — today" (homepage-hero-and-usecases.md §2).
+ * The most prominent block on the homepage; sits below the problem, before
+ * services. HONESTY: these are industry patterns/outcomes, not NWO client wins;
+ * the `tag` lines are general adoption signals, not specific claims. Accent uses
+ * signal-bright (#34E0B5) per Brand Book §3.2 (the dark-background accent).
+ */
+import Eyebrow from './Eyebrow.astro';
+
+const useCases = [
+  {
+    n: '01',
+    title: 'Stablecoin settlement',
+    outcome: 'Take cost out of the value chain.',
+    body: 'Replace multi-day correspondent-banking cycles and FX spreads with stablecoin rails that settle in minutes, around the clock — stripping intermediary fees, pre-funding, and float out of payments, payroll, treasury, and supplier settlement.',
+    mech: 'Same-asset atomic settlement, no batch windows.',
+    tag: 'In production today',
+  },
+  {
+    n: '02',
+    title: 'Tokenization',
+    outcome: 'Liquidity, fractionalization, distribution.',
+    body: 'Bring funds, credit, real estate, and commodities onchain to unlock 24/7 transferability, fractional ownership that widens the buyer base, programmable distribution, and near-instant secondary liquidity for traditionally illiquid assets.',
+    mech: 'Assets as programmable tokens with embedded compliance.',
+    tag: 'Fastest-growing institutional segment',
+  },
+  {
+    n: '03',
+    title: 'Onchain vaults & credit',
+    outcome: 'New product lines, transparent reserves.',
+    body: 'Use onchain vaults and lending primitives to launch yield products, structured credit, and collateralized lending with transparent, real-time, auditable reserves — new revenue lines for issuers and new visibility for end users.',
+    mech: 'Composable vaults + transparent on-chain collateral.',
+    tag: 'Available now',
+  },
+  {
+    n: '04',
+    title: 'Perps & 24/7 derivatives',
+    outcome: 'Markets that never close.',
+    body: 'Stand up or tap perpetuals and derivatives venues for round-the-clock hedging, leverage, and price exposure — markets that settle continuously without a central clearinghouse.',
+    mech: 'Onchain perpetual markets with continuous funding.',
+    tag: 'Trading 24/7 today',
+  },
+];
+---
+
+<section id="use-cases" class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <Eyebrow>Where blockchain wins — today</Eyebrow>
+      <h2>Concrete value, already in production.</h2>
+      <p class="lead">
+        Not theory or roadmap — four places blockchain is creating measurable value for finance
+        today. We help you find which one fits your business, and prove it.
+      </p>
+    </div>
+
+    <div class="grid grid-2 usecase-grid">
+      {
+        useCases.map((u) => (
+          <article class="card usecase-card">
+            <div class="usecase-card__top">
+              <span class="usecase-card__num" aria-hidden="true">{u.n}</span>
+              <span class="usecase-card__tag">{u.tag}</span>
+            </div>
+            <h3 class="usecase-card__title">{u.title}</h3>
+            <p class="usecase-card__outcome">{u.outcome}</p>
+            <p class="usecase-card__body">{u.body}</p>
+            <p class="usecase-card__mech">→ {u.mech}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="usecase-foot">
+      And the ones we'll talk you out of. Not every problem needs a chain — that's why the audit
+      comes first.
+    </p>
+  </div>
+</section>

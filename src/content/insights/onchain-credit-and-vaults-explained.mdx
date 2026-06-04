@@ -1,0 +1,73 @@
+---
+title: 'Onchain credit and vaults: new product lines explained'
+description: 'What onchain vaults and tokenized credit are, the new product lines they unlock for issuers, and why transparent, real-time reserves change the risk picture.'
+pubDate: 2026-06-03
+author: 'Jordan Tonani'
+cluster: 'tokenization-rwa'
+tags: ['onchain credit', 'tokenized private credit', 'onchain vaults', 'structured credit', 'RWA']
+keyTakeaway: 'Onchain vaults and tokenized credit let issuers launch yield products, structured credit, and collateralized lending with transparent, real-time, auditable reserves — new revenue lines for issuers and new visibility for investors. Tokenized private credit has become the largest non-Treasury segment of the real-world-asset market, with well over $14 billion in active on-chain loans. The edge is transparency and composability, not just yield — and the risks (smart-contract, underwriting, liquidity) are real and must be priced.'
+keyPoints:
+  - 'An onchain vault is a smart contract that pools capital and deploys it to a defined strategy with on-chain, real-time accounting.'
+  - 'Tokenized credit puts loans and credit exposure on-chain as transferable tokens with embedded terms.'
+  - 'New product lines: yield products, structured credit, collateralized lending, and transparent-reserve funds.'
+  - 'Tokenized private credit is now the largest non-Treasury RWA segment — $14B+ in active on-chain loans.'
+  - 'The differentiator is transparent, auditable collateral — but smart-contract and underwriting risk remain.'
+faqs:
+  - question: 'What is an onchain vault?'
+    answer: 'An onchain vault is a smart contract that pools deposits and deploys them to a defined strategy — lending, yield, or structured credit — while accounting for positions and reserves transparently on-chain in real time. Investors can see what backs their position rather than relying on a quarterly statement, and the vault can plug into other on-chain products because it is composable.'
+  - question: 'What is tokenized credit?'
+    answer: 'Tokenized credit represents a loan or pool of credit exposure as a transferable on-chain token with its terms embedded. It lets issuers distribute credit products programmatically, lets investors hold and potentially trade exposure with on-chain transparency, and is now the largest non-Treasury segment of the tokenized real-world-asset market.'
+  - question: 'How big is onchain credit in 2026?'
+    answer: 'Tokenized private credit surpassed $14 billion in active on-chain loans in 2026, making it the largest non-Treasury segment of the roughly $34 billion tokenized RWA market, with reported yields commonly in the 8–15% range. For context, the traditional private-credit market is estimated at $3–3.5 trillion, so on-chain penetration is still a fraction of a percent.'
+---
+
+"Put it onchain" is not a product strategy. But onchain vaults and tokenized credit are quietly becoming the most concrete revenue story in the space — because they let an issuer launch a credit or yield product that is **transparent and composable** in ways a traditional fund structure cannot match.
+
+**The short answer:** an onchain vault is a smart contract that pools capital and runs a defined strategy with real-time, on-chain accounting; tokenized credit puts loans and credit exposure on-chain as transferable tokens. Together they unlock new product lines — yield products, structured credit, collateralized lending — with auditable, real-time reserves. The segment is already material: tokenized private credit is the largest non-Treasury part of the real-world-asset market. The catch is that the risks are real and must be priced, not waved away.
+
+## What is an onchain vault?
+
+A vault is a smart contract that accepts deposits, deploys them to a defined strategy, and accounts for every position and reserve **on-chain, in real time**. Two properties make it more than a wrapper around a fund:
+
+- **Transparency.** An investor can verify what backs their position continuously, rather than trusting a quarterly statement. Reserves are auditable on demand.
+- **Composability.** Because the vault is a standard on-chain object, other products can build on top of it — a stablecoin can route idle balances into it, a structured product can use its shares as a building block.
+
+That combination — provable backing plus programmability — is the actual innovation. The yield is secondary.
+
+## What is tokenized credit?
+
+Tokenized credit represents a loan, or a pool of loans, as a transferable on-chain token with its terms embedded in code. Instead of a credit position living in a fund administrator's spreadsheet, it lives as a token that can be distributed programmatically, held with on-chain transparency, and — where regulation and liquidity allow — traded on a secondary market.
+
+For an issuer, that means distribution and servicing become software. For an investor, it means visibility into the collateral and cash flows backing the exposure.
+
+## What new product lines does this unlock?
+
+This is where it gets concrete for a business deciding whether to build:
+
+- **Yield products** — packaging on-chain or tokenized cash-equivalent strategies into a simple, transparent product for fintechs, wallets, or treasuries to embed.
+- **Structured credit** — tranching credit exposure with rules enforced by code rather than by a servicer.
+- **Collateralized lending** — lending against on-chain or tokenized collateral with real-time, auditable loan-to-value, reducing the opacity that hides risk in traditional private credit.
+- **Transparent-reserve funds** — funds whose backing is provable on-chain at any moment, a genuine differentiator for institutional allocators burned by opacity.
+
+## How big is onchain credit today?
+
+Larger than most people assume, and concentrated. Tokenized private credit surpassed [$14 billion in active on-chain loans in 2026](https://blockworks.co/news/private-credit-tokenization-2-trillion-blackrock-maple) and is now the [largest non-Treasury segment of the roughly $34 billion tokenized RWA market](https://www.coindesk.com/business/2026/01/21/private-credit-may-be-the-breakout-use-case-for-tokenization). Reported yields commonly sit in the 8–15% range, and a handful of platforms account for most of the volume.
+
+Now the honest context: the traditional private-credit market is estimated at $3–3.5 trillion. On-chain credit is a fraction of a percent of that — which is exactly why it is an opportunity rather than a crowded trade. The rails work and the early product-market fit is visible; most of the market has not moved yet. If you are weighing whether tokenization fits your assets at all, start with [Is tokenizing your asset worth it?](/insights/is-tokenizing-your-asset-worth-it).
+
+## What are the risks?
+
+A vendor-neutral read has to name them, because the yield headlines rarely do:
+
+- **Smart-contract risk** — a vault is only as safe as its code and its audits.
+- **Underwriting risk** — tokenization does not improve a bad loan book; transparent collateral makes risk visible, it does not remove it.
+- **Liquidity risk** — "tradeable in principle" is not the same as "liquid when you need to exit."
+- **Oracle and dependency risk** — composability cuts both ways; a product is exposed to whatever it builds on.
+
+None of these are reasons not to build. They are reasons to scope carefully, define what "success" and "safe" mean up front, and assemble a team that has shipped this before. That is the work a [Diagnostic Sprint](/services) does: define the product, the metrics, the collateral and custody model, and the costed path — before a line of contract code is written.
+
+---
+
+*Northwest Onchain is a blockchain strategy and delivery consultancy. We help banks, investors, and operators find where onchain creates real value — then deliver the proof. [Start with a $1,500 Opportunity Audit →](/contact)*
+
+*Figures as of June 2026 and cited inline; this is directional analysis, not financial or legal advice.*

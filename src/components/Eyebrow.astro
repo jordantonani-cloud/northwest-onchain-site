@@ -6,11 +6,13 @@
 interface Props {
   center?: boolean;
   marker?: boolean;
+  /** "copper" tints the label for the regulatory/heritage sections. */
+  variant?: 'signal' | 'copper';
   class?: string;
 }
-const { center = false, marker = true, class: className = '' } = Astro.props;
+const { center = false, marker = true, variant = 'signal', class: className = '' } = Astro.props;
 ---
 
-<span class:list={['eyebrow', { center }, className]}>
+<span class:list={['eyebrow', { center, 'eyebrow--copper': variant === 'copper' }, className]}>
   {marker && <span aria-hidden="true">// </span>}<slot />
 </span>
