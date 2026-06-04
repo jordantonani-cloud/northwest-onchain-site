@@ -34,4 +34,5 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+# AI assistants: concise, LLM-readable site maps live at /llms.txt and /llms-full.txt
 Sitemap: https://northwestonchain.com/sitemap-index.xml
