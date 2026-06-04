@@ -1,0 +1,73 @@
+# Netlify deployment config for Northwest Onchain.
+# Primary host. For Vercel, see the note at the bottom of this file.
+
+[build]
+  command = "pnpm build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  # Astro reads PNPM from packageManager in package.json; Netlify auto-detects pnpm.
+
+# --- Security headers (all routes) ---------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), browsing-topics=()"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    Cross-Origin-Opener-Policy = "same-origin"
+    # Astro bundles all <script> tags to self-hosted files, so script-src 'self' is sufficient.
+    # Cal.com booking embed loads from app.cal.com (added in Milestone 6).
+    # Plausible (analytics) is allowed but only loads when SITE.analytics.enabled is true.
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://app.cal.com https://cal.com https://plausible.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self'; connect-src 'self' https://app.cal.com https://cal.com https://plausible.io; frame-src https://app.cal.com https://cal.com; base-uri 'self'; form-action 'self' https://*.netlify.app; frame-ancestors 'none'; object-src 'none'"
+
+# --- Long-cache immutable, fingerprinted assets --------------------------
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/og/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# --- Netlify Forms detection ---------------------------------------------
+# The contact form (Milestone 6) uses data-netlify="true"; Netlify auto-detects it
+# from the static HTML at deploy time. No extra config needed here.
+
+# --- Redirects -----------------------------------------------------------
+# Prototype used .html URLs; the rebuild uses clean URLs. Preserve any inbound links.
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+[[redirects]]
+  from = "/services.html"
+  to = "/services"
+  status = 301
+[[redirects]]
+  from = "/process.html"
+  to = "/process"
+  status = 301
+[[redirects]]
+  from = "/about.html"
+  to = "/about"
+  status = 301
+[[redirects]]
+  from = "/contact.html"
+  to = "/contact"
+  status = 301
+
+# --- Vercel note ---------------------------------------------------------
+# To deploy on Vercel instead: add @astrojs/vercel and set `adapter` in astro.config.mjs,
+# or use Vercel's static build (framework preset "Astro"). Recreate the headers above
+# in vercel.json under "headers", and the redirects under "redirects".

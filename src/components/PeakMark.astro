@@ -1,0 +1,39 @@
+---
+/**
+ * PeakMark — the logo: a Cascade peak built from connected nodes
+ * (a mountain that is also a network graph). Single-weight line + node dots.
+ * The ridge uses `currentColor` so it inherits text color; node fills use
+ * brand tokens via CSS vars (no raw hex in markup).
+ */
+interface Props {
+  /** Pixel size of the square mark. */
+  size?: number;
+  /** Extra classes (e.g. for the footer variant). */
+  class?: string;
+}
+const { size = 30, class: className = '' } = Astro.props;
+---
+
+<svg
+  class:list={['peak-mark', className]}
+  width={size}
+  height={size}
+  viewBox="0 0 32 32"
+  fill="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  <path
+    d="M3 26 L12 8 L18 18 L22 12 L29 26"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.6"
+    stroke-linejoin="round"
+    stroke-linecap="round"></path>
+  <path d="M3 26 L29 26" stroke="var(--onchain)" stroke-width="1.4" opacity=".6"></path>
+  <circle cx="12" cy="8" r="2.1" fill="var(--onchain)"></circle>
+  <circle cx="18" cy="18" r="1.7" fill="var(--onchain)"></circle>
+  <circle cx="22" cy="12" r="1.7" fill="var(--onchain)"></circle>
+  <circle cx="3" cy="26" r="1.7" fill="var(--fog)"></circle>
+  <circle cx="29" cy="26" r="1.7" fill="var(--fog)"></circle>
+</svg>

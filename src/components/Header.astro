@@ -1,0 +1,82 @@
+---
+/**
+ * Sticky global header. Primary nav + "Book the Meet" CTA.
+ * Mobile nav is an accessible disclosure: aria-expanded, Esc to close,
+ * click-outside to close. The toggle script is bundled (not inline) so the
+ * CSP can stay `script-src 'self'`.
+ */
+import { NAV, BOOKING } from '../consts';
+import PeakMark from './PeakMark.astro';
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => pathname === href || pathname.startsWith(href + '/');
+---
+
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/" aria-label={`${'Northwest Onchain'} home`}>
+      <PeakMark class="brand-mark" />
+      <span>Northwest <span class="on">Onchain</span></span>
+    </a>
+
+    <nav class="nav-links" id="navlinks" aria-label="Primary">
+      {
+        NAV.map((item) => (
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        class="nav-cta"
+        href="/contact"
+        aria-current={isActive('/contact') ? 'page' : undefined}
+      >
+        {BOOKING.ctaLabel}
+      </a>
+    </nav>
+
+    <button
+      class="nav-toggle"
+      type="button"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+      aria-controls="navlinks"
+    >
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M3 6h18M3 12h18M3 18h18"></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const links = document.getElementById('navlinks');
+
+  function setOpen(open: boolean) {
+    if (!links || !toggle) return;
+    links.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  }
+
+  toggle?.addEventListener('click', () => {
+    const open = !links?.classList.contains('open');
+    setOpen(open);
+  });
+
+  // Esc closes the menu and returns focus to the toggle.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && links?.classList.contains('open')) {
+      setOpen(false);
+      toggle?.focus();
+    }
+  });
+
+  // Click outside closes it.
+  document.addEventListener('click', (e) => {
+    if (!links?.classList.contains('open')) return;
+    const target = e.target as Node;
+    if (!links.contains(target) && !toggle?.contains(target)) setOpen(false);
+  });
+</script>

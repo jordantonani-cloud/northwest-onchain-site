@@ -1,0 +1,49 @@
+---
+/**
+ * Global footer. NAP-consistent (name, region, email), social sameAs links,
+ * and the two nav groups from consts.
+ */
+import { SITE, FOOTER_NAV, SOCIAL } from '../consts';
+import PeakMark from './PeakMark.astro';
+
+const year = 2026; // TODO(owner): wire to build year if you prefer a rolling date.
+---
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div style="max-width:320px">
+        <a class="brand" href="/" style="margin-bottom:14px" aria-label={`${SITE.name} home`}>
+          <PeakMark class="brand-mark" />
+          <span>Northwest <span class="on">Onchain</span></span>
+        </a>
+        <p style="color:var(--fog);font-size:.92rem">
+          The bridge between traditional finance and blockchain. Strategy, delivery, and judgment
+          you can trust — onchain, on purpose.
+        </p>
+        <div class="footer-social">
+          <a href={SOCIAL.linkedin} rel="me noopener" target="_blank" aria-label="Northwest Onchain on LinkedIn">LinkedIn</a>
+          <a href={SOCIAL.x} rel="me noopener" target="_blank" aria-label="Northwest Onchain on X">X</a>
+        </div>
+      </div>
+
+      <div class="footer-cols">
+        {
+          FOOTER_NAV.map((group) => (
+            <div>
+              <h4>{group.heading}</h4>
+              {group.links.map((link) => (
+                <a href={link.href}>{link.label}</a>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© {year} {SITE.name} · {SITE.region}</span>
+      <span><a href={`mailto:${SITE.email}`}>{SITE.email}</a></span>
+    </div>
+  </div>
+</footer>

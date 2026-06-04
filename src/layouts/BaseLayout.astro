@@ -1,0 +1,78 @@
+---
+/**
+ * BaseLayout — the document shell every page extends.
+ * Owns <head> (via Seo), self-hosted fonts, skip-link, header, <main>, footer,
+ * and the optional cookieless analytics snippet (off by default).
+ */
+import { SITE, ANALYTICS } from '../consts';
+import Seo from '../components/Seo.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import type { SchemaNode, Crumb } from '../lib/jsonld';
+
+// Self-hosted variable fonts (no Google Fonts hotlink — privacy + LCP).
+import '@fontsource-variable/space-grotesk';
+import '@fontsource-variable/inter';
+import '@fontsource-variable/jetbrains-mono';
+// Preload the two above-the-fold faces (display for H1/LCP, body for copy).
+import spaceGroteskWoff2 from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2';
+import interWoff2 from '@fontsource-variable/inter/files/inter-latin-wght-normal.woff2';
+
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;
+  ogType?: 'website' | 'article';
+  image?: string;
+  noindex?: boolean;
+  breadcrumbs?: Crumb[];
+  jsonLd?: SchemaNode[];
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const props = Astro.props;
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#08211B" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="preload" as="font" type="font/woff2" href={spaceGroteskWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={interWoff2} crossorigin />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} — Insights`} href="/rss.xml" />
+
+    <Seo {...props} />
+
+    {
+      ANALYTICS.enabled && ANALYTICS.provider === 'plausible' && (
+        <script
+          is:inline
+          defer
+          data-domain={ANALYTICS.domain}
+          src={ANALYTICS.src}
+        />
+      )
+    }
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

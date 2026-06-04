@@ -1,0 +1,58 @@
+---
+/**
+ * Home — Milestone 1 styled shell.
+ * Hero + trust strip + CTA band render with the real design system so the
+ * shell is presentable. Full home sections (problem, why-us, services preview,
+ * process preview) + topo/glow motif components land in Milestones 2–3.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts';
+---
+
+<BaseLayout
+  title="Northwest Onchain | Blockchain Strategy & Proof-of-Concept Consulting"
+  description="Northwest Onchain bridges traditional finance and blockchain. We diagnose where onchain creates real value, assemble the right team, and deliver a working proof of concept to defined metrics, cost, and ROI."
+  path="/"
+>
+  <!-- HERO (topo + node-glow motifs added in Milestone 2) -->
+  <section class="hero grain">
+    <div class="wrap hero-inner">
+      <span class="eyebrow">// TradFi rigor · Onchain fluency</span>
+      <h1>The bridge from <span class="accent">boardroom</span> to blockchain.</h1>
+      <p class="lead">
+        Most crypto consultants can't read a P&amp;L. Most strategists have never shipped a
+        contract. Northwest Onchain is the rare both-sides partner — we diagnose where onchain
+        actually creates value, assemble the right builders from a vetted network, and deliver a
+        working proof of concept to defined metrics, cost, and ROI.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-arrow" href="/contact">Book a Diagnostic Sprint</a>
+        <a class="btn btn-ghost" href="/services">See how we work</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="strip">
+    <div class="wrap">
+      <span>Onchain, <b>on purpose</b></span>
+      <span>Metrics-first, <b>always</b></span>
+      <span>Vendor-<b>neutral</b></span>
+      <span>Network, <b>not headcount</b></span>
+      <span>Pacific <b>Northwest</b></span>
+    </div>
+  </div>
+
+  <!-- CTA BAND -->
+  <section class="section cta-band grain">
+    <div class="wrap">
+      <span class="eyebrow center">// {SITE.tagline}</span>
+      <h2>Turn the board's question into a measured proof of concept.</h2>
+      <p>
+        Start with a Diagnostic Sprint. Fixed fee, two to three weeks, and a clear answer —
+        including an honest "don't" when that's the right call.
+      </p>
+      <a class="btn btn-primary btn-arrow" href="/contact">Book the Meet</a>
+    </div>
+  </section>
+</BaseLayout>

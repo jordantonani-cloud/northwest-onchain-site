@@ -1,0 +1,99 @@
+---
+/**
+ * Seo — centralized <head> meta + the JSON-LD entity graph.
+ * Site-wide nodes (Organization/ProfessionalService + WebSite) are always
+ * included; pages pass additional nodes (Offers, FAQ, Person, Article) and
+ * a breadcrumb trail.
+ */
+import { SITE, VERIFICATION } from '../consts';
+import {
+  organizationNode,
+  websiteNode,
+  breadcrumbNode,
+  graph,
+  type SchemaNode,
+  type Crumb,
+} from '../lib/jsonld';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Site-relative path of this page, e.g. "/services". */
+  path: string;
+  ogType?: 'website' | 'article';
+  /** Site-relative OG image path; defaults to the shared brand image. */
+  image?: string;
+  noindex?: boolean;
+  /** Breadcrumb trail including the current page. Home is prepended automatically. */
+  breadcrumbs?: Crumb[];
+  /** Extra JSON-LD nodes for this page. */
+  jsonLd?: SchemaNode[];
+  /** Article freshness, surfaced as meta when ogType === 'article'. */
+  publishedTime?: string;
+  modifiedTime?: string;
+}
+
+const {
+  title,
+  description,
+  path,
+  ogType = 'website',
+  image = '/og/default.png',
+  noindex = false,
+  breadcrumbs,
+  jsonLd = [],
+  publishedTime,
+  modifiedTime,
+} = Astro.props;
+
+const canonical = new URL(path, SITE.url).href;
+const ogImage = new URL(image, SITE.url).href;
+
+// Always lead the graph with the site-wide entity nodes.
+const crumbs: Crumb[] = breadcrumbs
+  ? [{ name: 'Home', path: '/' }, ...breadcrumbs]
+  : [{ name: 'Home', path: '/' }];
+
+const nodes: SchemaNode[] = [
+  organizationNode(),
+  websiteNode(),
+  breadcrumbNode(crumbs),
+  ...jsonLd,
+];
+const jsonLdString = graph(nodes);
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+<!-- Open Graph -->
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={SITE.name} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:locale" content={SITE.locale} />
+{ogType === 'article' && publishedTime && (
+  <meta property="article:published_time" content={publishedTime} />
+)}
+{ogType === 'article' && modifiedTime && (
+  <meta property="article:modified_time" content={modifiedTime} />
+)}
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+<!-- Search console verification (TODO(owner): paste tokens in consts.ts) -->
+{VERIFICATION.google && <meta name="google-site-verification" content={VERIFICATION.google} />}
+{VERIFICATION.bing && <meta name="msvalidate.01" content={VERIFICATION.bing} />}
+
+<!-- Entity graph -->
+<script is:inline type="application/ld+json" set:html={jsonLdString} />
