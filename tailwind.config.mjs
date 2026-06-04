@@ -1,5 +1,3 @@
-import typography from '@tailwindcss/typography';
-
 /**
  * Northwest Onchain — brand tokens as first-class Tailwind utilities.
  * Canonical hex values live here and in the CSS custom properties in
@@ -45,5 +43,7 @@ export default {
       },
     },
   },
-  plugins: [typography],
+  // No @tailwindcss/typography — the article reading surface is hand-styled
+  // as `.prose` in global.css (the plugin's .prose rules conflicted with it).
+  plugins: [],
 };

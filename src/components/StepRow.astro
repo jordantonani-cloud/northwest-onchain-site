@@ -6,14 +6,17 @@
 interface Props {
   label: string;
   title: string;
+  /** Heading level for the step title (default h3, used under a section h2). */
+  headingLevel?: 2 | 3;
 }
-const { label, title }: Props = Astro.props;
+const { label, title, headingLevel = 3 }: Props = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
 ---
 
 <div class="step">
   <span class="num">{label}</span>
   <div>
-    <h3>{title}</h3>
+    <Heading>{title}</Heading>
     <p><slot /></p>
   </div>
 </div>

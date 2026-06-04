@@ -557,8 +557,10 @@
     font-size: 0.85rem;
     letter-spacing: 0.1em;
   }
+  .step h2,
   .step h3 {
     font-size: 1.5rem;
+    font-weight: 600;
     margin-bottom: 8px;
   }
   .step p {
@@ -875,6 +877,8 @@
   }
   .booking__fallback a {
     color: var(--onchain);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .booking__inline {
     width: 100%;
@@ -905,6 +909,8 @@
   }
   .form-note a {
     color: var(--onchain);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .form-error:empty {
     display: none;
@@ -993,6 +999,8 @@
   }
   .byline a {
     color: var(--onchain);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
   .prevnext {
     display: grid;
@@ -1046,12 +1054,14 @@
     margin-top: 1.25em;
   }
   .prose h2 {
+    color: var(--mist);
     font-size: clamp(1.5rem, 3vw, 2rem);
     margin-top: 1.9em;
     margin-bottom: 0.1em;
     scroll-margin-top: 90px;
   }
   .prose h3 {
+    color: var(--mist);
     font-size: 1.3rem;
     margin-top: 1.5em;
     margin-bottom: 0.1em;
@@ -1162,9 +1172,10 @@
     flex-wrap: wrap;
     margin-bottom: 40px;
   }
-  .footer h4 {
+  .footer h2 {
     font-family: var(--font-mono);
     font-size: 0.74rem;
+    font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--fog);
