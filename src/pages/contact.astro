@@ -1,0 +1,85 @@
+---
+/**
+ * Contact — "Book the Meet". Cal.com embed (lazy) + Netlify Forms fallback +
+ * the "what happens next" 1-2-3 aside. ContactPage JSON-LD.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import BookingEmbed from '../components/BookingEmbed.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import { SITE, SCHEMA_IDS } from '../consts';
+
+const jsonLd = [
+  {
+    '@type': 'ContactPage',
+    name: 'Contact Northwest Onchain',
+    url: new URL('/contact', SITE.url).href,
+    about: { '@id': SCHEMA_IDS.org },
+  },
+];
+---
+
+<BaseLayout
+  title="Book the Meet | Contact Northwest Onchain"
+  description="Book a Diagnostic Sprint with Northwest Onchain. Tell us about your project or PoC ambition and we'll come back with the right path, the right team, and a costed plan."
+  path="/contact"
+  breadcrumbs={[{ name: 'Contact', path: '/contact' }]}
+  jsonLd={jsonLd}
+>
+  <PageHero
+    eyebrow="Book the Meet"
+    lead="One conversation to understand what you're trying to do. Then a fixed-fee Diagnostic Sprint and a clear, costed answer — including an honest &quot;don't&quot; when that's the right call."
+  >
+    Tell us the ambition. We'll bring the path.
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap contact-grid">
+      <div>
+        <BookingEmbed />
+      </div>
+
+      <aside class="contact-aside">
+        <Eyebrow>What happens next</Eyebrow>
+        <div class="steps next-steps">
+          <div class="step next-step">
+            <span class="num">01</span>
+            <div>
+              <h3>We meet</h3>
+              <p>A 30-minute call to understand the ambition and the constraints. No pitch.</p>
+            </div>
+          </div>
+          <div class="step next-step">
+            <span class="num">02</span>
+            <div>
+              <h3>We scope the sprint</h3>
+              <p>If there's a fit, we agree a fixed-fee Diagnostic Sprint — scope, timeline, price.</p>
+            </div>
+          </div>
+          <div class="step next-step">
+            <span class="num">03</span>
+            <div>
+              <h3>You get the path</h3>
+              <p>Defined metrics, a costed roadmap, and the right team — ready to build, or an honest no.</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section contact-form-section">
+    <div class="wrap">
+      <div class="section-head">
+        <Eyebrow>Rather send a note?</Eyebrow>
+        <h2>Tell us what you're exploring.</h2>
+        <p class="lead">
+          Not ready to pick a time? Send a couple of sentences and we'll reply with the right next
+          step.
+        </p>
+      </div>
+      <ContactForm />
+    </div>
+  </section>
+</BaseLayout>

@@ -4,7 +4,7 @@ import astro from 'eslint-plugin-astro';
 
 export default tseslint.config(
   {
-    ignores: ['dist/**', '.astro/**', 'node_modules/**', 'pnpm-lock.yaml'],
+    ignores: ['dist/**', '.astro/**', 'node_modules/**', 'public/**', 'pnpm-lock.yaml'],
   },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,

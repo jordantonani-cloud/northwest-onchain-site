@@ -1,0 +1,85 @@
+---
+/**
+ * ContactForm — fallback to the booking embed. Wired to Netlify Forms:
+ *   data-netlify="true" + hidden form-name + honeypot (bot-field).
+ * Netlify detects the form from the static HTML at deploy time.
+ *
+ * Formspree swap (non-Netlify hosts): set action="https://formspree.io/f/XXXX"
+ * method="POST", drop the data-netlify / form-name / bot-field bits, and add
+ * <input type="hidden" name="_subject" ...>. See README.
+ */
+import { SITE } from '../consts';
+---
+
+<form
+  class="form"
+  name="meet"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  action="/contact?submitted=1"
+  aria-label="Book the Meet"
+>
+  {/* Netlify needs these for static-form detection + spam filtering. */}
+  <input type="hidden" name="form-name" value="meet" />
+  <p class="hidden-field" aria-hidden="true">
+    <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+  </p>
+
+  <div class="field">
+    <label for="name">Name</label>
+    <input id="name" name="name" type="text" autocomplete="name" required />
+  </div>
+  <div class="field">
+    <label for="email">Work email</label>
+    <input id="email" name="email" type="email" autocomplete="email" required />
+  </div>
+  <div class="field">
+    <label for="org">Company / fund</label>
+    <input id="org" name="org" type="text" autocomplete="organization" />
+  </div>
+  <div class="field">
+    <label for="type">Who are you?</label>
+    <select id="type" name="type">
+      <option>Enterprise / TradFi</option>
+      <option>Investor (VC / family office)</option>
+      <option>Founder / operator</option>
+      <option>Other</option>
+    </select>
+  </div>
+  <div class="field">
+    <label for="msg">What's the project or PoC ambition?</label>
+    <textarea
+      id="msg"
+      name="msg"
+      placeholder="A sentence or two on what you're exploring — tokenization, payments, settlement, diligence, or something you're not sure about yet."
+      required></textarea>
+  </div>
+
+  <p class="form-error" id="form-status" role="status" aria-live="polite"></p>
+
+  <button class="btn btn-primary btn-arrow" type="submit">Request the Meet</button>
+  <p class="form-note">
+    Or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+  </p>
+</form>
+
+<script>
+  // Light validation messaging via aria-live (native validation still applies).
+  const form = document.querySelector<HTMLFormElement>('form[name="meet"]');
+  const status = document.getElementById('form-status');
+  form?.addEventListener('submit', (e) => {
+    if (!form.checkValidity()) {
+      e.preventDefault();
+      if (status) status.textContent = 'Please complete the required fields before submitting.';
+      const firstInvalid = form.querySelector<HTMLElement>(':invalid');
+      firstInvalid?.focus();
+    }
+  });
+
+  // Friendly confirmation after a Netlify redirect back with ?submitted=1.
+  if (new URLSearchParams(location.search).has('submitted') && status) {
+    status.classList.add('form-success');
+    status.textContent = 'Thanks — your request is in. We’ll be in touch shortly.';
+  }
+</script>

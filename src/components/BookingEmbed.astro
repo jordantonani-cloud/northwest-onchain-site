@@ -1,0 +1,37 @@
+---
+/**
+ * BookingEmbed — Cal.com inline embed, lazy-loaded so it never blocks LCP.
+ * The third-party script loads only when the user clicks "Open the calendar"
+ * or scrolls the embed near the viewport (IntersectionObserver). Until then a
+ * lightweight placeholder with a direct booking link is shown — so booking
+ * works even if JS or the embed fails.
+ *
+ * TODO(owner): set the real BOOKING.calLink / BOOKING.url in src/consts.ts.
+ */
+import { BOOKING, SITE } from '../consts';
+---
+
+<div
+  class="booking"
+  data-cal-link={BOOKING.calLink}
+  data-cal-origin="https://cal.com"
+>
+  <div class="booking__placeholder" id="booking-placeholder">
+    <span class="eyebrow">// Book the Meet</span>
+    <p class="booking__lead">
+      A 30-minute call to understand the ambition and the constraints. No pitch.
+    </p>
+    <button class="btn btn-primary btn-arrow" type="button" id="booking-load">
+      Open the calendar
+    </button>
+  </div>
+  <div class="booking__inline" id="cal-inline" aria-live="polite"></div>
+  <p class="booking__fallback">
+    Prefer to book directly?
+    <a href={BOOKING.url} rel="noopener" target="_blank">Open in a new tab</a>
+    · or email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+  </p>
+</div>
+
+{/* Cal loader lives in /public/booking-cal.js (third-party glue, lazy, self-init). */}
+<script is:inline defer src="/booking-cal.js"></script>

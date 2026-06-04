@@ -1,0 +1,56 @@
+---
+/**
+ * 404 — branded not-found. noindex; routes the lost visitor back to the
+ * north-star action and the key pages.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TopoLines from '../components/TopoLines.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import Button from '../components/Button.astro';
+---
+
+<BaseLayout
+  title="Page not found | Northwest Onchain"
+  description="That page isn't on the map. Head back to Northwest Onchain — blockchain strategy and proof-of-concept consulting."
+  path="/404"
+  noindex={true}
+>
+  <section class="hero grain notfound">
+    <TopoLines variant="compact" />
+    <div class="wrap hero-inner">
+      <Eyebrow>Error 404</Eyebrow>
+      <h1>Off the trail.</h1>
+      <p class="lead">
+        That page isn't on the map. Let's get you back to solid ground — or straight to the part that
+        matters.
+      </p>
+      <div class="hero-actions">
+        <Button href="/" variant="primary" arrow>Back to home</Button>
+        <Button href="/contact" variant="ghost">Book the Meet</Button>
+      </div>
+      <p class="notfound__links">
+        Or jump to <a href="/services">Services</a>, <a href="/process">Process</a>,
+        <a href="/insights">Insights</a>, or <a href="/about">About</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notfound {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+  }
+  .notfound__links {
+    margin-top: 30px;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    color: var(--fog);
+  }
+  .notfound__links a {
+    color: var(--onchain);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

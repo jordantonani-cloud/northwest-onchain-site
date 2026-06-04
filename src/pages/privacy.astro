@@ -1,0 +1,61 @@
+---
+/**
+ * Privacy — lightweight, honest privacy policy. No third-party scripts beyond
+ * the booking embed and (optional) cookieless analytics.
+ * TODO(owner): have counsel review before launch; confirm the analytics choice.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Prose from '../components/Prose.astro';
+import { SITE, ANALYTICS } from '../consts';
+
+const effective = 'June 2026'; // TODO(owner): update on material changes.
+---
+
+<BaseLayout
+  title="Privacy Policy | Northwest Onchain"
+  description="How Northwest Onchain handles your data: what we collect when you book a call or send a message, how it's used, and your choices. No ad tracking, no cookie banners."
+  path="/privacy"
+  breadcrumbs={[{ name: 'Privacy', path: '/privacy' }]}
+  noindex={false}
+>
+  <PageHero eyebrow="Privacy">Privacy policy</PageHero>
+
+  <section class="section">
+    <div class="wrap article-body">
+      <Prose>
+        <p><strong>Effective {effective}.</strong> Northwest Onchain ({SITE.name}) keeps this simple. We collect only what we need to talk with you and run the site, and we don't sell your data or run advertising trackers.</p>
+
+        <h2>What we collect</h2>
+        <ul>
+          <li><strong>When you contact us or book a call:</strong> your name, email, company, and whatever you write in the message or booking form. We use it solely to respond and to scope potential work.</li>
+          <li><strong>Booking:</strong> our scheduling is handled by Cal.com. When you open the calendar, your booking details are processed by Cal.com under their privacy policy.</li>
+          <li>
+            <strong>Analytics:</strong>
+            {
+              ANALYTICS.enabled
+                ? ` we use ${ANALYTICS.provider} — privacy-friendly, cookieless analytics that does not track you across sites and collects no personal data.`
+                : ' analytics are currently disabled. If enabled, we use a privacy-friendly, cookieless tool that does not track you across sites and collects no personal data.'
+            }
+          </li>
+        </ul>
+
+        <h2>What we don't do</h2>
+        <ul>
+          <li>No advertising or cross-site tracking cookies.</li>
+          <li>No selling or renting of your information.</li>
+          <li>No third-party scripts beyond the booking embed and (optional) cookieless analytics.</li>
+        </ul>
+
+        <h2>How we store and share it</h2>
+        <p>Messages and booking details are stored in the tools we use to run the business (email, scheduling, and form processing) and shared only with people working on your engagement. We keep information only as long as needed for the conversation or the work, then delete it on request.</p>
+
+        <h2>Your choices</h2>
+        <p>You can ask us to access or delete the information you've shared at any time. Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and we'll take care of it.</p>
+
+        <h2>Changes</h2>
+        <p>If this policy changes materially, we'll update the effective date above. Questions? Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+      </Prose>
+    </div>
+  </section>
+</BaseLayout>
