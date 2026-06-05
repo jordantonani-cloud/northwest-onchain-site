@@ -32,8 +32,9 @@ export const BOOKING = {
   // e.g. "northwest-onchain/the-meet" for cal.com, or a full Calendly URL.
   calLink: 'northwest-onchain/the-meet',
   url: 'https://cal.com/northwest-onchain/the-meet',
-  // Compact label used in the sticky header. Full label lives in CTA.auditLabel.
-  ctaLabel: 'Get the Audit',
+  // Header CTA — conversation-led (design north-star v2). The $1,500 audit is
+  // surfaced softly on-page, never as a header button.
+  ctaLabel: 'Start a conversation',
 } as const;
 
 /**

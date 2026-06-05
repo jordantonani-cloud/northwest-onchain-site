@@ -1,280 +1,688 @@
 ---
 /**
- * Home. Order per IMPLEMENTATION-PLAN §2: hero → problem → use cases → why now →
- * services (4) → proof → why (4, 2×2) → process → founder teaser →
- * what-happens-next → final CTA. Dark base throughout with subtle elevation
- * (no light-band flash). Hero/use-case/why-now/FAQ copy is verbatim source.
+ * Home — design north-star v2 (design-northstar-homepage-v2.html).
+ * Market-led, consultant-led flow: hero (the onchain moment) → what's live
+ * (editorial index, each row links to its "Who's already live" article) →
+ * why now (regulation) → who we are & how we work → soft closing CTA.
+ * Conversation-led CTAs (no $1,500 audit buttons; the audit is mentioned once,
+ * softly, inside "how we work"). Editorial serif headlines. All-dark, layered
+ * depth. Styles are scoped to this page to match the mockup without clashing
+ * with the shared design system.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Eyebrow from '../components/Eyebrow.astro';
-import Button from '../components/Button.astro';
-import Card from '../components/Card.astro';
-import StepRow from '../components/StepRow.astro';
-import UseCases from '../components/UseCases.astro';
-import WhyNow from '../components/WhyNow.astro';
-import ProofBand from '../components/ProofBand.astro';
-import FounderCard from '../components/FounderCard.astro';
-import HomeFAQ from '../components/HomeFAQ.astro';
-import WhatHappensNext from '../components/WhatHappensNext.astro';
-import CtaBand from '../components/CtaBand.astro';
-import { offerCatalogNode, faqNode } from '../lib/jsonld';
+import { offerCatalogNode } from '../lib/jsonld';
 import { offerInputs } from '../lib/services';
-import { HOME_FAQ } from '../lib/home-faq';
-import { CTA } from '../consts';
 
-// Four services, surfaced with price up front (audit §8).
-const SERVICES = [
-  { id: 'audit', name: 'Opportunity Audit', price: '$1,500 · 3–5 days', blurb: 'A fast, flat-fee read on whether there is a real onchain opportunity — and what to do, or not do, about it.' },
-  { id: 'sprint', name: 'Diagnostic Sprint', price: '$4k–$7.5k · 1–2 weeks', blurb: 'The opportunity, defined success metrics, a costed roadmap, and the right team — fixed fee.' },
-  { id: 'delivery', name: 'PoC / Project Delivery', price: 'Build + 15–20%', blurb: 'We assemble and manage the team, then deliver a working proof of concept to the agreed metrics.' },
-  { id: 'advisor', name: 'Fractional Advisor', price: '$3k–$8k/mo', blurb: 'A standing strategic seat — vendor vetting, roadmap guidance, and board-ready financial framing.' },
+// Each use case links to its matching "Who's already live" article. Stats are
+// real and cited in those articles — do not invent figures.
+const useCases = [
+  {
+    no: '01',
+    title: 'Stablecoin settlement',
+    out: 'Cost out of the value chain.',
+    body: 'Multi-day correspondent banking and FX spreads replaced by rails that settle in minutes, around the clock — stripping intermediary fees, pre-funding, and float out of payments and treasury.',
+    tag: 'In production',
+    stat: '~1%',
+    statl: 'of global flows — early',
+    href: '/insights/whos-already-live-stablecoin-settlement',
+  },
+  {
+    no: '02',
+    title: 'Tokenization',
+    out: 'Liquidity, fractionalization, distribution.',
+    body: 'Funds, credit, and real assets brought onchain for 24/7 transferability, fractional ownership that widens the buyer base, and near-instant liquidity for traditionally illiquid assets.',
+    tag: 'Fastest-growing',
+    stat: '~$34B',
+    statl: 'tokenized onchain',
+    href: '/insights/whos-already-live-tokenizing-funds',
+  },
+  {
+    no: '03',
+    title: 'Onchain vaults & credit',
+    out: 'New product lines, transparent reserves.',
+    body: 'Yield products, structured credit, and collateralized lending with transparent, real-time, auditable reserves — new revenue for issuers and new visibility for investors.',
+    tag: 'Available now',
+    stat: '$14B+',
+    statl: 'in active loans',
+    href: '/insights/whos-already-live-onchain-credit',
+  },
+  {
+    no: '04',
+    title: 'Perps & 24/7 derivatives',
+    out: 'Markets that never close.',
+    body: 'Round-the-clock hedging, leverage, and price exposure on venues that settle continuously, without a central clearinghouse.',
+    tag: 'Trading 24/7',
+    stat: '24/7',
+    statl: 'continuous funding',
+    href: '/insights/whos-already-live-24-7-markets',
+  },
 ];
 
-const jsonLd = [offerCatalogNode(offerInputs()), faqNode(HOME_FAQ)];
+const jsonLd = [offerCatalogNode(offerInputs())];
 ---
 
 <BaseLayout
   title="Blockchain Strategy & PoC Consulting | Northwest Onchain"
-  description="Independent blockchain consulting for banks, investors, and operators. Northwest Onchain finds where onchain creates value and delivers a working proof of concept. Start with a $1,500 Opportunity Audit."
+  description="The infrastructure for onchain finance is live — stablecoin settlement, tokenized assets, onchain credit, 24/7 markets. Northwest Onchain helps banks, investors, and operators find what's real and deliver the proof."
   path="/"
   image="/og/home.png"
   jsonLd={jsonLd}
 >
-  <!-- HERO — 2-col: copy + glass engagement-ladder panel (design north-star) -->
-  <header class="hero-ns">
-    <div class="wrap hero-grid">
+  <!-- HERO — leads with the moment, not the sell -->
+  <header class="hp-hero">
+    <div class="wrap hp-hero-grid">
       <div>
-        <Eyebrow>Blockchain strategy &amp; delivery</Eyebrow>
-        <h1>The bridge from boardroom to <span class="grad">blockchain</span>.</h1>
-        <p class="lead">
-          Stablecoin settlement, tokenized assets, onchain credit, and 24/7 markets aren't theory —
-          they're in production today.
+        <span class="hp-eyebrow">// The onchain moment</span>
+        <h1 class="hp-h1">
+          The infrastructure for onchain finance is <em>live</em>. The advantage goes to whoever
+          uses it first.
+        </h1>
+        <p class="hp-lead">
+          Stablecoin settlement, tokenized assets, onchain credit, and round-the-clock markets are
+          in production today — not someday. The hard part is knowing what's real, what's noise, and
+          what it means for you.
         </p>
-        <div class="hero-actions">
-          <Button href={CTA.auditHref} variant="primary" arrow>{CTA.auditLabel}</Button>
-          <Button href="#use-cases" variant="ghost">See where blockchain wins today</Button>
+        <div class="hp-actions">
+          <a class="hp-txt" href="#live">See what's live today →</a>
+          <a class="hp-txt hp-txt--muted" href="#who">How we work →</a>
         </div>
-        <p class="micro">Flat fee · 3–5 days · credited toward whatever comes next.</p>
       </div>
 
-      <!-- floating glass engagement snapshot (the depth object) -->
-      <aside class="panel" aria-label="Engagement ladder and pricing">
-        <div class="panel-head">
-          <span class="t">Engagement ladder</span>
-          <span class="pill">Start here</span>
-        </div>
-        <div class="ladder">
-          <div class="rung active">
-            <div class="rung-row">
-              <span class="dot"></span>
-              <div class="l"><b>Opportunity Audit</b><span>3–5 days · flat fee</span></div>
-            </div>
-            <span class="p">$1,500</span>
-          </div>
-          <div class="rung">
-            <div class="rung-row">
-              <span class="dot"></span>
-              <div class="l"><b>Diagnostic Sprint</b><span>1–2 weeks · costed roadmap</span></div>
-            </div>
-            <span class="p">$4–7.5k</span>
-          </div>
-          <div class="rung">
-            <div class="rung-row">
-              <span class="dot"></span>
-              <div class="l"><b>PoC Delivery</b><span>managed build, your network</span></div>
-            </div>
-            <span class="p">+15–20%</span>
-          </div>
-          <div class="rung">
-            <div class="rung-row">
-              <span class="dot"></span>
-              <div class="l"><b>Fractional Advisor</b><span>standing strategic seat</span></div>
-            </div>
-            <span class="p">$3–8k/mo</span>
-          </div>
-        </div>
+      <aside class="hp-live" aria-label="What's live in onchain finance now">
+        <div class="hp-live-h"><span class="hp-dot" aria-hidden="true"></span><span>Live now</span></div>
+        <div class="hp-live-row"><span class="k">Stablecoin settlement</span><span class="v">minutes, not days</span></div>
+        <div class="hp-live-row"><span class="k">Tokenized real-world assets</span><span class="v">~$34B onchain</span></div>
+        <div class="hp-live-row"><span class="k">Onchain private credit</span><span class="v">$14B+ in loans</span></div>
+        <div class="hp-live-row"><span class="k">Perps &amp; 24/7 markets</span><span class="v">never close</span></div>
       </aside>
     </div>
   </header>
 
-  <!-- PROBLEM -->
-  <section class="section">
+  <!-- WHAT'S LIVE — editorial index -->
+  <section class="hp-block" id="live">
     <div class="wrap">
-      <div class="section-head">
-        <Eyebrow>The problem</Eyebrow>
-        <h2>A board mandate to "do something with crypto" — and a market full of hype.</h2>
-        <p class="lead">
-          You can't tell a real opportunity from a pitch deck, and you don't want to hire a full
-          Web3 team to find out. You need independent judgment — and a network you don't have.
-        </p>
-      </div>
-      <div class="grid grid-3">
-        <Card tag="Enterprise & TradFi" title="From mandate to proof">
-          <p>
-            Banks, asset managers, and operators turning a board question into a measured proof of
-            concept — tokenization, settlement, payments, RWA — without betting on one agency.
-          </p>
-        </Card>
-        <Card tag="Investors" title="Diligence, both sides">
-          <p>
-            VCs and family offices who need someone who reads the smart contract <em>and</em> the cap
-            table before capital moves. Thesis validation and operating support.
-          </p>
-        </Card>
-        <Card tag="Founders new to crypto" title="A credible angle">
-          <p>
-            Operators who want a real onchain angle — payments, loyalty, tokenization — scoped
-            honestly and built by a team that won't overcharge.
-          </p>
-        </Card>
-      </div>
-    </div>
-  </section>
+      <div class="hp-kicker">// What blockchain is enabling — today</div>
+      <h2 class="hp-h-lead">Four shifts already moving real money.</h2>
+      <p class="hp-sub">
+        Not roadmap items. These are in production now — the question for any institution is which
+        one matters to them, and whether it's worth moving on.
+      </p>
 
-  <!-- WHERE BLOCKCHAIN WINS — TODAY (use cases) -->
-  <UseCases />
-
-  <!-- WHY NOW (regulation) -->
-  <WhyNow />
-
-  <!-- WHAT WE DO (4 services) -->
-  <section class="section section--elevated">
-    <div class="wrap">
-      <div class="section-head">
-        <Eyebrow>What we do</Eyebrow>
-        <h2>Four ways to work together.</h2>
-        <p class="lead">
-          Start with a low-cost diagnosis, move to delivery only when the numbers justify it, and
-          keep an advisor on call if you want one. Each fee credits toward the next step if you
-          continue.
-        </p>
-      </div>
-      <div class="grid grid-4 service-grid">
+      <div class="hp-index">
         {
-          SERVICES.map((s) => (
-            <article class="card service-card">
-              <span class="tag">{s.price}</span>
-              <h3>
-                <a href={`/services#${s.id}`}>{s.name}</a>
-              </h3>
-              <p>{s.blurb}</p>
-            </article>
+          useCases.map((u) => (
+            <a class="hp-row" href={u.href}>
+              <div class="hp-no">{u.no}</div>
+              <div>
+                <h3 class="hp-row-h">{u.title}</h3>
+                <div class="hp-out">{u.out}</div>
+                <p class="hp-row-p">{u.body}</p>
+              </div>
+              <div class="hp-meta">
+                <span class="hp-tag-live">{u.tag}</span>
+                <div>
+                  <div class="hp-stat">{u.stat}</div>
+                  <div class="hp-statl">{u.statl}</div>
+                </div>
+              </div>
+            </a>
           ))
         }
       </div>
-      <p class="section-foot">
-        <Button href="/services" variant="ghost" arrow>Services &amp; pricing</Button>
+
+      <p class="hp-closer">
+        "And the ones we'll talk you out of — because not every problem needs a chain."
       </p>
     </div>
   </section>
 
-  <!-- PROOF BAND -->
-  <ProofBand eyebrow="Track record" />
-
-  <!-- WHY (4, 2×2) -->
-  <section class="section section--elevated">
+  <!-- WHY NOW -->
+  <section class="hp-block" id="why">
     <div class="wrap">
-      <div class="section-head">
-        <Eyebrow>Why Northwest Onchain</Eyebrow>
-        <h2>
-          Crypto specialists rarely understand the business case. Strategy firms rarely understand
-          the technology. We do both.
-        </h2>
-      </div>
-      <div class="grid grid-2 why-grid">
-        <article class="card why-card">
-          <span class="why-card__num" aria-hidden="true">01</span>
-          <h3>Both sides of the ledger</h3>
-          <p>
-            Years operating in crypto, paired with real financial-modeling discipline. We can sit in
-            a CFO's office and a core-dev channel the same afternoon.
-          </p>
-        </article>
-        <article class="card why-card">
-          <span class="why-card__num" aria-hidden="true">02</span>
-          <h3>Network, not headcount</h3>
-          <p>
-            A vetted bench of builders on demand — the right team for your specific problem, instead
-            of a full hire or a bet on one vendor.
-          </p>
-        </article>
-        <article class="card why-card">
-          <span class="why-card__num" aria-hidden="true">03</span>
-          <h3>Metrics-first</h3>
-          <p>
-            Success criteria, cost, and ROI are defined before a line of code is written. No
-            open-ended exploration, and big-firm rigor delivered in days instead of quarters.
-          </p>
-        </article>
-        <article class="card why-card">
-          <span class="why-card__num" aria-hidden="true">04</span>
-          <h3>Vendor-neutral</h3>
-          <p>
-            We don't sell a chain, a token, or our own product — so the advice is independent,
-            relationship-driven, and willing to say "don't" when that's the honest answer.
-          </p>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <Eyebrow>The expedition</Eyebrow>
-        <h2>A simple, honest process: survey, chart, assemble, summit.</h2>
-      </div>
-      <div class="steps">
-        <StepRow label="// 01 SURVEY" title="Meet & diagnose">
-          We learn the business and map the terrain honestly — including where blockchain is the
-          wrong tool.
-        </StepRow>
-        <StepRow label="// 02 CHART" title="Find the path">
-          We define the opportunity, the success metrics, the costed roadmap, and the right team.
-        </StepRow>
-        <StepRow label="// 03 ASSEMBLE" title="Build the crew">
-          We stand up the right builders from the network and align everyone on metrics, cost, and
-          timeline.
-        </StepRow>
-        <StepRow label="// 04 SUMMIT" title="Deliver & measure">
-          We run delivery to the defined metrics, prove the value, and set up what comes next.
-        </StepRow>
-      </div>
-      <p class="section-foot">
-        <Button href="/process" variant="ghost" arrow>How we work</Button>
+      <div class="hp-kicker">// Why now</div>
+      <h2 class="hp-h-lead">For years the blocker wasn't the technology. It was the rules.</h2>
+      <p class="hp-sub">
+        That's changing. A federal stablecoin law is on the books, and digital-asset market-structure
+        rules are advancing. The institutions that build now will be ready when the rules fully land.
       </p>
-    </div>
-  </section>
 
-  <!-- FOUNDER TEASER -->
-  <section class="section section--elevated">
-    <div class="wrap">
-      <div class="section-head">
-        <Eyebrow>Who's behind it</Eyebrow>
-        <h2>Built by an operator who has worked both sides.</h2>
+      <div class="hp-why-grid">
+        <div class="hp-note">
+          <div class="hp-nh"><b>GENIUS Act</b><span class="hp-badge hp-badge--law">Signed into law · 2025</span></div>
+          <p>
+            The first U.S. federal framework for payment stablecoins — one-to-one reserves, permitted
+            issuers. It turns stablecoin settlement from a gray area into a sanctioned rail.
+            (Rulemaking is still rolling out.)
+          </p>
+        </div>
+        <div class="hp-note">
+          <div class="hp-nh"><b>CLARITY Act</b><span class="hp-badge hp-badge--soon">Advancing · not yet law</span></div>
+          <p>
+            Market-structure legislation that would divide oversight and reduce the "is it a
+            security?" risk stalling tokenization. It cleared the Senate Banking Committee in May 2026
+            and still needs a full Senate vote.
+          </p>
+        </div>
       </div>
-      <FounderCard variant="teaser" />
+      <p class="hp-disc">Regulatory status as of June 2026. Directional, not legal advice.</p>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <HomeFAQ />
-
-  <!-- WHAT HAPPENS NEXT + FINAL CTA -->
-  <section class="section">
+  <!-- WHO WE ARE / HOW WE WORK -->
+  <section class="hp-block hp-who" id="who">
     <div class="wrap">
-      <div class="section-head center">
-        <Eyebrow>What happens next</Eyebrow>
-        <h2>From first call to a costed path.</h2>
+      <div class="hp-kicker">// Who we are &amp; how we work</div>
+      <p class="hp-pull">
+        We're the bridge from <em>boardroom</em> to blockchain — the rare team fluent in both a
+        financial model and a smart contract.
+      </p>
+
+      <div class="hp-who-body">
+        <div>
+          <p>
+            Northwest Onchain is a blockchain strategy and delivery practice, not a vendor. We don't
+            sell a chain or a token. We help banks, investors, and operators decide whether — and how
+            — to move onchain, then bring the right team to deliver it.
+          </p>
+          <p>
+            It's a considered process, not a transaction. We start by understanding the business, map
+            the real opportunity (including when there isn't one), define the metrics and the cost,
+            and assemble a vetted network of builders to deliver against them. Most engagements begin
+            with a short, low-commitment audit — a flat $1,500 — a way to see if there's something
+            real here before anyone commits to a build.
+          </p>
+          <div class="hp-cred">
+            <div class="hp-who-name">Jordan Tonani — <em>Founder, Seattle</em></div>
+            <div class="hp-arc">
+              Morgan Stanley → Index Coop → Lotus Labs · 8+ yrs, both sides of the ledger
+            </div>
+          </div>
+        </div>
+        <div class="hp-steps">
+          <div class="hp-step"><div class="sn">01</div><div><b>Survey</b><span>Understand the business, the ambition, and the constraints — honestly.</span></div></div>
+          <div class="hp-step"><div class="sn">02</div><div><b>Chart</b><span>Define the opportunity, the metrics, the costed path, and the right team.</span></div></div>
+          <div class="hp-step"><div class="sn">03</div><div><b>Assemble</b><span>Stand up the right builders from a vetted network.</span></div></div>
+          <div class="hp-step"><div class="sn">04</div><div><b>Summit</b><span>Deliver against the metrics, prove the value, set up what's next.</span></div></div>
+        </div>
       </div>
-      <WhatHappensNext />
     </div>
   </section>
 
-  <CtaBand
-    eyebrow="Start here"
-    heading="Find out if there's a real onchain opportunity."
-    text="Start with a $1,500 Opportunity Audit — a fast, honest read on whether onchain is worth it for you, and what to do next."
-  />
+  <!-- CLOSE — soft, conversation-led -->
+  <section class="hp-close" id="talk">
+    <div class="wrap">
+      <div class="hp-kicker hp-kicker--center">// Let's talk</div>
+      <h2 class="hp-close-h">
+        If you're weighing what onchain means for your business, <em>start a conversation</em>.
+      </h2>
+      <p class="hp-close-p">
+        No pitch. A straight read on whether there's something real here for you — and what it would
+        take.
+      </p>
+      <a class="hp-txt hp-close-link" href="/contact">Start a conversation →</a>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* ============================================================
+     Homepage v2 — editorial, consultant-led. Scoped to this page.
+     Uses the global design tokens (:root) but its own class namespace.
+     ============================================================ */
+  .hp-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--signal-bright);
+    display: block;
+    margin-bottom: 26px;
+  }
+  .hp-kicker {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--fog);
+  }
+  .hp-kicker--center {
+    display: block;
+    text-align: center;
+    margin-bottom: 22px;
+  }
+
+  /* ---------- hero ---------- */
+  .hp-hero {
+    padding: clamp(74px, 11vh, 140px) 0 clamp(70px, 9vh, 120px);
+  }
+  .hp-hero-grid {
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: clamp(40px, 6vw, 80px);
+    align-items: center;
+  }
+  .hp-h1 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(2.6rem, 5.4vw, 4.4rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+  }
+  .hp-h1 em {
+    font-style: italic;
+    color: var(--signal-soft);
+  }
+  .hp-lead {
+    font-size: clamp(1.06rem, 1.5vw, 1.22rem);
+    color: var(--fog);
+    margin: 30px 0 0;
+    max-width: 46ch;
+  }
+  .hp-actions {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .hp-txt {
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    color: var(--mist);
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    border-bottom: 1px solid var(--edge-strong);
+    padding-bottom: 5px;
+    transition:
+      color 0.2s,
+      border-color 0.2s;
+  }
+  .hp-txt:hover {
+    color: var(--signal-bright);
+    border-color: var(--signal-bright);
+  }
+  .hp-txt--muted {
+    color: var(--fog);
+    border-color: transparent;
+  }
+  .hp-txt--muted:hover {
+    color: var(--mist);
+  }
+
+  /* hero live dispatch card */
+  .hp-live {
+    border: 1px solid var(--edge);
+    border-radius: 18px;
+    padding: 24px;
+    background: linear-gradient(165deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+    box-shadow:
+      0 36px 80px -50px rgba(0, 0, 0, 0.85),
+      inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  }
+  .hp-live-h {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 18px;
+  }
+  .hp-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--signal-bright);
+    animation: hp-pulse 2.4s infinite;
+  }
+  @keyframes hp-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(52, 224, 181, 0.5);
+    }
+    70% {
+      box-shadow: 0 0 0 8px rgba(52, 224, 181, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(52, 224, 181, 0);
+    }
+  }
+  .hp-live-h span:last-child {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fog);
+  }
+  .hp-live-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 13px 0;
+    border-top: 1px solid var(--edge);
+  }
+  .hp-live-row .k {
+    font-size: 0.94rem;
+    color: var(--mist);
+  }
+  .hp-live-row .v {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--signal-bright);
+    white-space: nowrap;
+  }
+
+  /* ---------- section scaffolding ---------- */
+  .hp-block {
+    padding: clamp(96px, 14vh, 180px) 0;
+  }
+  .hp-h-lead {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 3.6vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    margin-top: 18px;
+    max-width: 20ch;
+  }
+  .hp-sub {
+    color: var(--fog);
+    font-size: 1.12rem;
+    margin-top: 20px;
+    max-width: 52ch;
+  }
+
+  /* ---------- editorial index ---------- */
+  .hp-index {
+    margin-top: 60px;
+    border-top: 1px solid var(--edge-strong);
+  }
+  .hp-row {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: clamp(20px, 4vw, 56px);
+    align-items: start;
+    padding: clamp(28px, 4vh, 42px) 0;
+    border-bottom: 1px solid var(--edge);
+    color: inherit;
+    transition: padding-left 0.3s;
+  }
+  .hp-row:hover {
+    padding-left: 10px;
+  }
+  .hp-no {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.5rem;
+    color: var(--signal-bright);
+  }
+  .hp-row-h {
+    font-family: var(--font-serif);
+    font-size: clamp(1.4rem, 2.4vw, 1.95rem);
+    font-weight: 500;
+    color: var(--white);
+  }
+  .hp-row:hover .hp-row-h {
+    color: var(--signal-soft);
+  }
+  .hp-out {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--fog);
+    margin: 4px 0 14px;
+  }
+  .hp-row-p {
+    color: var(--fog);
+    font-size: 1rem;
+    max-width: 60ch;
+  }
+  .hp-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    text-align: right;
+    min-width: 130px;
+  }
+  .hp-tag-live {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--signal-bright);
+    border: 1px solid rgba(52, 224, 181, 0.3);
+    background: rgba(52, 224, 181, 0.07);
+    padding: 5px 11px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+  .hp-stat {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--mist);
+  }
+  .hp-statl {
+    font-family: var(--font-mono);
+    font-size: 0.64rem;
+    color: var(--fog);
+    letter-spacing: 0.04em;
+  }
+  .hp-closer {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--mist);
+    margin-top: 40px;
+    max-width: 48ch;
+    line-height: 1.4;
+  }
+
+  /* ---------- why now ---------- */
+  .hp-why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 54px;
+  }
+  .hp-note {
+    border: 1px solid var(--edge);
+    border-radius: 18px;
+    padding: 32px;
+    background: linear-gradient(165deg, rgba(208, 138, 87, 0.07), rgba(255, 255, 255, 0.012));
+    box-shadow:
+      0 30px 70px -55px rgba(0, 0, 0, 0.9),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+  .hp-nh {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .hp-nh b {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--white);
+  }
+  .hp-badge {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 100px;
+  }
+  .hp-badge--law {
+    color: var(--signal-bright);
+    background: rgba(52, 224, 181, 0.1);
+    border: 1px solid rgba(52, 224, 181, 0.3);
+  }
+  .hp-badge--soon {
+    color: var(--fog);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--edge-strong);
+  }
+  .hp-note p {
+    color: var(--fog);
+    font-size: 0.98rem;
+  }
+  .hp-disc {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--fog); /* full fog (no opacity) — keeps AA contrast on ink */
+    margin-top: 24px;
+  }
+
+  /* ---------- who we are / how we work ---------- */
+  .hp-who .wrap {
+    border-top: 1px solid var(--edge-strong);
+    padding-top: clamp(96px, 14vh, 180px);
+  }
+  .hp-who {
+    padding-top: 0;
+  }
+  .hp-pull {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(1.8rem, 3.4vw, 2.7rem);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    max-width: 24ch;
+    margin-top: 18px;
+  }
+  .hp-pull em {
+    font-style: italic;
+    color: var(--signal-soft);
+  }
+  .hp-who-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(30px, 5vw, 70px);
+    margin-top: 46px;
+    align-items: start;
+  }
+  .hp-who-body p {
+    color: var(--fog);
+    font-size: 1.05rem;
+  }
+  .hp-who-body p + p {
+    margin-top: 18px;
+  }
+  .hp-steps {
+    display: flex;
+    flex-direction: column;
+  }
+  .hp-step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    padding: 20px 0;
+    border-top: 1px solid var(--edge);
+  }
+  .hp-step:first-child {
+    border-top: 0;
+  }
+  .hp-step .sn {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--signal-bright);
+    letter-spacing: 0.08em;
+    padding-top: 4px;
+  }
+  .hp-step b {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: 1.15rem;
+    color: var(--mist);
+  }
+  .hp-step span {
+    display: block;
+    color: var(--fog);
+    font-size: 0.94rem;
+    margin-top: 3px;
+  }
+  .hp-cred {
+    margin-top: 60px;
+    padding-top: 34px;
+    border-top: 1px solid var(--edge);
+    display: flex;
+    gap: 14px 30px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .hp-who-name {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--mist);
+  }
+  .hp-who-name em {
+    font-style: italic;
+    color: var(--fog);
+  }
+  .hp-arc {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    color: var(--fog);
+    letter-spacing: 0.04em;
+  }
+
+  /* ---------- close ---------- */
+  .hp-close {
+    text-align: center;
+    padding: clamp(96px, 14vh, 170px) 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hp-close::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(46% 80% at 50% 120%, rgba(52, 224, 181, 0.16), transparent 70%);
+  }
+  .hp-close-h {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(2rem, 4.2vw, 3.2rem);
+    max-width: 18ch;
+    margin: 0 auto;
+  }
+  .hp-close-h em {
+    font-style: italic;
+    color: var(--signal-soft);
+  }
+  .hp-close-p {
+    color: var(--fog);
+    max-width: 46ch;
+    margin: 22px auto 0;
+    font-size: 1.1rem;
+  }
+  .hp-close-link {
+    margin: 38px auto 0;
+  }
+
+  @media (max-width: 880px) {
+    .hp-hero-grid,
+    .hp-why-grid,
+    .hp-who-body {
+      grid-template-columns: 1fr;
+      gap: 46px;
+    }
+    .hp-why-grid {
+      gap: 20px;
+    }
+    .hp-row {
+      grid-template-columns: 40px 1fr;
+      gap: 20px;
+    }
+    .hp-meta {
+      grid-column: 2;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: left;
+      min-width: 0;
+    }
+  }
+</style>
