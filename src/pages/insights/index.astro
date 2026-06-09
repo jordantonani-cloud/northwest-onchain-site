@@ -13,9 +13,7 @@ import { publishedOnly, CLUSTER_LIST } from '../../lib/insights';
 
 const articles = publishedOnly(await getCollection('insights'));
 // Only show filter chips for clusters that actually have published articles.
-const activeClusters = CLUSTER_LIST.filter((c) =>
-  articles.some((a) => a.data.cluster === c.id)
-);
+const activeClusters = CLUSTER_LIST.filter((c) => articles.some((a) => a.data.cluster === c.id));
 ---
 
 <BaseLayout
@@ -52,9 +50,15 @@ const activeClusters = CLUSTER_LIST.filter((c) =>
 
       {
         articles.length === 0 ? (
-          <p class="lead">New articles are on the way. In the meantime, <a href="/contact" style="color:var(--signal-bright)">get in touch</a>.</p>
+          <p class="lead">
+            New articles are on the way. In the meantime,{' '}
+            <a href="/contact" style="color:var(--signal-bright)">
+              get in touch
+            </a>
+            .
+          </p>
         ) : (
-          <div class="grid grid-3" id="article-grid">
+          <div class="grid-3 fade-rise grid" id="article-grid">
             {articles.map((entry) => (
               <ArticleCard entry={entry} />
             ))}

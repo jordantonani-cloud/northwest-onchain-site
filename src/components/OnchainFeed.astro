@@ -1,0 +1,45 @@
+---
+/**
+ * OnchainFeed — a slowly scrolling ledger of synthetic onchain events (brief §2).
+ * Our equivalent of Column's account-activity feed. Pure CSS marquee, pauses on
+ * hover, frozen under prefers-reduced-motion (see global.css). Events are
+ * duplicated once so the -50% keyframe loops seamlessly. Fully server-rendered;
+ * the data is clearly synthetic (see src/lib/artifacts.ts).
+ */
+import { FEED_EVENTS, type FeedEvent } from '../lib/artifacts';
+
+interface Props {
+  events?: FeedEvent[];
+  label?: string;
+  class?: string;
+}
+const { events = FEED_EVENTS, label = 'onchain · synthetic', class: className = '' } = Astro.props;
+const loop = [...events, ...events];
+---
+
+<div class:list={['artifact', 'drift-in', className]}>
+  <div class="artifact__bar">
+    <span class="artifact__live">Live feed</span>
+    <span class="artifact__label">{label}</span>
+  </div>
+  <div
+    class="feed"
+    role="img"
+    aria-label="Illustrative feed of onchain settlement and vault events"
+  >
+    <div class="feed__track" aria-hidden="true">
+      {
+        loop.map((e) => (
+          <div class="feed__row">
+            <span class="feed__kind">{e.kind}</span>
+            <span class="feed__hash">{e.hash}</span>
+            <span class="feed__meta">
+              <span class="feed__amt">{e.amount}</span>
+              <span class="feed__time">{e.time}</span>
+            </span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

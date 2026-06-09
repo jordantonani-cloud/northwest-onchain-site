@@ -43,7 +43,7 @@ const props = Astro.props;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#10221C" />
+    <meta name="theme-color" content="#0A1D18" />
     <meta name="generator" content={Astro.generator} />
 
     <link rel="preload" as="font" type="font/woff2" href={frauncesWoff2} crossorigin />
@@ -53,18 +53,18 @@ const props = Astro.props;
     <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} — Insights`} href="/rss.xml" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${SITE.name} — Insights`}
+      href="/rss.xml"
+    />
 
     <Seo {...props} />
 
     {
       ANALYTICS.enabled && ANALYTICS.provider === 'plausible' && (
-        <script
-          is:inline
-          defer
-          data-domain={ANALYTICS.domain}
-          src={ANALYTICS.src}
-        />
+        <script is:inline defer data-domain={ANALYTICS.domain} src={ANALYTICS.src} />
       )
     }
   </head>
@@ -76,5 +76,7 @@ const props = Astro.props;
       <slot />
     </main>
     <Footer />
+    <!-- External (not bundled-inline) so the CSP stays script-src 'self'. -->
+    <script src="/motion.js" defer is:inline></script>
   </body>
 </html>

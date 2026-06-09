@@ -1,0 +1,31 @@
+---
+/**
+ * StatBand — honest, sourced, count-up numbers (brief §2 / Phase 0 §6.3).
+ * Defaults to HOME_STATS, where market figures are cited and the only
+ * NWO-specific number is Jordan's verifiable arc. No invented metrics. The
+ * final value is server-rendered as text; the count-up is enhancement only.
+ */
+import { HOME_STATS } from '../lib/artifacts';
+
+interface Props {
+  stats?: readonly { value: string; label: string; src?: string }[];
+  class?: string;
+}
+const { stats = HOME_STATS, class: className = '' } = Astro.props;
+---
+
+<dl class:list={['statband', className]} data-stagger>
+  {
+    stats.map((s) => (
+      <div class="statband__item fade-rise">
+        <dt class="statband__value" data-countup>
+          {s.value}
+        </dt>
+        <dd class="statband__label">
+          {s.label}
+          {s.src && <span class="statband__src">{s.src}</span>}
+        </dd>
+      </div>
+    ))
+  }
+</dl>

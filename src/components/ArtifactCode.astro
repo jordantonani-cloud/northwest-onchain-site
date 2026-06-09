@@ -1,0 +1,36 @@
+---
+/**
+ * ArtifactCode — a code/JSON design-object rendered in JetBrains Mono (brief §2).
+ * Mirrors Column's JSON/curl blocks; signals technical depth. Light, safe
+ * highlighting only: inline `//` comments are tinted, everything else renders
+ * as escaped plaintext (no fragile tokenizer, no injection surface). Content is
+ * a fixed synthetic string from src/lib/artifacts.ts.
+ */
+interface Props {
+  code: string;
+  label?: string;
+  lang?: string;
+  class?: string;
+}
+const { code, label = 'artifact', lang = 'json', class: className = '' } = Astro.props;
+
+// Split each line into code + trailing line-comment for tinting. The `//`
+// split is safe for our controlled inputs (no `://` URLs in the data).
+const lines = code.split('\n').map((line) => {
+  const idx = line.indexOf('//');
+  if (idx === -1) return { code: line, comment: '' };
+  return { code: line.slice(0, idx), comment: line.slice(idx) };
+});
+---
+
+<figure class:list={['artifact', 'codeart', 'drift-in', className]}>
+  <figcaption class="artifact__bar">
+    <span class="artifact__dot"></span>
+    <span class="artifact__dot"></span>
+    <span class="artifact__dot"></span>
+    <span class="artifact__label">{label} · {lang}</span>
+  </figcaption>
+  <pre><code>{lines.map((l, i) => (
+    <>{l.code}{l.comment && <span class="tok-com">{l.comment}</span>}{i < lines.length - 1 ? '\n' : ''}</>
+  ))}</code></pre>
+</figure>

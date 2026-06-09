@@ -12,6 +12,8 @@ import AuditBanner from '../components/AuditBanner.astro';
 import PriceCard from '../components/PriceCard.astro';
 import Faq, { type FaqItem } from '../components/Faq.astro';
 import ProofBand from '../components/ProofBand.astro';
+import ProofSection from '../components/ProofSection.astro';
+import ScopeCard from '../components/ScopeCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { AUDIT, TIERS, offerInputs } from '../lib/services';
 import { offerCatalogNode, faqNode } from '../lib/jsonld';
@@ -25,7 +27,7 @@ const faqs: FaqItem[] = [
   {
     question: 'Do you build it yourselves?',
     answer:
-      'We assemble and manage the right team from a vetted network rather than carrying a fixed engineering staff. You get builders matched to <em>your</em> problem, and we own the coordination, metrics, and delivery so you don\'t have to manage a vendor.',
+      "We assemble and manage the right team from a vetted network rather than carrying a fixed engineering staff. You get builders matched to <em>your</em> problem, and we own the coordination, metrics, and delivery so you don't have to manage a vendor.",
   },
   {
     question: 'Are you tied to a particular chain or product?',
@@ -40,7 +42,7 @@ const faqs: FaqItem[] = [
   {
     question: 'What makes you different from a big consulting firm?',
     answer:
-      'Big firms write the deck and bill the hours, but have rarely shipped onchain. Crypto-native shops can ship but can\'t model the business case. We do both — and we price against outcomes, not billable time.',
+      "Big firms write the deck and bill the hours, but have rarely shipped onchain. Crypto-native shops can ship but can't model the business case. We do both — and we price against outcomes, not billable time.",
   },
 ];
 
@@ -70,17 +72,30 @@ const jsonLd = [
     <div class="wrap">
       <h2 class="sr-only">Pricing and packages</h2>
       <AuditBanner tier={AUDIT} />
-      <div class="grid grid-3 pricing-grid">
+      <div class="grid-3 pricing-grid grid">
         {TIERS.map((tier) => <PriceCard tier={tier} />)}
       </div>
-      <p class="pricing-note">Start small. Each fee credits toward the next step if you continue.</p>
+      <p class="pricing-note">
+        Start small. Each fee credits toward the next step if you continue.
+      </p>
     </div>
   </section>
+
+  <!-- WHAT DELIVERY LOOKS LIKE — claim + scope artifact -->
+  <ProofSection
+    eyebrow="What delivery looks like"
+    heading="We turn ambition into a costed, shippable plan."
+    lead="Every engagement resolves to the same thing: defined milestones, a timeline, and a fixed cost band — agreed before any build. No open-ended hours, no mystery scope."
+    flip
+  >
+    <ScopeCard slot="artifact" />
+    <a class="see-live" slot="foot" href="/process">See how we work →</a>
+  </ProofSection>
 
   <!-- WHERE WE CREATE VALUE -->
   <section class="section alt">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head fade-rise">
         <Eyebrow>Where we create value</Eyebrow>
         <h2>The opportunities we help you size — and the ones we'll talk you out of.</h2>
         <p class="lead">
@@ -88,7 +103,7 @@ const jsonLd = [
           settlement, new revenue, new markets — not technology for its own sake.
         </p>
       </div>
-      <div class="grid grid-3">
+      <div class="grid-3 fade-rise grid">
         <Card title="Tokenization & RWA">
           <p>
             Real-world assets, funds, and instruments brought onchain — the fastest-growing
@@ -128,8 +143,8 @@ const jsonLd = [
         </Card>
         <Card title="Infrastructure & chain selection">
           <p>
-            Neutral guidance on chains, custody, and architecture, chosen for your constraints rather
-            than a vendor's roadmap.
+            Neutral guidance on chains, custody, and architecture, chosen for your constraints
+            rather than a vendor's roadmap.
           </p>
         </Card>
         <Card title="Strategy & financial modeling">
@@ -145,7 +160,7 @@ const jsonLd = [
   <!-- FAQ -->
   <section class="section">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head fade-rise">
         <Eyebrow>Straight answers</Eyebrow>
         <h2>Questions buyers actually ask.</h2>
       </div>

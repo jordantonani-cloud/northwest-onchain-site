@@ -1,6 +1,6 @@
 # Northwest Onchain — Brand Book & Guidelines
 
-**Version 1.0 · June 2026 · Source of truth**
+**Version 1.1 · June 2026 · Source of truth**
 
 This is the canonical brand guide. It supersedes any color/logo values in earlier prototype files. It is written to be used by humans *and* by AI tools (Claude Code, ChatGPT, v0, Figma plugins, etc.). Section 12 is a copy-paste handoff block for AI.
 
@@ -12,7 +12,7 @@ This is the canonical brand guide. It supersedes any color/logo values in earlie
 - **Tagline:** *Onchain, on purpose.*
 - **What we are:** A blockchain strategy & execution consultancy that bridges traditional finance and onchain technology.
 - **Logo:** The "Beacon" mark — a peak built from two edges and three nodes, with the summit node radiating signal rings.
-- **Core colors:** Evergreen `#12463A`, Ink `#10221C`, Signal mint `#2FBF98` / `#34E0B5`, Mist `#EEF1ED`.
+- **Core colors:** Evergreen `#12463A`, Ink `#0A1D18`, Signal mint `#2FBF98` / `#34E0B5`, Mist `#EDF1EE`.
 - **Fonts:** Space Grotesk (display), Inter (body), JetBrains Mono (labels/data).
 - **Feeling:** Modern & ahead, minimal & restrained. Fintech precision (Stripe/Mercury) warmed by PNW heritage craft (Filson/Snow Peak).
 - **Voice:** Calm expert. Lead with outcomes, willing to say "don't," allergic to hype. AI framed as *speed*, never as the pitch.
@@ -83,17 +83,23 @@ Do not: recolor outside the palette · stretch, skew, or rotate · add drop shad
 ## 3. Color system
 
 ### 3.1 Core palette
+
+> **v1.1 (June 2026):** reconciled to the shipped "north-star" base — Ink deepened to `#0A1D18`, the `Ink-2` elevated surface and `Signal Soft` headline accent added, and Mist/Fog/Copper aligned to the values running in `tailwind.config.mjs` + `global.css`. These are now canonical.
+
 | Token | Hex | Role |
 |---|---|---|
-| **Ink** | `#10221C` | Darkest background; primary text on light |
+| **Ink** | `#0A1D18` | Darkest base background (glows layer on top); primary text on light |
+| **Ink-2** | `#0D2620` | Elevated surface tint (cards, raised sections) on the Ink base |
 | **Evergreen** | `#12463A` | Primary brand color; slopes, "Onchain" wordmark on light, dark UI sections |
 | **Moss** | `#1C5E4A` | Mid-green; hovers, secondary surfaces |
 | **Signal** | `#2FBF98` | Primary accent on light/neutral; apex node, small CTAs |
 | **Signal Bright** | `#34E0B5` | Accent on dark backgrounds; CTAs, glows, links on dark |
-| **Mist** | `#EEF1ED` | Primary light background |
-| **Fog** | `#AEC2BA` | Muted sage; secondary text on dark |
+| **Signal Soft** | `#86F0D8` | Italic headline accent + gradient top-stop on dark |
+| **Signal Dim** | `#0E7458` | AA-safe mint for small accent text on light (~5.0:1 on Mist) |
+| **Mist** | `#EDF1EE` | Primary light background |
+| **Fog** | `#9BB0A8` | Muted sage; secondary text on dark (~7:1 on Ink) |
 | **Graphite** | `#33454B` | Secondary text on light |
-| **Copper** | `#C58A5B` | Warm secondary accent — use sparingly (≤5% of any layout) for heritage warmth |
+| **Copper** | `#D08A57` | Warm secondary accent — use sparingly (≤5% of any layout) for heritage warmth |
 | **White** | `#FBFDFC` | Pure text/elements on dark |
 
 ### 3.2 Usage rules
@@ -230,15 +236,18 @@ BRAND-BOOK.md                  this document
 **Design tokens (CSS):**
 ```css
 :root{
-  --ink:#10221C;          /* darkest bg; text on light */
+  --ink:#0A1D18;          /* darkest base bg; text on light */
+  --ink2:#0D2620;         /* elevated surface tint */
   --evergreen:#12463A;    /* primary brand color */
   --moss:#1C5E4A;         /* mid green; hovers */
   --signal:#2FBF98;       /* accent on light/neutral */
   --signal-bright:#34E0B5;/* accent on dark; CTAs, glows */
-  --mist:#EEF1ED;         /* light bg */
-  --fog:#AEC2BA;          /* muted text on dark */
+  --signal-soft:#86F0D8;  /* italic headline accent + gradient top-stop */
+  --signal-dim:#0E7458;   /* AA-safe mint for small text on light */
+  --mist:#EDF1EE;         /* light bg */
+  --fog:#9BB0A8;          /* muted text on dark */
   --graphite:#33454B;     /* secondary text on light */
-  --copper:#C58A5B;       /* warm accent, sparing */
+  --copper:#D08A57;       /* warm accent, sparing */
   --white:#FBFDFC;
   --font-display:"Space Grotesk", sans-serif;
   --font-body:"Inter", sans-serif;
@@ -251,9 +260,9 @@ BRAND-BOOK.md                  this document
 ```json
 {
   "color": {
-    "ink":"#10221C","evergreen":"#12463A","moss":"#1C5E4A",
-    "signal":"#2FBF98","signalBright":"#34E0B5","mist":"#EEF1ED",
-    "fog":"#AEC2BA","graphite":"#33454B","copper":"#C58A5B","white":"#FBFDFC"
+    "ink":"#0A1D18","ink2":"#0D2620","evergreen":"#12463A","moss":"#1C5E4A",
+    "signal":"#2FBF98","signalBright":"#34E0B5","signalSoft":"#86F0D8","signalDim":"#0E7458",
+    "mist":"#EDF1EE","fog":"#9BB0A8","graphite":"#33454B","copper":"#D08A57","white":"#FBFDFC"
   },
   "font": {
     "display":"Space Grotesk","body":"Inter","mono":"JetBrains Mono"

@@ -1,0 +1,65 @@
+---
+/**
+ * ProofSection — the claim→proof rhythm primitive (brief §1.2). One declarative
+ * headline + a supporting line on one side, a living artifact in the named
+ * `artifact` slot on the other. Never two text blocks back-to-back. `flip`
+ * alternates the artifact side so consecutive sections zig-zag. Copy is
+ * server-rendered; the fade-rise is enhancement only.
+ */
+import Eyebrow from './Eyebrow.astro';
+
+interface Props {
+  eyebrow: string;
+  heading: string;
+  lead?: string;
+  /** Named, public deployments already live on this rail (not NWO clients). */
+  names?: string[];
+  flip?: boolean;
+  headingLevel?: 2 | 3;
+  class?: string;
+}
+const {
+  eyebrow,
+  heading,
+  lead,
+  names,
+  flip = false,
+  headingLevel = 2,
+  class: className = '',
+} = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+---
+
+<section class:list={['proofsec', { 'proofsec--flip': flip }, className]}>
+  <div class="wrap">
+    <div class="proofsec__grid">
+      <div class="proofsec__copy fade-rise">
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <Heading class="proofsec__h">{heading}</Heading>
+        {lead && <p class="proofsec__lead">{lead}</p>}
+        {
+          names && names.length > 0 && (
+            <p class="live-names">
+              <span class="live-names__k">Already live</span>
+              {names.map((n, i) => (
+                <span class="live-names__n">
+                  {n}
+                  {i < names.length - 1 && (
+                    <span class="live-names__sep" aria-hidden="true">
+                      {' '}
+                      ·{' '}
+                    </span>
+                  )}
+                </span>
+              ))}
+            </p>
+          )
+        }
+        <div class="proofsec__foot"><slot name="foot" /></div>
+      </div>
+      <div class="proofsec__art">
+        <slot name="artifact" />
+      </div>
+    </div>
+  </div>
+</section>

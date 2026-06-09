@@ -1,0 +1,45 @@
+---
+/**
+ * ScopeCard — a compact PoC "scope card": milestone → timeline → cost band
+ * (brief §2). Proof that we turn ambition into a shippable, costed plan. Used on
+ * services/process. Static + accessible; data from src/lib/artifacts.ts.
+ */
+import { POC_SCOPE } from '../lib/artifacts';
+
+interface Props {
+  title?: string;
+  band?: string;
+  steps?: readonly { no: string; name: string; wk: string }[];
+  class?: string;
+}
+const {
+  title = POC_SCOPE.title,
+  band = POC_SCOPE.band,
+  steps = POC_SCOPE.steps,
+  class: className = '',
+} = Astro.props;
+---
+
+<div class:list={['artifact', 'drift-in', className]}>
+  <div class="artifact__bar">
+    <span class="artifact__live">Scope</span>
+    <span class="artifact__label">illustrative</span>
+  </div>
+  <div class="scope">
+    <div class="scope__head">
+      <span class="scope__title">{title}</span>
+      <span class="scope__band">{band}</span>
+    </div>
+    <div class="scope__steps">
+      {
+        steps.map((s) => (
+          <div class="scope__step">
+            <span class="scope__no">{s.no}</span>
+            <span class="scope__name">{s.name}</span>
+            <span class="scope__wk">{s.wk}</span>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>

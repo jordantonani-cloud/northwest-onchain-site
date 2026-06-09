@@ -9,6 +9,8 @@ import KeyTakeaways from '../components/KeyTakeaways.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import Card from '../components/Card.astro';
 import StepRow from '../components/StepRow.astro';
+import ProofSection from '../components/ProofSection.astro';
+import ScopeCard from '../components/ScopeCard.astro';
 import CtaBand from '../components/CtaBand.astro';
 ---
 
@@ -47,16 +49,16 @@ import CtaBand from '../components/CtaBand.astro';
       <h2 class="sr-only">The four stages</h2>
       <div class="steps">
         <StepRow label="// 01 SURVEY" title="Meet & diagnose" headingLevel={2}>
-          We sit down and learn the business — the ambition, the constraints, the pressure behind the
-          mandate. We map the terrain honestly, which sometimes means telling you the summit you're
-          pointed at isn't worth the climb. No deck, no pitch. Just an accurate read of where onchain
-          creates value and where it doesn't.
+          We sit down and learn the business — the ambition, the constraints, the pressure behind
+          the mandate. We map the terrain honestly, which sometimes means telling you the summit
+          you're pointed at isn't worth the climb. No deck, no pitch. Just an accurate read of where
+          onchain creates value and where it doesn't.
         </StepRow>
         <StepRow label="// 02 CHART" title="Find the path" headingLevel={2}>
           We go away and do the work: define the real opportunity, the success metrics, the costed
           roadmap, and the right team to execute. You get a route with milestones, a budget, and a
-          defensible business case — the kind that survives a CFO's questions and a board's scrutiny.
-          This is the deliverable of the Diagnostic Sprint.
+          defensible business case — the kind that survives a CFO's questions and a board's
+          scrutiny. This is the deliverable of the Diagnostic Sprint.
         </StepRow>
         <StepRow label="// 03 ASSEMBLE" title="Build the crew" headingLevel={2}>
           We stand up the right builders from a vetted network — matched to your specific problem,
@@ -72,21 +74,32 @@ import CtaBand from '../components/CtaBand.astro';
     </div>
   </section>
 
+  <!-- CHART, MADE CONCRETE — claim + scope artifact -->
+  <ProofSection
+    eyebrow="The deliverable"
+    heading="Every climb gets a route, a budget, and a turnaround line."
+    lead="The Chart stage resolves to a concrete plan: milestones, a timeline, and a fixed cost band — so you know what reaching the summit takes before anyone sets out."
+    flip
+  >
+    <ScopeCard slot="artifact" />
+    <a class="see-live" slot="foot" href="/services">See the engagement tiers →</a>
+  </ProofSection>
+
   <!-- PRINCIPLES -->
   <section class="section alt">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head fade-rise">
         <Eyebrow>Principles</Eyebrow>
         <h2>How we keep it real.</h2>
       </div>
-      <div class="grid grid-3">
+      <div class="grid-3 fade-rise grid">
         <Card title="Metrics before code">
           <p>
             Success criteria, cost, and ROI are defined up front. If we can't agree what winning
             looks like, we don't start.
           </p>
         </Card>
-        <Card title="Honest &quot;no&quot;">
+        <Card title='Honest "no"'>
           <p>
             The most valuable thing we can sometimes say is "don't." Vendor-neutrality means we're
             free to say it.

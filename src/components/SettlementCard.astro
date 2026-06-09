@@ -1,0 +1,41 @@
+---
+/**
+ * SettlementCard — a stablecoin payment settling in seconds beside a greyed-out
+ * multi-day wire (brief §2). Sells the "stablecoin settlement vs. wires" thesis
+ * by showing it. Synthetic data (src/lib/artifacts.ts). Static + accessible:
+ * the comparison reads fine without motion or JS.
+ */
+import { SETTLEMENT } from '../lib/artifacts';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+const { onchain, wire } = SETTLEMENT;
+---
+
+<div class:list={['artifact', 'drift-in', className]}>
+  <div class="artifact__bar">
+    <span class="artifact__live">Settlement</span>
+    <span class="artifact__label">same payment · two rails</span>
+  </div>
+  <div class="settle">
+    <div class="settle__row settle__row--onchain">
+      <div>
+        <span class="settle__rail">{onchain.rail}</span>
+        <span class="settle__party">{onchain.from} → {onchain.to}</span>
+        <i class="settle__bar" aria-hidden="true"></i>
+        <div class="settle__status settle__status--done">{onchain.status}</div>
+      </div>
+      <div class="settle__amt">{onchain.amount}</div>
+    </div>
+    <div class="settle__row settle__row--wire">
+      <div>
+        <span class="settle__rail">{wire.rail}</span>
+        <span class="settle__party">{wire.from} → {wire.to}</span>
+        <div class="settle__status settle__status--slow">{wire.status}</div>
+      </div>
+      <div class="settle__amt">{wire.amount}</div>
+    </div>
+  </div>
+</div>
