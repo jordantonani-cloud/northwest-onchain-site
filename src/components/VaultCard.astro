@@ -1,0 +1,37 @@
+---
+/**
+ * VaultCard — onchain credit's edge as a single gauge: reserves you can audit
+ * right now (STRATEGIC-REVISION-PROMPT directive 2). ONE number (the
+ * collateral ratio); everything else is texture. The fill animates only once
+ * revealed; static-final without JS or under reduced motion. Synthetic data.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div class:list={['artifact', 'drift-in', className]}>
+  <div class="artifact__bar">
+    <span class="artifact__live">Reserves</span>
+    <span class="artifact__label">credit vault · synthetic</span>
+  </div>
+  <div
+    class="vault"
+    role="img"
+    aria-label="An onchain credit vault showing 136 percent collateralization, verifiable in real time"
+  >
+    <div class="vault__num" aria-hidden="true">
+      136%<span class="vault__unit">collateralized</span>
+    </div>
+    <div class="vault__bar" aria-hidden="true">
+      <i class="vault__fill"></i>
+      <i class="vault__marker"></i>
+    </div>
+    <div class="vault__legend" aria-hidden="true">
+      <span>borrowed</span>
+      <span class="vault__legend--live">collateral · verifiable now</span>
+    </div>
+    <p class="vault__s" aria-hidden="true">No quarterly statement. Anyone can check, any time.</p>
+  </div>
+</div>

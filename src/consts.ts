@@ -13,7 +13,7 @@ export const SITE = {
   tagline: 'Onchain, on purpose.',
   shortPitch: 'The bridge between traditional finance and blockchain.',
   description:
-    'Northwest Onchain bridges traditional finance and blockchain. We diagnose where onchain creates real value, assemble the right team from a vetted network, and deliver a working proof of concept against defined metrics, cost, and ROI.',
+    'Northwest Onchain positions businesses for the onchain moment. We find the opportunities that improve distribution, cut costs, and serve stakeholders better, then prove them with a working pilot.',
   email: 'hello@northwestonchain.com',
   region: 'Pacific Northwest',
   // areaServed surfaces in ProfessionalService JSON-LD.
@@ -38,18 +38,14 @@ export const BOOKING = {
 } as const;
 
 /**
- * Standardized calls to action (WEBSITE-AUDIT §8/§10). The $1,500 Opportunity
- * Audit is the single primary ask sitewide; a free call is the secondary.
- * "The Meet" survives only as Contact-page flavor.
+ * Standardized call to action (STRATEGIC-REVISION-PROMPT directive 5).
+ * ONE ask sitewide: a free first conversation. No packages, no prices in CTAs.
+ * Pricing context lives only on /services as honest ranges.
  */
 export const CTA = {
-  auditLabel: 'Get the $1,500 Opportunity Audit',
-  auditShort: 'Get the Audit',
-  auditSubtext: 'Flat fee. 3–5 days. Credited toward whatever comes next.',
-  auditHref: '/contact',
-  callLabel: 'Book a free 30-min call',
-  callHref: '/contact',
-  secondaryLabel: 'See how we work',
+  primaryLabel: 'Start the conversation',
+  primaryHref: '/contact',
+  subtext: 'Free, 30 minutes, no pitch. A straight read on what onchain means for your business.',
 } as const;
 
 /**
@@ -104,13 +100,8 @@ export const FOOTER_NAV: { heading: string; links: { label: string; href: string
     ],
   },
   {
-    heading: 'Engage',
-    links: [
-      { label: 'Opportunity Audit', href: '/services#audit' },
-      { label: 'Diagnostic Sprint', href: '/contact' },
-      { label: 'PoC Delivery', href: '/services#delivery' },
-      { label: 'Fractional Advisor', href: '/services#advisor' },
-    ],
+    heading: 'Start',
+    links: [{ label: 'Start the conversation', href: '/contact' }],
   },
 ];
 
@@ -127,15 +118,15 @@ export const FOUNDER = {
   linkedin: 'https://www.linkedin.com/in/jordantonani',
   // §2a — one-line credibility (teaser meta / hero use).
   oneLine:
-    'Morgan Stanley to Index Coop to Lotus Labs. Eight years across traditional finance and onchain — both sides, fluent.',
+    'Morgan Stanley to Index Coop to Lotus Labs. Eight years across traditional finance and onchain. Both sides, fluent.',
   // §2b — homepage teaser (FounderCard teaser variant).
   teaser:
-    'Northwest Onchain is led by Jordan Tonani, a Seattle-based operator with 8+ years across crypto, DeFi, and regulated finance. He has worked both sides of the table — from managing $150M in client assets at Morgan Stanley to leading partnerships at Index Coop, where onchain structured-product TVL grew 135% in a single year. The judgment to know why something is worth building and what it should be — and the onchain network that actually ships.',
+    'Jordan Tonani is a Seattle operator with eight years across crypto, DeFi, and regulated finance. He managed $150M in client assets at Morgan Stanley, then led partnerships at Index Coop, where onchain structured products grew 135% in a year. He knows why something is worth building, what it should be, and who needs to be in the room.',
   // §2c — full bio (FounderCard full variant), paragraph by paragraph.
   bio: [
-    'Northwest Onchain was founded by Jordan Tonani, who has spent more than eight years working both sides of finance — traditional and onchain.',
-    "He began at Morgan Stanley, where as Seattle's lead executive-compensation strategist he managed $150M in high-net-worth assets and guided pre-IPO executives through equity and 10b5-1 decisions — translating financial complexity into clear calls. He then moved fully onchain, leading partnerships and institutions at Index Coop, at the time the largest provider of onchain structured products, where he drove 135% year-over-year TVL growth and shipped integrations with Coinbase, Gemini, MetaMask, and 21Shares while serving on the executive committee.",
-    'Today he is founding business-development lead at Lotus Labs, building an onchain credit platform anchored by firms like FalconX, Bitwise, and WisdomTree, with $30M+ in capital committed before launch. That path — wealth management to DeFi partnerships to onchain credit — is half of Northwest Onchain\'s premise: knowing why something should be built and what it should be, before anyone writes code. He brings a deep network of protocol founders, asset issuers, exchanges, market makers, and institutional allocators to every engagement — and a bias toward telling clients the truth, including when the answer is "don\'t build this."',
+    'Northwest Onchain was founded by Jordan Tonani, who has spent more than eight years working both sides of finance: traditional and onchain.',
+    "He began at Morgan Stanley as Seattle's lead executive-compensation strategist, managing $150M in high-net-worth assets and guiding pre-IPO executives through complex equity decisions. He then moved fully onchain to lead partnerships at Index Coop, at the time the largest provider of onchain structured products. There he drove 135% year-over-year growth and shipped integrations with Coinbase, Gemini, MetaMask, and 21Shares while serving on the executive committee.",
+    'Today he is founding business-development lead at Lotus Labs, an onchain credit platform anchored by FalconX, Bitwise, and WisdomTree, with $30M+ committed before launch. That path is half of Northwest Onchain\'s premise: knowing why something should be built and what it should be, before anyone writes code. He brings a deep network of protocol founders, asset issuers, exchanges, and institutional allocators to every engagement, and a bias toward telling clients the truth, including when the answer is "don\'t build this."',
   ],
   knowsAbout: [
     'DeFi partnerships',
@@ -167,15 +158,15 @@ export const COFOUNDER = {
   github: 'https://github.com/thebuidler',
   // One-line credibility (teaser meta / hero use).
   oneLine:
-    'Cray to Amazon to gTrade protocol lead. A decade of systems engineering — $120B+ in onchain volume shipped with zero exploits.',
+    'Cray to Amazon to gTrade protocol lead. A decade of systems engineering. $120B+ in onchain volume shipped with zero exploits.',
   // Homepage teaser (FounderCard teaser variant).
   teaser:
-    'Nathan Tonani is the engineering side of the firm. As founding engineer and protocol lead at gTrade, he designed and shipped a fully onchain derivatives protocol that scaled to $120B+ in volume, 4M+ trades, and 40K+ users — with zero security exploits — while leading a 15-person team across product, engineering, and go-to-market. Before crypto: ML infrastructure at Amazon and supercomputing at Cray. He builds the systems that survive production, and brings the judgment to know what will.',
+    'Nathan Tonani is the engineering side of the firm. As founding engineer and protocol lead at gTrade, he shipped a fully onchain derivatives exchange that scaled to $120B+ in volume and 40K+ users with zero security exploits, leading a 15-person team along the way. Before crypto: machine learning at Amazon, supercomputing at Cray. He builds systems that survive production.',
   // Full bio (FounderCard full variant), paragraph by paragraph.
   bio: [
-    "Nathan Tonani is Northwest Onchain's co-founder and CTO — the builder's side of the bridge. He has spent a decade engineering systems where failure is expensive: supercomputing at Cray, then machine-learning infrastructure at Amazon, where his pipelines processed price and inventory streams for roughly a million SKUs at more than 500 million updates a day.",
-    'He moved fully onchain in 2020. At the Learning Economy Foundation he co-owned the W3C Universal Wallet Interoperability Specification alongside MIT and Transmute. Then, as founding engineer and later protocol lead at gTrade, he designed and shipped a fully onchain derivatives protocol — scaling it to $120B+ in volume, 4M+ trades, and 40K+ users while hiring and leading a 15-person team across product, engineering, and go-to-market. The protocol maintained zero security exploits across billions in facilitated volume, and the parameterized risk frameworks he built kept it solvent through three extreme market cycles while most competing protocols failed. Patterns he pioneered there — one-click trading, LP-backed perpetual markets — were later adopted across DeFi.',
-    'That arc is the other half of the premise: once the why and the what are clear, who builds it decides whether value actually gets created. Nathan has already built and operated the class of systems being proposed — smart contracts, market infrastructure, risk engines, and the product layer on top. When Northwest Onchain says a proof of concept will hold up in production, that judgment comes from someone who has shipped one at scale.',
+    "Nathan Tonani is Northwest Onchain's co-founder and CTO, the builder's side of the bridge. He has spent a decade engineering systems where failure is expensive: supercomputing at Cray, then machine-learning infrastructure at Amazon, processing inventory for a million products at 500 million updates a day.",
+    'He moved fully onchain in 2020, co-authoring a W3C wallet standard alongside MIT and Transmute. As founding engineer and later protocol lead at gTrade, he designed and shipped a fully onchain derivatives exchange, scaling it to $120B+ in volume, 4M+ trades, and 40K+ users while leading a 15-person team. Zero security exploits across billions in volume. His risk systems held through three extreme market cycles while most competing protocols failed, and patterns he pioneered, like one-click trading, were adopted across DeFi.',
+    'That arc is the other half of the premise: once the why and the what are clear, who builds it decides whether value gets created. Nathan has built and operated the systems being proposed, from smart contracts to market infrastructure to the product on top. When Northwest Onchain says a pilot will hold up in production, that judgment comes from someone who has shipped one at scale.',
   ],
   knowsAbout: [
     'Smart contract development',
@@ -202,14 +193,14 @@ export const TEAM = [FOUNDER, COFOUNDER] as const;
  */
 export const PROOF = {
   heading: 'The track record behind the firm',
-  note: "The founders' career results, partners, and integrations — not Northwest Onchain client engagements.",
+  note: "The founders' career results, partners, and integrations, not Northwest Onchain client engagements.",
   stats: [
-    { value: '$120B+', label: 'protocol volume scaled at gTrade — zero exploits' },
+    { value: '$120B+', label: 'protocol volume scaled at gTrade, zero exploits' },
     { value: '$150M', label: 'client assets managed at Morgan Stanley' },
     { value: '135%', label: 'YoY onchain TVL growth led at Index Coop (2024)' },
     { value: '$30M+', label: 'committed pre-launch at Lotus Labs' },
   ],
-  logosLabel: "Partnerships, integrations, and roles across the founders' careers include —",
+  logosLabel: "Partnerships, integrations, and roles across the founders' careers include",
   logos: [
     'Morgan Stanley',
     'Amazon',

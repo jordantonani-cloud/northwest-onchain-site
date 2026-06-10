@@ -1,0 +1,40 @@
+---
+/**
+ * TokenizeCard — the tokenization opportunity as a concept, not a config file
+ * (STRATEGIC-REVISION-PROMPT directive 2). One locked whole asset becomes a
+ * grid of live, divisible tokens. Reads in 3 seconds without the copy. The
+ * tile reveal animates only once revealed (.drift-in.in); static-final
+ * without JS or under reduced motion.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+const tiles = Array.from({ length: 8 });
+---
+
+<div class:list={['artifact', 'drift-in', className]}>
+  <div class="artifact__bar">
+    <span class="artifact__live">Tokenized</span>
+    <span class="artifact__label">same asset · two forms</span>
+  </div>
+  <div
+    class="tkz"
+    role="img"
+    aria-label="A locked, whole fund unit becomes divisible tokens that trade around the clock"
+  >
+    <div class="tkz__side tkz__side--before" aria-hidden="true">
+      <span class="tkz__k">Traditional fund unit</span>
+      <div class="tkz__block">1</div>
+      <span class="tkz__s">Locked · whole · business hours</span>
+    </div>
+    <div class="tkz__arrow" aria-hidden="true">→</div>
+    <div class="tkz__side" aria-hidden="true">
+      <span class="tkz__k tkz__k--live">Tokenized · onchain</span>
+      <div class="tkz__grid">
+        {tiles.map((_, i) => <i class="tkz__tile" style={`--i:${i}`} />)}
+      </div>
+      <span class="tkz__s tkz__s--live">Divisible · trades 24/7</span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,58 @@
+---
+/**
+ * MarketHoursCard — "markets that never close" as one week of trading hours
+ * (STRATEGIC-REVISION-PROMPT directive 2). Traditional venue: weekday slivers.
+ * Onchain venue: seven full days. No numbers needed; the strip is the point.
+ * Pure CSS; the live pulse freezes under reduced motion.
+ */
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+const days = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
+---
+
+<div class:list={['artifact', 'drift-in', className]}>
+  <div class="artifact__bar">
+    <span class="artifact__live">Market hours</span>
+    <span class="artifact__label">one week · two venues</span>
+  </div>
+  <div
+    class="mkh"
+    role="img"
+    aria-label="Traditional exchanges trade weekday hours only; onchain venues trade all day, every day"
+  >
+    <div class="mkh__row" aria-hidden="true">
+      <div class="mkh__meta">
+        <span class="mkh__name">Traditional exchange</span>
+        <span class="mkh__status">Closed · opens Monday</span>
+      </div>
+      <div class="mkh__days">
+        {
+          days.map((d, i) => (
+            <div class:list={['mkh__day', { 'mkh__day--off': i > 4 }]}>
+              <i class="mkh__fill mkh__fill--part" />
+              <span>{d}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+    <div class="mkh__row mkh__row--live" aria-hidden="true">
+      <div class="mkh__meta">
+        <span class="mkh__name">Onchain venue</span>
+        <span class="mkh__status mkh__status--live">Open · always</span>
+      </div>
+      <div class="mkh__days">
+        {
+          days.map((d) => (
+            <div class="mkh__day">
+              <i class="mkh__fill mkh__fill--full" />
+              <span>{d}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>

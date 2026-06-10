@@ -12,14 +12,16 @@ import Eyebrow from '../components/Eyebrow.astro';
 import Button from '../components/Button.astro';
 import OnchainFeed from '../components/OnchainFeed.astro';
 import SettlementCard from '../components/SettlementCard.astro';
-import ArtifactCode from '../components/ArtifactCode.astro';
+import TokenizeCard from '../components/TokenizeCard.astro';
+import VaultCard from '../components/VaultCard.astro';
+import MarketHoursCard from '../components/MarketHoursCard.astro';
 import StatBand from '../components/StatBand.astro';
 import ProofSection from '../components/ProofSection.astro';
 import WhyNow from '../components/WhyNow.astro';
 import FounderCard from '../components/FounderCard.astro';
 import HomeFAQ from '../components/HomeFAQ.astro';
 import CloseBand from '../components/CloseBand.astro';
-import { TOKENIZATION_CONFIG, VAULT_POSITION, PERPS_SNAPSHOT, LIVE_NAMES } from '../lib/artifacts';
+import { LIVE_NAMES } from '../lib/artifacts';
 import { offerCatalogNode, faqNode } from '../lib/jsonld';
 import { offerInputs } from '../lib/services';
 import { HOME_FAQ } from '../lib/home-faq';
@@ -34,8 +36,8 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="Blockchain Strategy & PoC Consulting | Northwest Onchain"
-  description="The infrastructure for onchain finance is live — stablecoin settlement, tokenized assets, onchain credit, 24/7 markets. Northwest Onchain helps banks, investors, and operators find what's real and deliver the proof."
+  title="Blockchain Strategy & Execution | Northwest Onchain"
+  description="Onchain finance is live: stablecoin settlement, tokenized assets, onchain credit, 24/7 markets. Northwest Onchain positions your business for the onchain moment and proves it with a working pilot."
   path="/"
   image="/og/home.png"
   jsonLd={jsonLd}
@@ -47,21 +49,18 @@ const jsonLd = [
         <div>
           <Eyebrow>The onchain moment</Eyebrow>
           <h1>
-            The infrastructure for onchain finance is <span class="serif-i">live</span>. The
-            advantage goes to whoever uses it first.
+            Onchain finance is <span class="serif-i">live</span>. The advantage goes to whoever
+            moves first.
           </h1>
           <p class="lead">
-            Stablecoin settlement, tokenized assets, onchain credit, and round-the-clock markets are
-            in production today — not someday. The hard part is knowing what's real, what's noise,
-            and what it means for you.
+            Stablecoin settlement, tokenized assets, onchain credit, 24/7 markets: in production
+            today. The hard part is knowing what it means for you.
           </p>
           <div class="hero-actions">
-            <Button href="/contact" variant="primary" arrow>Start a conversation</Button>
+            <Button href="/contact" variant="primary" arrow>Start the conversation</Button>
             <Button href="#live" variant="ghost">See what's live</Button>
           </div>
-          <p class="micro">
-            No pitch — a straight read on whether there's something real here for you.
-          </p>
+          <p class="micro">Free, 30 minutes, no pitch. A straight read.</p>
         </div>
         <!-- Layered artifact composition (Column's card-over-code signature):
              the live feed with a settled-payment card floating over its edge. -->
@@ -88,12 +87,11 @@ const jsonLd = [
   <section class="section section--intro" id="live">
     <div class="wrap">
       <div class="section-head fade-rise">
-        <Eyebrow>What blockchain is enabling — today</Eyebrow>
+        <Eyebrow>Live today</Eyebrow>
         <h2>Four shifts already moving real money.</h2>
         <p class="lead">
-          Not roadmap items — in production now. The question for any institution is which one
-          matters to them, and whether it's worth moving on. And the ones we'll talk you out of,
-          because not every problem needs a chain.
+          All four are in production now. The question is which one matters to your business, and
+          we'll tell you if none do.
         </p>
       </div>
     </div>
@@ -103,7 +101,7 @@ const jsonLd = [
   <ProofSection
     eyebrow="Stablecoin settlement"
     heading="Settlement that clears in seconds, not days."
-    lead="Multi-day correspondent banking and FX spreads, replaced by rails that settle in minutes around the clock — stripping intermediary fees, pre-funding, and float out of payments and treasury."
+    lead="Wires take days and skim fees along the way. Stablecoin rails settle the same payment in seconds, around the clock."
     names={LIVE_NAMES.settlement}
     headingLevel={3}
   >
@@ -117,20 +115,12 @@ const jsonLd = [
   <ProofSection
     eyebrow="Tokenization"
     heading="Real assets, brought onchain."
-    lead="Funds, credit, and real assets onchain for 24/7 transferability, fractional ownership that widens the buyer base, and near-instant liquidity for traditionally illiquid assets."
+    lead="Assets that were locked up become liquid: tradable around the clock, divisible, and open to a far wider pool of buyers."
     names={LIVE_NAMES.tokenization}
     headingLevel={3}
     flip
   >
-    <!-- Config → product: the rendered token card floats over its own JSON. -->
-    <div class="artifact-stack" slot="artifact">
-      <ArtifactCode code={TOKENIZATION_CONFIG} label="tokenization config" lang="json" />
-      <div class="afloat afloat--token drift-in" aria-hidden="true">
-        <span class="afloat__k">tFUND · ERC-20</span>
-        <span class="afloat__v">NAV $1.00</span>
-        <span class="afloat__s">Redemption T+0</span>
-      </div>
-    </div>
+    <TokenizeCard slot="artifact" />
     <a class="see-live" slot="foot" href="/insights/whos-already-live-tokenizing-funds">
       See who's already live →
     </a>
@@ -140,11 +130,11 @@ const jsonLd = [
   <ProofSection
     eyebrow="Onchain vaults & credit"
     heading="Credit and yield with reserves you can audit."
-    lead="Yield products, structured credit, and collateralized lending with transparent, real-time, auditable reserves — new revenue lines for issuers, new visibility for investors."
+    lead="Lending and yield with reserves anyone can audit, in real time. New revenue for issuers, new visibility for investors."
     names={LIVE_NAMES.credit}
     headingLevel={3}
   >
-    <ArtifactCode slot="artifact" code={VAULT_POSITION} label="vault position" lang="position" />
+    <VaultCard slot="artifact" />
     <a class="see-live" slot="foot" href="/insights/whos-already-live-onchain-credit">
       See who's already live →
     </a>
@@ -154,12 +144,12 @@ const jsonLd = [
   <ProofSection
     eyebrow="Perps & 24/7 markets"
     heading="Markets that never close."
-    lead="Round-the-clock hedging, leverage, and price exposure on venues that settle continuously, without a central clearinghouse."
+    lead="Hedging and price exposure on venues that never close and settle continuously."
     names={LIVE_NAMES.markets}
     headingLevel={3}
     flip
   >
-    <ArtifactCode slot="artifact" code={PERPS_SNAPSHOT} label="perp snapshot" lang="market" />
+    <MarketHoursCard slot="artifact" />
     <a class="see-live" slot="foot" href="/insights/whos-already-live-24-7-markets">
       See who's already live →
     </a>
@@ -175,11 +165,8 @@ const jsonLd = [
         <Eyebrow>Who's behind it</Eyebrow>
         <h2>Two sides of the same coin.</h2>
         <p class="lead">
-          Creating real value onchain means answering three questions well: why build, what to
-          build, and who builds it. Northwest Onchain is two brothers in Seattle who split that
-          diligence down its natural seam — Jordan on the market side: economics, partners,
-          distribution. Nathan on the systems side: $120B+ of onchain volume engineered without a
-          single exploit.
+          Every opportunity comes down to three questions: why build, what to build, and who builds
+          it. Two brothers in Seattle, one on the market side, one on the systems side.
         </p>
       </div>
       <div class="team-stack">

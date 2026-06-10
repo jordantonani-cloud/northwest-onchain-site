@@ -28,9 +28,7 @@ const insights = defineCollection({
     keyTakeaway: z.string().optional(),
     keyPoints: z.array(z.string()).default([]),
     /** On-page FAQ → also emitted as FAQPage JSON-LD. */
-    faqs: z
-      .array(z.object({ question: z.string(), answer: z.string() }))
-      .default([]),
+    faqs: z.array(z.object({ question: z.string(), answer: z.string() })).default([]),
   }),
 });
 

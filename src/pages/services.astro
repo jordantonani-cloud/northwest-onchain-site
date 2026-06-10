@@ -1,28 +1,27 @@
 ---
 /**
- * Services & pricing. Four-tier model: Audit wedge banner + three columns.
- * Carries OfferCatalog + FAQPage JSON-LD (the FAQ array drives both the
- * on-page accordion and the schema). Question-shaped H2s for AEO.
+ * Services — how the partnership works. Three engagement shapes (Diagnose →
+ * Deliver → Advise) with honest pricing context, not a menu of packages
+ * (STRATEGIC-REVISION-PROMPT directive 5). Carries OfferCatalog + FAQPage
+ * JSON-LD; the FAQ array drives both the accordion and the schema.
  */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
 import Eyebrow from '../components/Eyebrow.astro';
 import Card from '../components/Card.astro';
-import AuditBanner from '../components/AuditBanner.astro';
-import PriceCard from '../components/PriceCard.astro';
 import Faq, { type FaqItem } from '../components/Faq.astro';
 import ProofBand from '../components/ProofBand.astro';
 import ProofSection from '../components/ProofSection.astro';
 import ScopeCard from '../components/ScopeCard.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { AUDIT, TIERS, offerInputs } from '../lib/services';
+import { ENGAGEMENTS, PRICING_CONTEXT, offerInputs } from '../lib/services';
 import { offerCatalogNode, faqNode } from '../lib/jsonld';
 
 const faqs: FaqItem[] = [
   {
-    question: 'Why pay for a Diagnostic Sprint instead of a free pitch?',
+    question: 'Is the first conversation really free?',
     answer:
-      "Because a free pitch is a sales motion, and you'll get an answer shaped to sell you something. A paid sprint buys you independent judgment — including a recommendation not to build, which no vendor selling a build will ever give you. The fee is credited toward delivery if you proceed, so it costs nothing if we move forward.",
+      'Yes. Thirty minutes, no pitch, no deck. You leave with a straight read on whether there is a real opportunity. If there is, we scope a short diagnostic together. The judgment stays independent because we have nothing else to sell you.',
   },
   {
     question: 'Do you build it yourselves?',
@@ -32,17 +31,17 @@ const faqs: FaqItem[] = [
   {
     question: 'Are you tied to a particular chain or product?',
     answer:
-      "No. We're vendor-neutral and chain-agnostic. We don't resell a platform or hold a token bag that biases the recommendation. The answer is whatever serves the business case.",
+      "No. We're vendor-neutral and chain-agnostic. We don't resell a platform or hold a position that biases the recommendation. The answer is whatever serves your business.",
   },
   {
-    question: 'How fast can we get to a proof of concept?',
+    question: 'How fast can we get to a working pilot?',
     answer:
-      'A Diagnostic Sprint runs two to three weeks. From there, most PoCs are scoped to deliver within weeks, not quarters — with metrics and cost agreed before any build begins.',
+      'A diagnostic runs one to two weeks. From there, most pilots deliver within weeks, not quarters, with metrics and cost agreed before any build begins.',
   },
   {
     question: 'What makes you different from a big consulting firm?',
     answer:
-      "Big firms write the deck and bill the hours, but have rarely shipped onchain. Crypto-native shops can ship but can't model the business case. We do both — and we price against outcomes, not billable time.",
+      "Big firms write the deck and bill the hours, but have rarely shipped onchain. Crypto-native shops can ship but can't make the business case. We do both, and we price against outcomes, not billable time.",
   },
 ];
 
@@ -53,39 +52,56 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title="Services & Pricing | Northwest Onchain Blockchain Consulting"
-  description="Four ways to work with Northwest Onchain: a $1,500 Opportunity Audit, a fixed-fee Diagnostic Sprint, managed proof-of-concept delivery, and fractional onchain advisory. Metrics-first, vendor-neutral blockchain consulting."
+  title="Blockchain Strategy & Execution Services | Northwest Onchain"
+  description="How a Northwest Onchain partnership works: find the onchain opportunity, prove it with a working pilot, stay ahead as the rules evolve. Vendor-neutral, Seattle-based."
   path="/services"
   image="/og/services.png"
   breadcrumbs={[{ name: 'Services', path: '/services' }]}
   jsonLd={jsonLd}
 >
   <PageHero
-    eyebrow="Services & pricing"
-    lead="Each engagement is priced against defined outcomes, never open-ended hours — and each fee credits toward the next step if you continue."
+    eyebrow="How we work together"
+    lead="We position your business for the onchain moment: better distribution, lower costs, better outcomes for your stakeholders. It starts with a free conversation."
   >
-    Four ways to work with us — each one de-risks the next.
+    A partnership, not a package.
   </PageHero>
 
-  <!-- PRICING -->
+  <!-- THE PARTNERSHIP -->
   <section class="section">
     <div class="wrap">
-      <h2 class="sr-only">Pricing and packages</h2>
-      <AuditBanner tier={AUDIT} />
-      <div class="grid-3 pricing-grid grid">
-        {TIERS.map((tier) => <PriceCard tier={tier} />)}
+      <div class="section-head fade-rise">
+        <Eyebrow>The partnership</Eyebrow>
+        <h2>Three ways the work takes shape.</h2>
+        <p class="lead">
+          Every engagement runs through one diligence: why build, what to build, who builds it. The
+          shape depends on where you are.
+        </p>
       </div>
-      <p class="pricing-note">
-        Start small. Each fee credits toward the next step if you continue.
-      </p>
+      <div class="grid-3 fade-rise grid" data-stagger>
+        {
+          ENGAGEMENTS.map((e) => (
+            <article class="card engagement-card fade-rise" id={e.id}>
+              <span class="tag">{e.tag}</span>
+              <h3>{e.name}</h3>
+              <p>{e.blurb}</p>
+              <ul class="engagement-list">
+                {e.features.map((f) => (
+                  <li>{f}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+      <p class="pricing-note">{PRICING_CONTEXT}</p>
     </div>
   </section>
 
   <!-- WHAT DELIVERY LOOKS LIKE — claim + scope artifact -->
   <ProofSection
     eyebrow="What delivery looks like"
-    heading="We turn ambition into a costed, shippable plan."
-    lead="Every engagement resolves to the same thing: defined milestones, a timeline, and a fixed cost band — agreed before any build. No open-ended hours, no mystery scope."
+    heading="Ambition becomes a costed, shippable plan."
+    lead="Milestones, a timeline, and a cost band agreed before any build. No open-ended hours, no mystery scope."
     flip
   >
     <ScopeCard slot="artifact" />
@@ -97,60 +113,53 @@ const jsonLd = [
     <div class="wrap">
       <div class="section-head fade-rise">
         <Eyebrow>Where we create value</Eyebrow>
-        <h2>The opportunities we help you size — and the ones we'll talk you out of.</h2>
+        <h2>The opportunities we help you act on.</h2>
         <p class="lead">
-          We stay independent and chain-neutral. The goal is business outcomes: lower cost, faster
-          settlement, new revenue, new markets — not technology for its own sake.
+          The goal is business outcomes: lower cost, faster settlement, new revenue, wider
+          distribution. Never technology for its own sake.
         </p>
       </div>
       <div class="grid-3 fade-rise grid">
         <Card title="Tokenization & RWA">
           <p>
-            Real-world assets, funds, and instruments brought onchain — the fastest-growing
-            institutional wedge, scoped for compliance and liquidity from day one.
+            Real-world assets, funds, and instruments brought onchain, scoped for compliance and
+            liquidity from day one.
           </p>
         </Card>
         <Card title="Payments & settlement">
           <p>
-            Stablecoin rails and atomic settlement that cut multi-day cycles to minutes — modeled
-            against your actual cost of capital.
+            Stablecoin rails that cut multi-day settlement to minutes, modeled against your actual
+            cost of capital.
           </p>
         </Card>
         <Card title="Onchain credit & vaults">
           <p>
-            Yield products, structured credit, and collateralized lending built on onchain vaults —
-            with transparent, real-time, auditable reserves. New revenue lines for issuers, new
-            visibility for users.
+            Lending and yield products with transparent, auditable reserves. New revenue for
+            issuers, new visibility for users.
           </p>
         </Card>
         <Card title="Derivatives & 24/7 markets">
-          <p>
-            Perpetuals and derivatives venues for round-the-clock hedging, leverage, and price
-            exposure — markets that settle continuously, without a central clearinghouse.
-          </p>
+          <p>Round-the-clock hedging and price exposure on venues that settle continuously.</p>
         </Card>
         <Card title="Diligence & thesis validation">
           <p>
-            For investors: technical and financial diligence on crypto, tokenization, and RWA deals
-            from someone who reads both the contract and the cap table.
+            Technical and financial diligence on crypto and tokenization deals. We read the contract
+            and the cap table.
           </p>
         </Card>
         <Card title="Loyalty & digital assets">
           <p>
-            Programs and digital assets that actually drive retention and revenue — without the
-            speculative baggage.
+            Programs and digital assets that drive retention and revenue, without the speculative
+            baggage.
           </p>
         </Card>
         <Card title="Infrastructure & chain selection">
-          <p>
-            Neutral guidance on chains, custody, and architecture, chosen for your constraints
-            rather than a vendor's roadmap.
-          </p>
+          <p>Neutral guidance on chains, custody, and architecture, chosen for your constraints.</p>
         </Card>
-        <Card title="Strategy & financial modeling">
+        <Card title="Strategy & business casing">
           <p>
-            Business cases, unit economics, and ROI models that survive a CFO's scrutiny and a
-            board's questions.
+            Clear business cases and unit economics, so the decision is easy to defend and easy to
+            act on.
           </p>
         </Card>
       </div>
@@ -172,7 +181,7 @@ const jsonLd = [
 
   <CtaBand
     eyebrow="Start here"
-    heading="Start with the Opportunity Audit."
-    text="One flat fee, a few days, and a clear read on whether onchain is worth it for you — credited toward whatever comes next."
+    heading="Start with a conversation."
+    text="A straight read on whether onchain is worth it for you, and what it would take."
   />
 </BaseLayout>

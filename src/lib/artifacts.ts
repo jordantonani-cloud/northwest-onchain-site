@@ -52,15 +52,15 @@ export const FEED_EVENTS: FeedEvent[] = [
 export const SETTLEMENT = {
   onchain: {
     rail: 'Stablecoin · USDC on Base',
-    from: 'Treasury — Seattle, US',
-    to: 'Supplier — Singapore, SG',
+    from: 'Treasury · Seattle',
+    to: 'Supplier · Singapore',
     amount: '$1,250,000.00',
     status: 'Settled · 4s',
   },
   wire: {
     rail: 'Correspondent wire · SWIFT',
-    from: 'Treasury — Seattle, US',
-    to: 'Supplier — Singapore, SG',
+    from: 'Treasury · Seattle',
+    to: 'Supplier · Singapore',
     amount: '$1,250,000.00',
     status: 'Pending · 2–4 days',
   },
@@ -121,8 +121,8 @@ status:                 OPEN · always`;
 
 /** POC-scope artifact — milestone → timeline → cost band. */
 export const POC_SCOPE = {
-  title: 'Stablecoin settlement — PoC',
-  band: '$8k–$25k · fixed',
+  title: 'Stablecoin settlement pilot',
+  band: '6 weeks · fixed cost',
   steps: [
     { no: '01', name: 'Survey & metrics defined', wk: 'wk 1' },
     { no: '02', name: 'Costed roadmap + team', wk: 'wk 2' },
@@ -155,7 +155,7 @@ export const HOME_STATS = [
   { value: '24/7', label: 'continuous settlement & funding', src: 'Live today' },
   {
     value: '$120B+',
-    label: 'onchain volume engineered by our CTO — zero exploits',
+    label: 'onchain volume engineered by our CTO, zero exploits',
     src: 'gTrade, 2022–26',
   },
 ] as const;

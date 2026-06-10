@@ -23,7 +23,13 @@ import { SITE } from '../consts';
   {/* Netlify needs these for static-form detection + spam filtering. */}
   <input type="hidden" name="form-name" value="meet" />
   <p class="hidden-field" aria-hidden="true">
-    <label>Don't fill this out if you're human: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+    <label
+      >Don't fill this out if you're human: <input
+        name="bot-field"
+        tabindex="-1"
+        autocomplete="off"
+      /></label
+    >
   </p>
 
   <div class="field">
@@ -52,7 +58,7 @@ import { SITE } from '../consts';
     <textarea
       id="msg"
       name="msg"
-      placeholder="A sentence or two on what you're exploring — tokenization, payments, settlement, diligence, or something you're not sure about yet."
+      placeholder="A sentence or two on what you're exploring: tokenization, payments, settlement, diligence, or something you're not sure about yet."
       required></textarea>
   </div>
 
@@ -80,6 +86,6 @@ import { SITE } from '../consts';
   // Friendly confirmation after a Netlify redirect back with ?submitted=1.
   if (new URLSearchParams(location.search).has('submitted') && status) {
     status.classList.add('form-success');
-    status.textContent = 'Thanks — your request is in. We’ll be in touch shortly.';
+    status.textContent = 'Thanks, your request is in. We’ll be in touch shortly.';
   }
 </script>

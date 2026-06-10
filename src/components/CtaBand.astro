@@ -1,8 +1,8 @@
 ---
 /**
- * CtaBand — the recurring conversion band. Primary ask is standardized on the
- * $1,500 Opportunity Audit (WEBSITE-AUDIT §8); a free 30-min call is secondary.
- * `eyebrow` is configurable so the tagline isn't repeated on every page.
+ * CtaBand — the recurring conversion band. ONE ask sitewide: the free first
+ * conversation (STRATEGIC-REVISION-PROMPT directive 5). Calm and confident,
+ * no packages, no prices.
  */
 import Eyebrow from './Eyebrow.astro';
 import Button from './Button.astro';
@@ -12,10 +12,8 @@ interface Props {
   heading: string;
   text?: string;
   eyebrow?: string;
-  /** Show the secondary "Book a free 30-min call" ghost button. */
-  secondary?: boolean;
 }
-const { heading, text, eyebrow = 'Start here', secondary = true } = Astro.props;
+const { heading, text, eyebrow = 'Start here' } = Astro.props;
 ---
 
 <section class="section cta-band grain">
@@ -24,11 +22,8 @@ const { heading, text, eyebrow = 'Start here', secondary = true } = Astro.props;
     <h2>{heading}</h2>
     {text && <p>{text}</p>}
     <div class="cta-band__actions">
-      <Button href={CTA.auditHref} variant="primary" arrow>{CTA.auditLabel}</Button>
-      {secondary && (
-        <Button href={CTA.callHref} variant="ghost">{CTA.callLabel}</Button>
-      )}
+      <Button href={CTA.primaryHref} variant="primary" arrow>{CTA.primaryLabel}</Button>
     </div>
-    <p class="cta-band__subtext">{CTA.auditSubtext}</p>
+    <p class="cta-band__subtext">{CTA.subtext}</p>
   </div>
 </section>

@@ -1,48 +1,24 @@
 ---
 /**
- * CloseBand — the confident, low-pressure three-door close (brief §1.8).
- * Mirrors Column's "Documentation / Get started / Contact sales" without the
- * desperate form. Calm, on-brand defaults: see what's live, start a
- * conversation, read the approach. Replaceable via the `doors` prop.
+ * CloseBand — the confident, low-pressure close. One statement, one button
+ * (STRATEGIC-REVISION-PROMPT directive 5). The three-door close is retired:
+ * one ask sitewide, the free conversation.
  */
 import Eyebrow from './Eyebrow.astro';
+import Button from './Button.astro';
+import { CTA } from '../consts';
 
-interface Door {
-  kicker: string;
-  title: string;
-  body: string;
-  href: string;
-}
 interface Props {
   eyebrow?: string;
   heading?: string;
-  doors?: Door[];
+  text?: string;
   class?: string;
 }
 const {
   eyebrow = "Let's talk",
-  heading = 'Weighing what onchain means for your business?',
+  heading = 'Ready for the <em>onchain</em> moment?',
+  text = 'One conversation. A straight read on what onchain means for your business, including an honest no.',
   class: className = '',
-  doors = [
-    {
-      kicker: 'See what’s live',
-      title: 'Read the insights',
-      body: 'What’s actually in production today — stablecoins, tokenization, onchain credit, 24/7 markets.',
-      href: '/insights',
-    },
-    {
-      kicker: 'Start a conversation',
-      title: 'Get a straight read',
-      body: 'No pitch. An honest take on whether there’s something real here for you — and what it would take.',
-      href: '/contact',
-    },
-    {
-      kicker: 'How we work',
-      title: 'See the approach',
-      body: 'Survey, chart, assemble, summit — metrics, cost, and team defined before any build.',
-      href: '/process',
-    },
-  ],
 } = Astro.props;
 ---
 
@@ -50,16 +26,10 @@ const {
   <div class="wrap">
     <Eyebrow center>{eyebrow}</Eyebrow>
     <h2 id="close-heading" class="close-band__h" set:html={heading} />
-    <div class="close-doors" data-stagger>
-      {
-        doors.map((d) => (
-          <a class="close-door fade-rise" href={d.href}>
-            <span class="close-door__k">{d.kicker}</span>
-            <span class="close-door__t">{d.title}</span>
-            <p class="close-door__p">{d.body}</p>
-          </a>
-        ))
-      }
+    <p class="close-band__p">{text}</p>
+    <div class="close-band__action">
+      <Button href={CTA.primaryHref} variant="primary" arrow>{CTA.primaryLabel}</Button>
     </div>
+    <p class="cta-band__subtext">{CTA.subtext}</p>
   </div>
 </section>
