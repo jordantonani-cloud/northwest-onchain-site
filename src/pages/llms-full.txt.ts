@@ -49,7 +49,7 @@ export const GET: APIRoute = async () => {
 > ${SITE.description} Tagline: "${SITE.tagline}"
 
 ## What Northwest Onchain is
-Northwest Onchain is a boutique blockchain strategy and execution consultancy that bridges traditional finance and onchain technology. The market has crypto-native builders who can ship but can't model a business case, and big-firm strategists who write the deck but have never deployed. Northwest Onchain is the third thing: an advisor who has operated in crypto, holds a vetted builder network, and understands financial models well enough to defend an engagement to a CFO.
+Northwest Onchain is a boutique blockchain strategy and execution consultancy that bridges traditional finance and onchain technology. The market has crypto-native builders who can ship but can't model a business case, and big-firm strategists who write the deck but have never deployed. Northwest Onchain is the third thing: a two-founder firm — Jordan Tonani from markets and finance (Morgan Stanley, Index Coop, Lotus Labs), Nathan Tonani from protocol engineering ($120B+ in onchain volume shipped at gTrade with zero exploits) — that runs every engagement through one diligence: why build, what to build, and who builds it.
 
 - Serves: enterprises and TradFi, investors (VC / family office), and founders new to crypto.
 - Region: ${SITE.region}. Contact: ${SITE.email}.

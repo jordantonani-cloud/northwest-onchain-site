@@ -1,65 +1,93 @@
 ---
 /**
- * FounderCard — the human behind the firm (WEBSITE-AUDIT §9, copy §2).
- * `variant="teaser"` (homepage) shows the short pitch + links; `variant="full"`
- * (About) shows the complete bio. Headshot is a TODO(owner) placeholder until
- * a real image lands at FOUNDER.image.
+ * FounderCard — the humans behind the firm (WEBSITE-AUDIT §9, copy §2).
+ * Generalized for both principals: pass `person` (defaults to FOUNDER/Jordan;
+ * pass COFOUNDER for Nathan). `variant="teaser"` (homepage) shows the short
+ * pitch + links; `variant="full"` (About) shows the complete bio. Headshots
+ * are TODO(owner) placeholders until real images land at `person.image`.
  */
 import { FOUNDER } from '../consts';
 import PeakMark from './PeakMark.astro';
 
+interface Person {
+  name: string;
+  jobTitle: string;
+  location?: string;
+  linkedin: string;
+  github?: string;
+  teaser: string;
+  bio: readonly string[];
+  image?: string;
+}
+
 interface Props {
+  person?: Person;
   variant?: 'teaser' | 'full';
+  /** Optional anchor id (e.g. "founder" / "cofounder") for deep links + schema. */
+  id?: string;
   class?: string;
 }
-const { variant = 'teaser', class: className = '' }: Props = Astro.props;
-const initials = FOUNDER.name
+const { person = FOUNDER, variant = 'teaser', id, class: className = '' }: Props = Astro.props;
+const initials = person.name
   .split(' ')
   .map((w) => w[0])
   .join('')
   .slice(0, 2);
 ---
 
-<div class:list={['founder', `founder--${variant}`, className]}>
+<div class:list={['founder', `founder--${variant}`, className]} id={id}>
   <div class="founder-photo">
     {
-      FOUNDER.image ? (
+      person.image ? (
         <img
-          src={FOUNDER.image}
-          alt={`${FOUNDER.name}, ${FOUNDER.jobTitle} of Northwest Onchain`}
+          src={person.image}
+          alt={`${person.name}, ${person.jobTitle} of Northwest Onchain`}
           width="320"
           height="400"
           loading="lazy"
         />
       ) : (
-        <div class="founder-photo__placeholder" role="img" aria-label={`Headshot of ${FOUNDER.name} (coming soon)`}>
+        <div
+          class="founder-photo__placeholder"
+          role="img"
+          aria-label={`Headshot of ${person.name} (coming soon)`}
+        >
           <PeakMark variant="dark" size={40} />
           <span class="founder-photo__initials">{initials}</span>
-          {/* TODO(owner): add a professional headshot — set FOUNDER.image in src/consts.ts. */}
+          {/* TODO(owner): add a professional headshot — set the person's image in src/consts.ts. */}
         </div>
       )
     }
   </div>
 
   <div class="founder-body">
-    <p class="founder-role">{FOUNDER.jobTitle} · {FOUNDER.location}</p>
-    <h3 class="founder-name">{FOUNDER.name}</h3>
+    <p class="founder-role">
+      {person.jobTitle}{person.location && ` · ${person.location}`}
+    </p>
+    <h3 class="founder-name">{person.name}</h3>
 
     {
       variant === 'full' ? (
         <div class="founder-bio">
-          {FOUNDER.bio.map((para) => (
+          {person.bio.map((para) => (
             <p>{para}</p>
           ))}
         </div>
       ) : (
-        <p class="founder-teaser">{FOUNDER.teaser}</p>
+        <p class="founder-teaser">{person.teaser}</p>
       )
     }
 
     <p class="founder-links">
       {variant === 'teaser' && <a href="/about">Read the full background</a>}
-      <a href={FOUNDER.linkedin} rel="me noopener" target="_blank">LinkedIn ↗</a>
+      <a href={person.linkedin} rel="me noopener" target="_blank">LinkedIn ↗</a>
+      {
+        person.github && (
+          <a href={person.github} rel="me noopener" target="_blank">
+            GitHub ↗
+          </a>
+        )
+      }
     </p>
   </div>
 </div>

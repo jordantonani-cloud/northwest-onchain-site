@@ -12,7 +12,7 @@ import Card from '../components/Card.astro';
 import FounderCard from '../components/FounderCard.astro';
 import ProofBand from '../components/ProofBand.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { FOUNDER } from '../consts';
+import { FOUNDER, COFOUNDER, SCHEMA_IDS } from '../consts';
 import { personNode } from '../lib/jsonld';
 
 const jsonLd = [
@@ -24,6 +24,16 @@ const jsonLd = [
     sameAs: [...FOUNDER.sameAs],
     image: FOUNDER.image || undefined,
     location: FOUNDER.location,
+  }),
+  personNode({
+    id: SCHEMA_IDS.cofounder,
+    name: COFOUNDER.name,
+    jobTitle: COFOUNDER.jobTitle,
+    description: COFOUNDER.bio.join(' '),
+    knowsAbout: [...COFOUNDER.knowsAbout],
+    sameAs: [...COFOUNDER.sameAs],
+    image: COFOUNDER.image || undefined,
+    location: COFOUNDER.location,
   }),
 ];
 ---
@@ -48,7 +58,7 @@ const jsonLd = [
     <div class="wrap">
       <KeyTakeaways
         label="Who we are"
-        lead="Northwest Onchain is a Pacific Northwest–based blockchain strategy and execution consultancy that bridges traditional finance and onchain technology. It is built on years operating in crypto and a vetted builder network, paired with genuine financial-modeling discipline — the rare both-sides advisor who can size an opportunity the way a CFO would and assemble the team to deliver it the way a native would."
+        lead="Northwest Onchain is a Seattle-based blockchain strategy and execution consultancy run by two founders — one from markets and finance, one from protocol engineering. Every engagement runs through the same diligence: why build, what to build, and who builds it — with the market judgment and the engineering depth under one roof."
         points={[
           'Vendor-neutral: no chain, token, or product to sell — including the freedom to say "don\'t build."',
           'Network, not headcount — the right builders for each problem, not a fixed bench.',
@@ -58,19 +68,23 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- FOUNDER -->
+  <!-- FOUNDERS -->
   <section class="section">
     <div class="wrap">
       <div class="section-head fade-rise">
-        <Eyebrow>The founder</Eyebrow>
-        <h2>The bridge is a person.</h2>
+        <Eyebrow>The founders</Eyebrow>
+        <h2>Two sides of the same coin.</h2>
         <p class="lead">
-          Most crypto specialists can't defend a business case to a CFO, and most finance
-          professionals have never shipped onchain. Northwest Onchain exists because its founder has
-          spent eight years doing both.
+          Every engagement runs through the same three questions: why build, what to build, and who
+          builds it. Jordan answers from the market side — economics, partners, distribution. Nathan
+          answers from the systems side — architecture, contracts, production. Two brothers, one
+          diligence, grounded in Seattle and the Pacific Northwest.
         </p>
       </div>
-      <FounderCard variant="full" />
+      <div class="team-stack">
+        <FounderCard person={FOUNDER} variant="full" id="founder" class="fade-rise" />
+        <FounderCard person={COFOUNDER} variant="full" id="cofounder" class="fade-rise" />
+      </div>
     </div>
   </section>
 

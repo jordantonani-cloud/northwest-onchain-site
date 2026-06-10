@@ -154,8 +154,8 @@ export const HOME_STATS = [
   { value: '$14B+', label: 'active onchain private credit', src: 'Market, 2025' },
   { value: '24/7', label: 'continuous settlement & funding', src: 'Live today' },
   {
-    value: '8+ yrs',
-    label: "both sides of the ledger — Jordan's arc",
-    src: 'MS → Index Coop → Lotus',
+    value: '$120B+',
+    label: 'onchain volume engineered by our CTO — zero exploits',
+    src: 'gTrade, 2022–26',
   },
 ] as const;

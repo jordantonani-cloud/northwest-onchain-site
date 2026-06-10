@@ -23,6 +23,7 @@ import { TOKENIZATION_CONFIG, VAULT_POSITION, PERPS_SNAPSHOT, LIVE_NAMES } from 
 import { offerCatalogNode, faqNode } from '../lib/jsonld';
 import { offerInputs } from '../lib/services';
 import { HOME_FAQ } from '../lib/home-faq';
+import { FOUNDER, COFOUNDER } from '../consts';
 
 const jsonLd = [
   offerCatalogNode(offerInputs()),
@@ -167,19 +168,24 @@ const jsonLd = [
   <!-- WHY NOW — the regulatory window -->
   <WhyNow />
 
-  <!-- FOUNDER — the bridge is a person -->
+  <!-- FOUNDERS — strategy and engineering, two sides of the coin -->
   <section class="section" id="who">
     <div class="wrap">
       <div class="section-head fade-rise">
         <Eyebrow>Who's behind it</Eyebrow>
-        <h2>The bridge is a person.</h2>
+        <h2>Two sides of the same coin.</h2>
         <p class="lead">
-          Most crypto specialists can't defend a business case to a CFO, and most finance
-          professionals have never shipped onchain. Northwest Onchain exists because its founder has
-          spent eight years doing both.
+          Creating real value onchain means answering three questions well: why build, what to
+          build, and who builds it. Northwest Onchain is two brothers in Seattle who split that
+          diligence down its natural seam — Jordan on the market side: economics, partners,
+          distribution. Nathan on the systems side: $120B+ of onchain volume engineered without a
+          single exploit.
         </p>
       </div>
-      <FounderCard variant="teaser" />
+      <div class="team-stack">
+        <FounderCard person={FOUNDER} variant="teaser" class="fade-rise" />
+        <FounderCard person={COFOUNDER} variant="teaser" class="fade-rise" />
+      </div>
     </div>
   </section>
 

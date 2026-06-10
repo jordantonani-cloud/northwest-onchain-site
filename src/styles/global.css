@@ -1276,6 +1276,17 @@
   color: var(--signal-dim);
 }
 
+/* team stack — both principals, generous vertical rhythm */
+.team-stack {
+  display: grid;
+  gap: 0;
+}
+.team-stack > .founder + .founder {
+  margin-top: 44px;
+  padding-top: 44px;
+  border-top: 1px solid var(--edge);
+}
+
 /* what happens next — 3-step */
 .what-next {
   display: grid;

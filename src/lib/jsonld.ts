@@ -51,7 +51,7 @@ export function organizationNode(): SchemaNode {
       'Fractional Onchain Advisory',
     ],
     sameAs: [SOCIAL.linkedin, SOCIAL.x],
-    founder: { '@id': SCHEMA_IDS.founder },
+    founder: [{ '@id': SCHEMA_IDS.founder }, { '@id': SCHEMA_IDS.cofounder }],
   };
 }
 
@@ -159,13 +159,15 @@ export interface PersonInput {
   image?: string;
   /** City/region, e.g. "Seattle, WA". */
   location?: string;
+  /** Stable node @id — defaults to the founder; pass SCHEMA_IDS.cofounder for Nathan. */
+  id?: string;
 }
 
-/** Person node for the founder — the E-E-A-T anchor, founder of the Organization. */
+/** Person node for a principal — the E-E-A-T anchor, founder of the Organization. */
 export function personNode(p: PersonInput): SchemaNode {
   return {
     '@type': 'Person',
-    '@id': SCHEMA_IDS.founder,
+    '@id': p.id ?? SCHEMA_IDS.founder,
     name: p.name,
     jobTitle: p.jobTitle,
     description: p.description,
